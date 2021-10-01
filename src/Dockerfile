@@ -14,10 +14,10 @@ EXPOSE 443
 # install python and python package
 RUN apt-get -y update && apt-get install -y python
 RUN apt-get -y install python3-pip
-# RUN pip3 
+# RUN pip3 install flask python-dotenv
 
 # install ReactJS
 # RUN apt-get -y install npm
 
 # copy files in directories to Docker container
-COPY net_predictor usr/local/schedulion/net_predictor
+COPY net_predictor usr/src/schedulion/net_predictor
