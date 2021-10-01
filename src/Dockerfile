@@ -17,7 +17,7 @@ RUN apt-get -y install python3-pip
 # RUN pip3 
 
 # install ReactJS
-RUN apt-get -y install npm
+# RUN apt-get -y install npm
 
 # copy files in directories to Docker container
-COPY net_predictor usr/local/net_predictor
+COPY net_predictor usr/local/schedulion/net_predictor
