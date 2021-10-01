@@ -11,7 +11,7 @@ EXPOSE 443
 # EXPOSE 5229
 # EXPOSE 5230
 
-# install python and python package
+# install python and python packages necesary to run
 RUN apt-get -y update && apt-get install -y python
 RUN apt-get -y install python3-pip
 # RUN pip3 install flask python-dotenv
