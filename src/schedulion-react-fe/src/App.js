@@ -13,6 +13,17 @@ function App() {
     });
   }, []);
 
+  // testing backend compatability
+  const [currentLMUWin, setLMUWin] = useState(0);
+  const [currentLMULose, setLMULose] = useState(0);
+
+  useEffect(() => {
+    fetch('/record').then(res => res.json()).then(data => {
+      setLMUWin(data.record['win'])
+      setLMULose(data.record['lose'])
+    })
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -31,6 +42,8 @@ function App() {
 
         {/* added for testing */}
         <p>The current time is {currentTime}.</p>
+        <p>LMU Wins: {currentLMUWin}</p>
+        <p>LMU Loses: {currentLMULose}</p>
 
       </header>
     </div>

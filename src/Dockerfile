@@ -5,7 +5,7 @@
 FROM ubuntu:latest
 
 # firebase ports
-EXPOSE 443
+# EXPOSE 443
 # if issues expose following ports:
 # EXPOSE 5228 
 # EXPOSE 5229
@@ -15,6 +15,7 @@ EXPOSE 443
 RUN apt-get -y update && apt-get install -y python
 RUN apt-get -y install python3-pip
 # RUN pip3 install flask python-dotenv
+# RUN pip3 install firebase-admin
 
 # install ReactJS
 # RUN apt-get -y install npm
