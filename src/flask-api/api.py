@@ -6,6 +6,7 @@ from firebase_admin import firestore
 
 # create Flask server
 app = Flask(__name__)
+app.debug = True
 
 # initialize connection to firebase db
 cwd = os.getcwd()
@@ -15,12 +16,20 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # routes 
-@app.route('/time')
+
+@app.route('/')
+def main():
+    return 'hi'
+
+@app.route('/api/time')
 def get_current_time():
     return {'time': time.time()}
 
-@app.route('/record')
+@app.route('/api/record')
 def get_LMU_record():
     doc_ref_lmu = db.collection(u'test_orgs').document(u'LMU')
     retrieve_doc = doc_ref_lmu.get()
     return {'record': retrieve_doc.to_dict()}
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')

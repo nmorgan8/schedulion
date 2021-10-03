@@ -1,0 +1,11 @@
+FROM python:3.9
+WORKDIR /schedulion
+
+COPY flask-api/requirements.txt flask-api/api.py flask-api/.flaskenv flask-api/net-predictor/ flask-api/schedulion-9001-firebase-adminsdk-f5ntk-862c5e8e75.json ./
+RUN pip3 install -r ./requirements.txt
+
+EXPOSE 5000
+CMD [ "python3", "api.py" ]
+
+# docker build -f Dockerfile.api -t schedulion-api .
+# docker run -d -t -p 5000:5000 schedulion-api-v1 

@@ -8,7 +8,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
-    fetch('/time').then(res => res.json()).then(data => {
+    fetch('/api/time').then(res => res.json()).then(data => {
       setCurrentTime(data.time);
     });
   }, []);
@@ -18,7 +18,7 @@ function App() {
   const [currentLMULose, setLMULose] = useState(0);
 
   useEffect(() => {
-    fetch('/record').then(res => res.json()).then(data => {
+    fetch('/api/record').then(res => res.json()).then(data => {
       setLMUWin(data.record['win'])
       setLMULose(data.record['lose'])
     })
