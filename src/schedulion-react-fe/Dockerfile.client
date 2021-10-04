@@ -1,7 +1,7 @@
 FROM node:16
 WORKDIR /schedulion-client
 
-COPY schedulion-react-fe/ ./
+COPY ./ ./
 
 EXPOSE 3000
 

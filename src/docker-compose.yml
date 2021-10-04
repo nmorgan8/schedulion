@@ -1,14 +1,14 @@
 services:
   api:
     build:
-      context: ./api
+      context: ./flask-api
       dockerfile: Dockerfile.api
     image: schedulion-api
     ports:
       - "5000:5000"
   client:
     build:
-      context: ./client
+      context: ./schedulion-react-fe
       dockerfile: Dockerfile.client
     image: schedulion-client
     ports:
