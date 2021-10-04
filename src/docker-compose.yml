@@ -1,24 +1,15 @@
-# syntax=docker/dockerfile:1
-
-# DOCKER_BUILDKIT=1 docker build .
-
-FROM ubuntu:latest
-
-# firebase ports
-# EXPOSE 443
-# if issues expose following ports:
-# EXPOSE 5228 
-# EXPOSE 5229
-# EXPOSE 5230
-
-# install python and python packages necesary to run
-RUN apt-get -y update && apt-get install -y python
-RUN apt-get -y install python3-pip
-# RUN pip3 install flask python-dotenv
-# RUN pip3 install firebase-admin
-
-# install ReactJS
-# RUN apt-get -y install npm
-
-# copy files in directories to Docker container
-COPY net_predictor usr/src/schedulion/net_predictor
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.api
+    image: schedulion-api
+    ports:
+      - "5000:5000"
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.client
+    image: schedulion-client
+    ports:
+      - "3000:3000"

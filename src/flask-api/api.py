@@ -19,7 +19,7 @@ db = firestore.client()
 
 @app.route('/')
 def main():
-    return 'hi'
+    return 'starting server with python!'
 
 @app.route('/api/time')
 def get_current_time():

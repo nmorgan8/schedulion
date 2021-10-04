@@ -1,1 +1,13 @@
-FROM node:16-alpine
+FROM node:16
+WORKDIR /schedulion-client
+
+COPY schedulion-react-fe/ ./
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
+# build image for frontend:
+# docker build -f Dockerfile.client -t schedulion-client .
+
+# create container using image made above:
+# docker run -d -t --rm -p 3000:3000 schedulion-client
