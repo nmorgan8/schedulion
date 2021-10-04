@@ -1,6 +1,8 @@
 FROM node:16
 WORKDIR /schedulion-client
 
+# ENV PATH /app/node_modules/.bin:$PATH
+
 COPY ./ ./
 
 EXPOSE 3000

@@ -4,6 +4,8 @@ services:
       context: ./flask-api
       dockerfile: Dockerfile.api
     image: schedulion-api
+    volumes:
+      - ./flask-api:/schedulion-api/
     ports:
       - "5000:5000"
   client:
@@ -11,5 +13,12 @@ services:
       context: ./schedulion-react-fe
       dockerfile: Dockerfile.client
     image: schedulion-client
+    volumes:
+      - ./schedulion-react-fe/src:/schedulion-client/src
     ports:
       - "3000:3000"
+# to run docker
+# docker compose up
+
+# to stop and clean after testing
+# docker compose down --rmi all
