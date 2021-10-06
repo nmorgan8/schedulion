@@ -23,6 +23,7 @@ export default function App() {
     })
   }, []);
 
+  // code for homepage
   const Home = () => (
     <div>
       <img src={logo} className="App-logo" alt="logo" />
