@@ -2,3 +2,5 @@
 flask
 python-dotenv
 firebase-admin
+kenpompy
+matplotlib
