@@ -1,3 +1,3 @@
-src/flask-api/firebase_creds
+src/flask-api/firebase_creds.json
 __pycache__/
 venv_dev/
