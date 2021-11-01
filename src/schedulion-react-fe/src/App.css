@@ -1,28 +1,93 @@
 .App {
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 40px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* .App-header {
   font-size: calc(10px + 2vmin);
-  color: white;
+
+} */
+
+.Left {
+  font-size: 30px;
+  margin-right: 25%;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: #044e9c;
+  font-size: 20px;
+  text-decoration: none;
+  position: relative;
 }
+
+.HomeIcon {
+  font-size: 30px;
+  color: #545454;
+  padding-left: 1%;
+  padding-right: 1%;
+
+}
+
+.PersonIcon {
+  font-size: 30px;
+  color: #545454;
+}
+
+.CalendarIcon {
+  font-size: 30px;
+  color: #545454;
+  padding-right: 1%;
+}
+
+.StatsIcon {
+  font-size: 30px;
+  padding-left: 1%;
+  padding-right: 1%;
+  color: #545454;
+  text-decoration: none;
+  position: relative;
+}
+
+.Center {
+  font-size: 30px;
+  margin-right: 35%;
+  color: black;
+  text-decoration: none;
+  position: relative;
+  font-family: 'Graduate', cursive;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
+
+.Center:hover {
+  color: #545454;
+}
+
+.StatsIcon:hover {
+  color: black;
+}
+
+.CalendarIcon:hover {
+  color: black;
+}
+
+.PersonIcon:hover {
+  color: black;
+}
+
+.HomeIcon:hover {
+  color: black;
+}
+
+
+/* .App-header {
+ background-color: #282c34;
+ display: left;
+ flex-direction: column;
+ font-size: calc(10px + 2vmin);
+ color: white;
+} */
 
 .App-link {
   color: #61dafb;

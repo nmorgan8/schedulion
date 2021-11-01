@@ -1,0 +1,29 @@
+.Home {
+  background-image: url(./images/hank.png);
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.SchedulerButton {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 230px;
+  width: 400px;
+  height: 50px;
+  margin-top: 25%;
+  margin-right: 55%;
+}
+
+.StatisticsButton {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 230px;
+  width: 400px;
+  height: 50px;
+  margin-top: 25%;
+}
+
+.btn-xxl {
+  font-size: 1.5rem;
+}
