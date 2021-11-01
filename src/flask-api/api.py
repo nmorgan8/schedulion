@@ -27,7 +27,7 @@ def get_current_time():
 
 @app.route('/api/record')
 def get_LMU_record():
-    doc_ref_lmu = db.collection(u'test_orgs').document(u'LMU')
+    doc_ref_lmu = db.collection(u'organizations').document(u'LMU')
     retrieve_doc = doc_ref_lmu.get()
     return {'record': retrieve_doc.to_dict()}
 
