@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { HouseDoor, Calendar3, GraphUp, Person } from 'react-bootstrap-icons';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import logo from './logo.svg';
+import Home from './components/Home';
+import LandingPage from "./components/LandingPage";
+import Scheduler from "./components/Scheduler";
+import Create from "./components/Create";
+import Statistics from "./components/Statistics";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Reset from "./components/Reset";
+import Dashboard from "./components/Dashboard";
 import './App.css';
+import lmu from "./components/images/lmu.png";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default function App() {
 
@@ -23,58 +35,26 @@ export default function App() {
     })
   }, []);
 
-  // code for homepage
-  const Home = () => (
-    <div>
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-        >
-        Learn React
-      </a>
 
-      {/* added for testing */}
-      <p>The current time is {currentTime}.</p>
-      <p>LMU Wins: {currentLMUWin}</p>
-      <p>LMU Loses: {currentLMULose}</p>
-    </div>
-  )
 
-  const Scheduling = () => (
-    <div>
-      <h2>Scheduling</h2>
-      <p>We will be adding various cool stuff to help with scheduling!</p>
-    </div>
-  );
-
-  const Statistics = () => (
-    <div>
-      <h2>Statistics</h2>
-      <p>UNLEASH YOUR INNER STATS NERD!!!</p>
-    </div>
-  )
-
-  // default application
   return (
     <div className="App">
       <header className="App-header">
         <BrowserRouter>
           <div>
-            <Link to="/">Home</Link>
-            &nbsp;|&nbsp;
-            <Link to="/scheduling">Scheduling</Link>
-            &nbsp;|&nbsp;
-            <Link to="/statistics">Statistics</Link>
+            <Link to="/home" className="HomeIcon"><HouseDoor /></Link>
+            <Link to="/login" className="PersonIcon" ><Person /></Link>
+            <text className="Left">Welcome, Tigerlilly</text>
+            <Link className="Center" to="/">SCHEDULION</Link>
+            <Link to="/scheduling" className="CalendarIcon"><Calendar3 /></Link>
+            <Link className="StatsIcon"to="/statistics"><GraphUp /></Link>
           </div>
           <Switch>
-            <Route exact path="/"><Home /></Route>
-            <Route path="/scheduling"><Scheduling /></Route>
+            <Route exact path="/"><LandingPage /></Route>
+            <Route path="/login"><Login/></Route>
+            <Route path="/home"><Home /></Route>
+            <Route path="/scheduling"><Scheduler/></Route>
+            <Route path="/create"><Create/></Route>
             <Route path="/statistics"><Statistics /></Route>
           </Switch>
         </BrowserRouter>
@@ -82,5 +62,3 @@ export default function App() {
     </div>
   );
 }
-
-// export default App;

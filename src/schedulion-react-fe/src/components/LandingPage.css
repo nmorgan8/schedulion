@@ -1,0 +1,15 @@
+.LandingPage {
+  background-image: url(./images/landing.png);
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.Title {
+  font-family: 'Graduate', cursive;
+  font-size: 130px;
+  color: white;
+  padding-top: 15%;
+}

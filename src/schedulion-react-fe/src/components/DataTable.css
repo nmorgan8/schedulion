@@ -1,0 +1,17 @@
+.Grid {
+  margin-top: 4%;
+  margin-left: 10%;
+  margin-right: 10%;
+  background-color: white;
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 2%;
+}
+
+.GridSchedule {
+  margin-top: 1%;
+  margin-left: 10%;
+  margin-right: 10%;
+  background-color: white;
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 1%;
+}
