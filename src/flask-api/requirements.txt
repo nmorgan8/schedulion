@@ -3,4 +3,5 @@ flask
 python-dotenv
 firebase-admin
 kenpompy
-matplotlib
+scikit-learn
+pandas
