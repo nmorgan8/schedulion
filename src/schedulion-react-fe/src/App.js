@@ -13,9 +13,11 @@ import Dashboard from "./components/Dashboard";
 import './App.css';
 import lmu from "./components/images/lmu.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import testdata from "./testData.json"
 
 
 export default function App() {
+  console.log(testdata)
 
   // added code to test backend access
   const [currentTime, setCurrentTime] = useState(0);
