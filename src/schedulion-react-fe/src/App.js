@@ -21,8 +21,8 @@ export default function App() {
 
   // added code to test backend access
   const [currentTime, setCurrentTime] = useState(0);
-  const [currentLMUWin, setLMUWin] = useState(0);
-  const [currentLMULose, setLMULose] = useState(0);
+  // const [currentLMUWin, setLMUWin] = useState(0);
+  // const [currentLMULose, setLMULose] = useState(0);
 
   useEffect(() => {
     fetch('/api/time').then(res => res.json()).then(data => {
@@ -30,12 +30,12 @@ export default function App() {
     });
   }, []);
 
-  useEffect(() => {
-    fetch('/api/record').then(res => res.json()).then(data => {
-      setLMUWin(data.record['win'])
-      setLMULose(data.record['lose'])
-    })
-  }, []);
+  // useEffect(() => {
+  //   fetch('/api/record').then(res => res.json()).then(data => {
+  //     setLMUWin(data.record['win'])
+  //     setLMULose(data.record['lose'])
+  //   })
+  // }, []);
 
 
 
