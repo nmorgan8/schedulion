@@ -7,6 +7,7 @@ import Scheduler from "./components/Scheduler";
 import Create from "./components/Create";
 import Statistics from "./components/Statistics";
 import Login from "./components/Login";
+import MatchUp from './components/matchup-data-visualisation/TempoChart.js'
 import Register from "./components/Register";
 import Reset from "./components/Reset";
 import Dashboard from "./components/Dashboard";
@@ -23,6 +24,7 @@ export default function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [currentLMUWin, setLMUWin] = useState(0);
   const [currentLMULose, setLMULose] = useState(0);
+  const [rankingList, setRankingList] = useState(0);
 
   useEffect(() => {
     fetch('/api/time').then(res => res.json()).then(data => {
@@ -34,6 +36,14 @@ export default function App() {
     fetch('/api/record').then(res => res.json()).then(data => {
       setLMUWin(data.record['win'])
       setLMULose(data.record['lose'])
+    })
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/get_netrankings').then(res => res.json()).then(data => {
+      console.log(data.Team)
+      console.log(data.Calculated_Ranking)
+      setRankingList(data.Team)
     })
   }, []);
 
@@ -58,6 +68,7 @@ export default function App() {
             <Route path="/scheduling"><Scheduler/></Route>
             <Route path="/create"><Create/></Route>
             <Route path="/statistics"><Statistics /></Route>
+            <Route path="/matchup"><MatchUp /></Route>
           </Switch>
         </BrowserRouter>
       </header>

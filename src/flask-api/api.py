@@ -3,6 +3,7 @@ from flask import Flask
 import os
 import firebase_admin
 from firebase_admin import firestore, auth
+import net_predictor.NET_linear_regression as net
 
 # create Flask server
 app = Flask(__name__)
@@ -38,6 +39,11 @@ def get_testuser():
     email = auth.get_user_by_email('testuser@gmail.com')
     all_users = auth.get_users()
     return {'get user by user id': user.uid, 'get user by email': email.uid}, 200
+
+@app.route('/api/get_netrankings')
+def get_NET_rankings():
+    regression = net.run_regression()
+    return regression.to_dict('list')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
