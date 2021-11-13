@@ -1,13 +1,13 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
-import kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in the "net-predictor" folder 
+from .kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "netpredictor" folder 
 from kenpompy.utils import login
 import kenpompy.summary as kp
 import kenpompy.misc as kpmisc
 
 def run_regression():
-    browser = login(cred.email, cred.password)
+    browser = login(email, password)
     training_season = 2021  # Choose which year's data the model is trained on
     testing_season = 2022   # Choose which year's data the model is tested on
     stats_train = kp.get_efficiency(browser, season=training_season)
@@ -50,6 +50,6 @@ def run_regression():
     y_pred_teams = pd.concat([y_pred_df, combined_stats_test['Team']], axis=1)
     y_pred_teams = y_pred_teams.sort_values(by='Calculated_Ranking')
     y_pred_teams.insert(1, 'True_Ranking', range(1, 1 + len(y_pred_teams)))
-    print("PRINT EIDLSFJ")
+    y_pred_teams = y_pred_teams.drop(columns=['Calculated_Ranking'])
     print(y_pred_teams)
     return y_pred_teams

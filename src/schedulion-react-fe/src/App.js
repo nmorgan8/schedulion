@@ -7,7 +7,8 @@ import Scheduler from "./components/Scheduler";
 import Create from "./components/Create";
 import Statistics from "./components/Statistics";
 import Login from "./components/Login";
-import MatchUp from './components/matchup-data-visualisation/TempoChart.js'
+// import MatchUp from './components/matchup-data-visualisation/TempoChart.js'
+import Rankings from './components/Rankings'
 import Register from "./components/Register";
 import Reset from "./components/Reset";
 import Dashboard from "./components/Dashboard";
@@ -18,13 +19,14 @@ import testdata from "./testData.json"
 
 
 export default function App() {
-  console.log(testdata)
+  // console.log(testdata)
 
   // added code to test backend access
   const [currentTime, setCurrentTime] = useState(0);
   const [currentLMUWin, setLMUWin] = useState(0);
   const [currentLMULose, setLMULose] = useState(0);
-  const [rankingList, setRankingList] = useState(0);
+  const [rankingList, setRankingList] = useState(null)
+  const [rankingsLoading, setRankingsLoading] = useState(true)
 
   useEffect(() => {
     fetch('/api/time').then(res => res.json()).then(data => {
@@ -32,20 +34,27 @@ export default function App() {
     });
   }, []);
 
+  // useEffect(() => {
+  //   fetch('/api/record').then(res => res.json()).then(data => {
+  //     setLMUWin(data.record['win'])
+  //     setLMULose(data.record['lose'])
+  //   })
+  // }, []);
+
   useEffect(() => {
-    fetch('/api/record').then(res => res.json()).then(data => {
-      setLMUWin(data.record['win'])
-      setLMULose(data.record['lose'])
+    fetch('/api/get_netrankings').then(res => res.json()).then(data => {
+      console.log(data)
+      setRankingList(data)
     })
   }, []);
 
   useEffect(() => {
-    fetch('/api/get_netrankings').then(res => res.json()).then(data => {
-      console.log(data.Team)
-      console.log(data.Calculated_Ranking)
-      setRankingList(data.Team)
-    })
-  }, []);
+    if (rankingList !== null) {
+      setRankingsLoading(false)
+      console.log(rankingsLoading)
+    }
+    console.log(rankingList)
+  }, [rankingList])
 
 
 
@@ -68,7 +77,12 @@ export default function App() {
             <Route path="/scheduling"><Scheduler/></Route>
             <Route path="/create"><Create/></Route>
             <Route path="/statistics"><Statistics /></Route>
-            <Route path="/matchup"><MatchUp /></Route>
+            <Route path="/matchup">
+              <Rankings
+              predictedRankings={rankingList}
+              rankingsLoading={rankingsLoading}
+              />
+            </Route>
           </Switch>
         </BrowserRouter>
       </header>

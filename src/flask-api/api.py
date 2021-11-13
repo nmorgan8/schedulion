@@ -43,7 +43,7 @@ def get_testuser():
 @app.route('/api/get_netrankings')
 def get_NET_rankings():
     regression = net.run_regression()
-    return regression.to_dict('list')
+    return regression.to_dict('split')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
