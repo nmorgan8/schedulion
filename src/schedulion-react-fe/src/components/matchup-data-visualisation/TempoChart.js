@@ -1,21 +1,23 @@
 import { Bar } from 'react-chartjs-2';
 
-const TempoChart = (team) => {
+const TempoChart = (tempo) => {
+    const LMUTempo = [tempo.LMU]
+    const oppTempo = [tempo.Opp]
     return (
         <div>
             <Bar
                 data = {{
-                    // labels: 'Tempo',
+                    labels: ['Tempo'],
                     datasets: [
                         {
                             label: "Loyola Marymount",
                             backgroundColor: 'rgba(0, 255, 0, 0.6)',
-                            data: [3]
+                            data: LMUTempo,
                         },
                         {
-                            label: "Opponent",
+                            label: tempo.OppName,
                             backgroundColor: 'rgba(255, 0, 0, 0.6)',
-                            data: [4]
+                            data: oppTempo
                         }
                     ]
                 }}

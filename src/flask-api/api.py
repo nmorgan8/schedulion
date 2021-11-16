@@ -4,6 +4,10 @@ import os
 import firebase_admin
 from firebase_admin import firestore, auth
 import net_predictor.NET_linear_regression as net
+import kenpompy.summary as kp
+from kenpompy.utils import login
+from net_predictor.kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "netpredictor" folder 
+import kenpompy.misc as kpmisc
 
 # create Flask server
 app = Flask(__name__)
@@ -44,6 +48,13 @@ def get_testuser():
 def get_NET_rankings():
     regression = net.run_regression()
     return regression.to_dict('split')
+
+@app.route('/api/get_teamstats')
+def get_team_stats():
+    browser = login(email, password)
+    table = kpmisc.get_pomeroy_ratings(browser)
+    table = table.dropna()
+    return table.to_dict('split')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

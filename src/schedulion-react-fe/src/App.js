@@ -7,6 +7,7 @@ import Scheduler from "./components/Scheduler";
 import Create from "./components/Create";
 import Statistics from "./components/Statistics";
 import Login from "./components/Login";
+import Team from './components/Team';
 // import MatchUp from './components/matchup-data-visualisation/TempoChart.js'
 import Rankings from './components/Rankings'
 import Register from "./components/Register";
@@ -77,6 +78,7 @@ export default function App() {
             <Route path="/scheduling"><Scheduler/></Route>
             <Route path="/create"><Create/></Route>
             <Route path="/statistics"><Statistics /></Route>
+            <Route path="/teams/:team"><Team /></Route>
             <Route path="/matchup">
               <Rankings
               predictedRankings={rankingList}

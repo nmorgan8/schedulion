@@ -1,6 +1,8 @@
 import { Bar } from 'react-chartjs-2';
 
-const WinningPercentageChart = (team) => {
+const EfficiencyChart = (eff) => {
+    const LMUEfficiency = [eff.LMUOff, eff.LMUDef]
+    const OppEfficiency = [eff.OppOff, eff.OppDef]
     return (
         <div>
             <Bar
@@ -10,12 +12,12 @@ const WinningPercentageChart = (team) => {
                         {
                             label: "Loyola Marymount",
                             backgroundColor: 'rgba(0, 255, 0, 0.6)',
-                            data: [3,7]
+                            data: LMUEfficiency,
                         },
                         {
-                            label: "Opponent",
+                            label: eff.OppName,
                             backgroundColor: 'rgba(255, 0, 0, 0.6)',
-                            data: [4,3]
+                            data: OppEfficiency,
                         }
                     ]
                 }}
@@ -36,4 +38,4 @@ const WinningPercentageChart = (team) => {
     );
 };
 
-export default WinningPercentageChart
+export default EfficiencyChart
