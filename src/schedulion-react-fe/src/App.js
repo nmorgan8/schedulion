@@ -7,6 +7,8 @@ import Scheduler from "./components/Scheduler";
 import Create from "./components/Create";
 import Statistics from "./components/Statistics";
 import Login from "./components/Login";
+import Team from './components/Team';
+import Rankings from './components/Rankings'
 import Register from "./components/Register";
 import Reset from "./components/Reset";
 import Dashboard from "./components/Dashboard";
@@ -23,6 +25,8 @@ export default function App() {
   const [currentTime, setCurrentTime] = useState(0);
   // const [currentLMUWin, setLMUWin] = useState(0);
   // const [currentLMULose, setLMULose] = useState(0);
+  const [rankingList, setRankingList] = useState(null)
+  const [rankingsLoading, setRankingsLoading] = useState(true)
 
   useEffect(() => {
     fetch('/api/time').then(res => res.json()).then(data => {
@@ -36,6 +40,21 @@ export default function App() {
   //     setLMULose(data.record['lose'])
   //   })
   // }, []);
+
+  useEffect(() => {
+    fetch('/api/get_netrankings').then(res => res.json()).then(data => {
+      console.log(data)
+      setRankingList(data)
+    })
+  }, []);
+
+  useEffect(() => {
+    if (rankingList !== null) {
+      setRankingsLoading(false)
+      console.log(rankingsLoading)
+    }
+    console.log(rankingList)
+  }, [rankingList])
 
 
 
@@ -58,6 +77,13 @@ export default function App() {
             <Route path="/scheduling"><Scheduler/></Route>
             <Route path="/create"><Create/></Route>
             <Route path="/statistics"><Statistics /></Route>
+            <Route path="/teams/:team"><Team /></Route>
+            <Route path="/matchup">
+              <Rankings
+              predictedRankings={rankingList}
+              rankingsLoading={rankingsLoading}
+              />
+            </Route>
           </Switch>
         </BrowserRouter>
       </header>
