@@ -4,7 +4,7 @@ import os
 import firebase_admin
 from firebase_admin import firestore, auth
 
-# create a lask server
+# create Flask server
 app = Flask(__name__)
 app.debug = True
 
