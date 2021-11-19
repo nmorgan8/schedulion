@@ -1,7 +1,7 @@
 import sys
 from kenpompy.utils import login
 import kenpompy.summary as kp
-import kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in the "netpredictor" folder 
+import kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in the "net_predictor" folder 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
