@@ -1,7 +1,7 @@
 FROM python:3.9
 WORKDIR /schedulion-api
 
-COPY ./requirements.txt ./api.py ./.flaskenv ./net_predictor/ ./firebase_creds.json ./
+COPY ./requirements.txt ./api.py ./.flaskenv ./net-predictor/ ./firebase_creds.json ./
 RUN pip3 install -r ./requirements.txt
 
 EXPOSE 5000
