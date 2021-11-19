@@ -9,7 +9,7 @@ from kenpompy.utils import login
 from net_predictor.kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "netpredictor" folder 
 import kenpompy.misc as kpmisc
 
-# create Flask server
+# create a lask server
 app = Flask(__name__)
 app.debug = True
 
