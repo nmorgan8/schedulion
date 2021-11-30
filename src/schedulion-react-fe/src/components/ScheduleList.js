@@ -1,18 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { cloneElement } from 'react';
-import { List, ListActions, Button, CreateButton, ExportButton, TopToolbar, Create } from 'react-admin';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { Pencil, Download, CalendarPlus, Files, Trash }from 'react-bootstrap-icons';
-import ReactTooltip from 'react-tooltip';
 import './DataTable.css';
 
-import IconEvent from '@material-ui/icons/Event';
-import {
-  GridToolbarContainer,
-  GridToolbarExport,
-  gridClasses,
-} from '@mui/x-data-grid';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 40 },

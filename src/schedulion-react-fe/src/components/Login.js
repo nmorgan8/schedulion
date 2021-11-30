@@ -1,11 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
-import hank from './images/hank.png';
+import React from 'react';
 import './Login.css';
 
 export default function Login() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
 
     return (
       <div>

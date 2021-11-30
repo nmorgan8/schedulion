@@ -29,6 +29,7 @@ export default function Team() {
             if (APITeamData.data[i][1] === "Loyola Marymount") {
                 createDataVisObject(APITeamData.data[i], setLMUStatData)            }
         }
+        // eslint-disable-next-line
     }, [APITeamData])
 
     function createDataVisObject(data, setFunction) {

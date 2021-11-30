@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
 import './DataTable.css';
-import { cloneElement } from 'react';
 import './Scheduler.css';
-import { List, ListActions, Button, CreateButton, ExportButton, TopToolbar, Create } from 'react-admin';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { Pencil, Download, CalendarPlus, Files, Trash }from 'react-bootstrap-icons';
+import { Link } from 'react-router-dom';
+import { CalendarPlus }from 'react-bootstrap-icons';
 import ReactTooltip from 'react-tooltip';
 import ScheduleList from './ScheduleList';
 import './Create.css';
