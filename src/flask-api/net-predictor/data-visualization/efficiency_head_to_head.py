@@ -1,6 +1,7 @@
 import sys
 from kenpompy.utils import login
 import kenpompy.summary as kp
+sys.path.append("../kenpom_creds")
 import kenpom_creds as cred
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
