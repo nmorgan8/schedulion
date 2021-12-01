@@ -114,3 +114,5 @@ ScheduLion
 [GitHub Link](https://github.com/nmorgan8/schedulion)
 
 [Project Proposal Presentation](https://docs.google.com/presentation/d/14l8FbzU_ilYNwes7Dcoq9j5gQoFgduhBUJOkaZMJr-Q/edit#slide=id.p)
+
+[Final Presentation](https://docs.google.com/presentation/d/1iAR3d8UCkqbvBrDlfaypDnwispHEvt8xk2MPZcGeFvg/edit?usp=sharing)
