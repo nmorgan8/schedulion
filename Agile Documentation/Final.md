@@ -97,9 +97,7 @@ ScheduLion
 
 ## Product Installation Guide:
 
-Requirements: 
-- (Installation Step-by-step guide)
-- Note: Assume the user who is installing this app to try is a Computer Science Freshman, so be helpful, user friendly.
+1. Go to ScheduLion's domain, soon-to-be `schedulion.lmucs.io`.
 
 
 ## Improvement Plan:
