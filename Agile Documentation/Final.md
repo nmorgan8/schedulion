@@ -30,6 +30,8 @@ ScheduLion
 
 - ![](../images/userflow_login.png)
 
+- ![](../images/userflow_schedule.png)
+
 - Architecture/Tech Stack Diagram
   ![](../images/tech_stack_diagram.png)
 
