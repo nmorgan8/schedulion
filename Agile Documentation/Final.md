@@ -28,6 +28,8 @@ ScheduLion
 
 ## Product, Technical, and Design Documentation:
 
+- ![](../images/userflow_login.png)
+
 - Architecture/Tech Stack Diagram
   ![](../images/tech_stack_diagram.png)
 
