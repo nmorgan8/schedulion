@@ -95,14 +95,14 @@ ScheduLion
 
   - (Frontend Engineer)
 
-## Product Installation Guide
+## Product Installation Guide:
 
 Requirements: 
 - (Installation Step-by-step guide)
 - Note: Assume the user who is installing this app to try is a Computer Science Freshman, so be helpful, user friendly.
 
 
-## Improvement Plan
+## Improvement Plan:
 - Improve security and add user authentication 
   - To create a safe and secure application for our users and keep their sensitive information private and encyrpted. 
 - Get specific user feedback from Craig Pintens
@@ -114,7 +114,7 @@ Requirements:
 - Deploy our application so we can get a head start on user testing
   - To scope out any potential errors and allow users to begin using our app and providing critical feedback early in the design process. 
 
-## Important Resources
+## Important Resources:
 
 [KenPom](https://kenpom.com/)
 
