@@ -114,6 +114,10 @@ Requirements:
 - Deploy our application so we can get a head start on user testing
   - To scope out any potential errors and allow users to begin using our app and providing critical feedback early in the design process. 
 
+## Important Resources
+
+[KenPom](https://kenpom.com/)
+
 ## Appendix:
 
 [Agile Board Link](https://schedulion.atlassian.net/jira/your-work)
