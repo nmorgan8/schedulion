@@ -97,7 +97,8 @@ ScheduLion
 
 ## Product Installation Guide:
 
-1. Go to ScheduLion's domain, soon-to-be `schedulion.lmucs.io`.
+1. Using a computer, launch your browser of choice.
+2. Go to ScheduLion's domain, soon-to-be `schedulion.lmucs.io`.
 
 
 ## Improvement Plan:
