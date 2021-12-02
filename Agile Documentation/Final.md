@@ -97,6 +97,17 @@ ScheduLion
 
 ## Product Installation Guide:
 
+As of now, you are able to run our app locally.
+1. Clone this repository
+2. Install node [Node Installation Guide](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+3. Navigate to the schedulion directory via the command line
+4. Navigate to the `src` directory
+5. Navigate to the `schedulion-react-fe` directory
+6. Run `npm start` within the `schedulion-react-fe` directory
+7. If `http://localhost:3000/` doesn't automatically open in a browser you may go to Chrome or another browser of your choice and manually type `http://localhost:3000/`.
+8. View our live React Web App
+
+Eventually, we will have a proper domain for our web application.
 1. Using a computer, launch your browser of choice.
 2. Go to ScheduLion's domain, soon-to-be `schedulion.lmucs.io`.
 
