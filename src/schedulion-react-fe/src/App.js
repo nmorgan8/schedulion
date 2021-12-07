@@ -9,51 +9,34 @@ import Statistics from "./components/Statistics";
 import Login from "./components/Login";
 import Team from './components/Team';
 import Rankings from './components/Rankings'
-import Register from "./components/Register";
-import Reset from "./components/Reset";
-import Dashboard from "./components/Dashboard";
 import './App.css';
-import lmu from "./components/images/lmu.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import testdata from "./testData.json"
-
 
 export default function App() {
-  console.log(testdata)
-
-  // added code to test backend access
-  const [currentTime, setCurrentTime] = useState(0);
-  // const [currentLMUWin, setLMUWin] = useState(0);
-  // const [currentLMULose, setLMULose] = useState(0);
   const [rankingList, setRankingList] = useState(null)
   const [rankingsLoading, setRankingsLoading] = useState(true)
 
-  useEffect(() => {
-    fetch('/api/time').then(res => res.json()).then(data => {
-      setCurrentTime(data.time);
-    });
-  }, []);
-
-  // useEffect(() => {
-  //   fetch('/api/record').then(res => res.json()).then(data => {
-  //     setLMUWin(data.record['win'])
-  //     setLMULose(data.record['lose'])
-  //   })
-  // }, []);
 
   useEffect(() => {
-    fetch('/api/get_netrankings').then(res => res.json()).then(data => {
-      console.log(data)
-      setRankingList(data)
-    })
+    const fetchRankings = () => {
+      return fetch('/api/get_netrankings', {method: "GET"}
+    )
+      .then(res => res.json())
+      .then(json => {
+        setRankingList(json)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+    fetchRankings();
   }, []);
+
 
   useEffect(() => {
     if (rankingList !== null) {
       setRankingsLoading(false)
-      console.log(rankingsLoading)
     }
-    console.log(rankingList)
   }, [rankingList])
 
 

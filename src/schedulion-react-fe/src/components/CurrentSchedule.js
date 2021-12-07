@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import './DataTable.css';
-import { cloneElement } from 'react';
-import { List, ListActions, Button, CreateButton, ExportButton, TopToolbar, Create } from 'react-admin';
 
-import IconEvent from '@material-ui/icons/Event';
 import {
   GridToolbarContainer,
   GridToolbarExport,
