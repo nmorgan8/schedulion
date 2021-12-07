@@ -9,6 +9,7 @@ import Statistics from "./components/Statistics";
 import Login from "./components/Login";
 import Team from './components/Team';
 import Rankings from './components/Rankings'
+import Calendar from './components/Calendar'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -60,6 +61,7 @@ export default function App() {
             <Route path="/scheduling"><Scheduler/></Route>
             <Route path="/create"><Create/></Route>
             <Route path="/statistics"><Statistics /></Route>
+            <Route path="/calendar"><Calendar /></Route>
             <Route path="/teams/:team"><Team /></Route>
             <Route path="/matchup">
               <Rankings
