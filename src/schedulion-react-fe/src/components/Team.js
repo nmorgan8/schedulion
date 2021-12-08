@@ -3,6 +3,7 @@ import { useParams, useHistory } from "react-router-dom"
 import WinningPercentageChart from './matchup-data-visualization/WinningPercentageChart'
 import EfficiencyChart from './matchup-data-visualization/EfficiencyChart'
 import TempoChart from './matchup-data-visualization/TempoChart'
+import './team.css'
 
 export default function Team() {
     const params = useParams("/teams/:id")
@@ -46,9 +47,13 @@ export default function Team() {
     return (
     <div>
         <p>{params.team}</p>
-        <WinningPercentageChart LMU={LMUStatData.winPercentage} Opp={oppStatData.winPercentage} OppName={params.team}/>
+        <div className="winning-chart">
+            <WinningPercentageChart LMU={LMUStatData.winPercentage} Opp={oppStatData.winPercentage} OppName={params.team}/>
+        </div>
+        <div className="eff-chart">
         <EfficiencyChart LMUOff={LMUStatData.offEff} OppOff={oppStatData.offEff} LMUDef={LMUStatData.defEff} OppDef={oppStatData.defEff} OppName={params.team}/>
         <TempoChart LMU={LMUStatData.tempo} Opp={oppStatData.tempo} OppName={params.team}/>
+        </div>
     </div>
     )
 }

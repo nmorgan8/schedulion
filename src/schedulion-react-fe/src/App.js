@@ -49,7 +49,7 @@ export default function App() {
           <div>
             <Link to="/home" className="HomeIcon"><HouseDoor /></Link>
             <Link to="/login" className="PersonIcon" ><Person /></Link>
-            <text className="Left">Welcome, Tigerlilly</text>
+            <text className="Left">Welcome, Iggy</text>
             <Link className="Center" to="/">SCHEDULION</Link>
             <Link to="/scheduling" className="CalendarIcon"><Calendar3 /></Link>
             <Link className="StatsIcon"to="/statistics"><GraphUp /></Link>
@@ -60,14 +60,16 @@ export default function App() {
             <Route path="/home"><Home /></Route>
             <Route path="/scheduling"><Scheduler/></Route>
             <Route path="/create"><Create/></Route>
-            <Route path="/statistics"><Statistics /></Route>
+            <Route path="/statistics">
+            <Rankings
+              predictedRankings={rankingList}
+              rankingsLoading={rankingsLoading}
+            />
+            </Route>
             <Route path="/calendar"><Calendar /></Route>
             <Route path="/teams/:team"><Team /></Route>
             <Route path="/matchup">
-              <Rankings
-              predictedRankings={rankingList}
-              rankingsLoading={rankingsLoading}
-              />
+
             </Route>
           </Switch>
         </BrowserRouter>

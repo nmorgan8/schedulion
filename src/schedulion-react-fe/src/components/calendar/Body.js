@@ -3,7 +3,7 @@ import { startOfMonth, endOfMonth, startOfWeek, endOfWeek, format, addDays, isSa
 
 
 function Days(props) {
-    const dateFormat = "dddd"
+    const dateFormat = "eeee"
     const days = []
 
     const startDate = startOfWeek(props.currentMonth)
@@ -39,6 +39,8 @@ function Cells(props) {
       console.log(formattedDate)
       const cloneDay = day
       days.push(
+
+        
         <div
           className={`col cell ${
             !isSameMonth(day, monthStart)
@@ -48,7 +50,8 @@ function Cells(props) {
           key = {day}
           onClick={() => props.onDateClick(parse(cloneDay))}
         >
-          <span className="number">{formattedDate}</span>
+          <span className="bg">{formattedDate}</span>
+
         </div>
       )
 
@@ -73,9 +76,6 @@ function Cells(props) {
 export default function Body(props) {
   return (
     <div>
-      <Days 
-        currentMonth = {props.currentMonth}
-      />
       <Cells 
         currentMonth = {props.currentMonth}
         selectedDate = {props.selectedDate}

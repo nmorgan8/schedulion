@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.winning-chart {
+    width: 45%;
+    float: left;
+}
+
+.eff-chart {
+    display: flex;
+    flex-direction: column;
+    float: right;
+    width: 45%;
+}
