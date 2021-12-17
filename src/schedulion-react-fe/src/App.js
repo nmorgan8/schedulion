@@ -9,6 +9,7 @@ import Statistics from "./components/Statistics";
 import Login from "./components/Login";
 import Team from './components/Team';
 import Rankings from './components/Rankings'
+import ListSchedules from './components/ListSchedules'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -57,10 +58,12 @@ export default function App() {
             <Route exact path="/"><LandingPage /></Route>
             <Route path="/login"><Login/></Route>
             <Route path="/home"><Home /></Route>
-            <Route path="/scheduling"><Scheduler/></Route>
+            <Route path="/scheduling/:scheduleID"><Scheduler/></Route>
             <Route path="/create"><Create/></Route>
             <Route path="/statistics"><Statistics /></Route>
             <Route path="/teams/:team"><Team /></Route>
+            <Route path="/listSchedule"><ListSchedules /></Route>
+
             <Route path="/matchup">
               <Rankings
               predictedRankings={rankingList}

@@ -15,4 +15,3 @@ doc_ref_lmu = db.collection(u'organizations').document(u'LMU')
 retrieve_doc = doc_ref_lmu.get()
 print(retrieve_doc.to_dict())
 
-

@@ -56,5 +56,10 @@ def get_team_stats():
     table = table.dropna()
     return table.to_dict('split')
 
+# @app.route('/api/list_schedules', methods=['GET'])
+# def read():
+#     try:
+#         todo_id: request.args.get('id')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
