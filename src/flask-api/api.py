@@ -1,5 +1,6 @@
 import time
 from flask import Flask, request, jsonify
+import pyrebase
 import os
 import firebase_admin
 from firebase_admin import firestore, auth

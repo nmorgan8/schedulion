@@ -2,3 +2,6 @@ src/flask-api/firebase_*
 __pycache__/
 venv_dev/
 kenpom_creds.py
+bin/
+lib/
+pyvenv.cfg

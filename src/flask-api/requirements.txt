@@ -5,3 +5,4 @@ firebase-admin
 kenpompy
 scikit-learn
 pandas
+pyrebase
