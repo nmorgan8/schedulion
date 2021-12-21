@@ -71,7 +71,7 @@ export default function App() {
             <Link to="/login" className="PersonIcon" ><Person /></Link>
             <text className="Left">Welcome, Tigerlilly</text>
             <Link className="Center" to="/">SCHEDULION</Link>
-            <Link to="/scheduling" className="CalendarIcon"><Calendar3 /></Link>
+            <Link to="/listSchedule" className="CalendarIcon"><Calendar3 /></Link>
             <Link className="StatsIcon"to="/statistics"><GraphUp /></Link>
           </div>
           <Switch>
