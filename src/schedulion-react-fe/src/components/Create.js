@@ -10,7 +10,7 @@ export default function Create(props) {
 
 
       <CurrentSchedule/>
-        <NewGame/>
+      <NewGame/>
       </div>
     );
 }
