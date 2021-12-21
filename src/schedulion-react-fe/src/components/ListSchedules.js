@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from "react-router-dom"
 import { DataGrid } from '@mui/x-data-grid';
 import './DataTable.css';
+import loader from './images/loader.gif'
 
 const COLUMN_LIST = [
-    { field: 'scheduleName', headerName: 'Schedule Name', width: 200},
-    { field: 'lastModified', headerName: 'Last Modified', width: 200, type: 'date' },
-    { field: 'totalGames', headerName: 'Total Season Games', width: 225}, // Potentially make this into an into only field
+    { field: 'name', headerName: 'Schedule Name', width: 200},
+    { field: 'modified', headerName: 'Last Modified', width: 200, type: 'date' },
+    { field: 'gameTotal', headerName: 'Total Season Games', width: 225}, // Potentially make this into an into only field
     { field: 'gamesLeft', headerName: 'Unscheduled Games', width: 225} // Potentially make this into an into only field
   ];
 
@@ -20,24 +21,25 @@ const COLUMN_LIST = [
 
   ]
 
-function ListSchedules() {
+function ListSchedules({schedules, schedulesLoading}) {
+    // TODO (andrewseaman): Add user authentication to this
     const history = useHistory()
 
     function redirectToSchedule(event) {
         const selectedSchedule = event.row.id
         const url = "/scheduling/" + selectedSchedule
         history.push(url)
-      }
+    }
 
-
-    // TODO (andrewseaman): Link real schedules from firebase
     // TODO (andrewseaman): Create a new create schedule component
     return (
+        schedulesLoading ?
+        <img src={loader} alt="loading..." /> :
         <div className="GridSchedule" style={{ height: '700px', width: '80%' }}>
             <DataGrid
                 rowHeight={75}
                 columns={COLUMN_LIST}
-                rows = {rows}
+                rows = {schedules}
                 pageSize={15}
                 rowsPerPageOptions={[5]}
                 onCellClick={e=>redirectToSchedule(e)}
