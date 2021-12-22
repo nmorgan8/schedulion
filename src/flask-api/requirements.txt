@@ -1,8 +1,8 @@
 # required python packages to run 
-flask
-python-dotenv
-firebase-admin
-kenpompy
-scikit-learn
-pandas
-pyrebase
+flask==2.0.2
+python-dotenv==0.19.2
+firebase-admin==5.2.0
+kenpompy==0.1.0
+scikit-learn==1.0.1
+pandas==1.3.5
+pyrebase4==4.5.0

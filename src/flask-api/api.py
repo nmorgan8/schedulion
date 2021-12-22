@@ -21,6 +21,10 @@ cred = firebase_admin.credentials.Certificate(private_key)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
+# pyrebase authentication
+# pb = pyrebase.initialize_app(cred)
+# auth = pb.auth()
+
 # Firestore Collection References
 SCHEDULE_REF = db.collection('schedules')
 
@@ -124,6 +128,9 @@ def delete():
     except Exception as e:
         return f"An Error Occured: {e}"
 
+@app.route('/login')
+def login():
+    return f"Working on the railroad"
 
 
 
