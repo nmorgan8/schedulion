@@ -7,8 +7,8 @@ import loader from './images/loader.gif'
 const COLUMN_LIST = [
     { field: 'name', headerName: 'Schedule Name', width: 200},
     { field: 'modified', headerName: 'Last Modified', width: 200, type: 'date' },
-    { field: 'gameTotal', headerName: 'Total Season Games', width: 225}, // Potentially make this into an into only field
-    { field: 'gamesLeft', headerName: 'Unscheduled Games', width: 225} // Potentially make this into an into only field
+    { field: 'gameTotal', headerName: 'Total Season Games', width: 225}, 
+    { field: 'gamesLeft', headerName: 'Unscheduled Games', width: 225} 
   ];
 
   const rows = [
@@ -22,7 +22,6 @@ const COLUMN_LIST = [
   ]
 
 function ListSchedules({schedules, schedulesLoading}) {
-    // TODO (andrewseaman): Add user authentication to this
     const history = useHistory()
 
     function redirectToSchedule(event) {
@@ -30,8 +29,7 @@ function ListSchedules({schedules, schedulesLoading}) {
         const url = "/scheduling/" + selectedSchedule
         history.push(url)
     }
-
-    // TODO (andrewseaman): Create a new create schedule component
+    
     return (
         schedulesLoading ?
         <img src={loader} alt="loading..." /> :

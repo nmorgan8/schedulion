@@ -14,6 +14,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function App() {
+  const [user, setUser] = useState(null)
   const [rankingList, setRankingList] = useState(null)
   const [rankingsLoading, setRankingsLoading] = useState(true)
   const [schedulesLoading, setSchedulesLoading] = useState(true)
@@ -76,7 +77,12 @@ export default function App() {
           </div>
           <Switch>
             <Route exact path="/"><LandingPage /></Route>
-            <Route path="/login"><Login/></Route>
+            <Route path="/login">
+              <Login
+              user = {user}
+              setUser = {setUser}
+              />
+            </Route>
             <Route path="/home"><Home /></Route>
             <Route path="/scheduling/:scheduleID"><Scheduler/></Route>
             <Route path="/create"><Create/></Route>

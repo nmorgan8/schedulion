@@ -1,9 +1,11 @@
 import time
+import json
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pyrebase
 import os
 import firebase_admin
-from firebase_admin import firestore, auth
+from firebase_admin import firestore, credentials, auth
 import net_predictor.NET_linear_regression as net
 import kenpompy.summary as kp
 from kenpompy.utils import login
@@ -12,6 +14,7 @@ import kenpompy.misc as kpmisc
 
 # create Flask server
 app = Flask(__name__)
+CORS(app)
 app.debug = True
 
 # initialize connection to firebase db
@@ -19,6 +22,7 @@ cwd = os.getcwd()
 private_key = os.path.join(cwd, 'firebase_creds.json')
 cred = firebase_admin.credentials.Certificate(private_key)
 firebase_admin.initialize_app(cred)
+pb = pyrebase.initialize_app(json.load(open('firebase_config.json')))
 db = firestore.client()
 
 # pyrebase authentication
@@ -52,17 +56,17 @@ def get_testuser():
     all_users = auth.get_users()
     return {'get user by user id': user.uid, 'get user by email': email.uid}, 200
 
-@app.route('/api/get_netrankings')
-def get_NET_rankings():
-    regression = net.run_regression()
-    return regression.to_dict('split')
+# @app.route('/api/get_netrankings')
+# def get_NET_rankings():
+#     regression = net.run_regression()
+#     return regression.to_dict('split')
 
-@app.route('/api/get_teamstats')
-def get_team_stats():
-    browser = login(email, password)
-    table = kpmisc.get_pomeroy_ratings(browser)
-    table = table.dropna()
-    return table.to_dict('split')
+# @app.route('/api/get_teamstats')
+# def get_team_stats():
+#     browser = login(email, password)
+#     table = kpmisc.get_pomeroy_ratings(browser)
+#     table = table.dropna()
+#     return table.to_dict('split')
 
 #Schedule CRUD
 
@@ -128,9 +132,36 @@ def delete():
     except Exception as e:
         return f"An Error Occured: {e}"
 
-@app.route('/login')
-def login():
-    return f"Working on the railroad"
+#Api route to sign up a new user
+@app.route('/api/signup')
+def signup():
+    email = request.form.get('email')
+    password = request.form.get('password')
+    if email is None or password is None:
+        return {'message': 'Error missing email or password'}, 400
+    try:
+        user = auth.create_user(
+            email="email",
+            password="password"
+        )
+        return {"message": f"Successfully created user {user.uid}"}, 200
+    except:
+        return {"message": "Error creating user"}, 400
+
+#Api route to geta new token for a valid user
+@app.route('/api/token', methods=['POST'], strict_slashes=False)
+def token():
+    email = request.json['email']
+    password = request.json['password']
+    print(email)
+    print(password)
+    try:
+        user = pb.auth().sign_in_with_email_and_password(email, password)
+        jwt = user['idToken']
+        uid = user['localId']
+        return {'token': jwt, 'uid': uid}, 200
+    except:
+        return {'message': 'There was an error logging in'}, 400
 
 
 

@@ -11,6 +11,9 @@
   text-align: center;
   background-color: #dcdcdc;
   padding: 30px;
+  width: 40%;
+  min-width: 500px;
+  max-width: 600px;
 }
 .login__textBox {
   padding: 10px;
@@ -30,4 +33,8 @@
 }
 .login div {
   margin-top: 7px;
+}
+
+.login_text {
+  font-size: 15px
 }
