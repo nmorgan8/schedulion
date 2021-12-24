@@ -1,8 +1,8 @@
 import React from 'react'
 import { useHistory } from "react-router-dom"
 import { DataGrid } from '@mui/x-data-grid';
-import './DataTable.css';
-import loader from './images/loader.gif'
+import '../schedule/DataTable.css';
+import loader from '../images/loader.gif'
 
 const COLUMN_LIST = [
     { field: 'name', headerName: 'Schedule Name', width: 200},

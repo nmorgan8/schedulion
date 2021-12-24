@@ -1,5 +1,5 @@
 import React from 'react';
-import loader from './images/loader.gif'
+import loader from '../images/loader.gif'
 import Table from './Table'
 
 export default function Ranking({predictedRankings, rankingsLoading}) {
