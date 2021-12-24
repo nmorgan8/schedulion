@@ -8,9 +8,6 @@ function Login({user, setUser}) {
   const history = useHistory();
 
   const postUserData = (body) => {
-
-    console.log(JSON.stringify(body))
-
     return fetch(`http://localhost:5000/api/token`, {
       'method': 'POST',
       headers : {
@@ -19,7 +16,7 @@ function Login({user, setUser}) {
       body: JSON.stringify(body)
     })
     .then(response => response.json())
-    .then(responseJson => setUser(responseJson.token))
+    .then(responseJson => setUser(responseJson.uid))
     .catch(error => console.log(error))
   }
 
