@@ -11,6 +11,9 @@
   text-align: center;
   background-color: #dcdcdc;
   padding: 30px;
+  width: 40%;
+  min-width: 500px;
+  max-width: 600px;
 }
 .register__textBox {
   padding: 10px;
@@ -30,4 +33,8 @@
 }
 .register div {
   margin-top: 7px;
+}
+
+.register_text {
+  font-size: 15px
 }

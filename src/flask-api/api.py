@@ -1,8 +1,11 @@
 import time
+import json
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+import pyrebase
 import os
 import firebase_admin
-from firebase_admin import firestore, auth
+from firebase_admin import firestore, credentials, auth
 import net_predictor.NET_linear_regression as net
 import kenpompy.summary as kp
 from kenpompy.utils import login
@@ -11,14 +14,20 @@ import kenpompy.misc as kpmisc
 
 # create Flask server
 app = Flask(__name__)
+CORS(app)
 app.debug = True
 
 # initialize connection to firebase db
 cwd = os.getcwd()
 private_key = os.path.join(cwd, 'firebase_creds.json')
-cred = firebase_admin.credentials.Certificate(private_key)
-firebase_admin.initialize_app(cred)
+cred = credentials.Certificate(private_key)
+firebase = firebase_admin.initialize_app(cred)
+pb = pyrebase.initialize_app(json.load(open('firebase_config.json')))
 db = firestore.client()
+
+# pyrebase authentication
+# pb = pyrebase.initialize_app(cred)
+# auth = pb.auth()
 
 # Firestore Collection References
 SCHEDULE_REF = db.collection('schedules')
@@ -123,6 +132,33 @@ def delete():
     except Exception as e:
         return f"An Error Occured: {e}"
 
+#Api route to sign up a new user
+@app.route('/api/signup', methods=['POST'], strict_slashes=False)
+def signup():
+    email = request.json['email']
+    password = request.json['password']
+    if email is None or password is None:
+        return {'message': 'Error missing email or password'}, 401
+    try:
+        user = pb.auth().create_user_with_email_and_password(email, password)
+        userID = user['localId']
+        print(user)
+        return {"message": f"Successfully created user {userID}", "userID": userID}, 200
+    except Exception as e:
+        return {"message": f"Error {e} creating user"}, 402
+
+#Api route to geta new token for a valid user
+@app.route('/api/token', methods=['POST'], strict_slashes=False)
+def token():
+    email = request.json['email']
+    password = request.json['password']
+    try:
+        user = pb.auth().sign_in_with_email_and_password(email, password)
+        jwt = user['idToken']
+        uid = user['localId']
+        return {'token': jwt, 'uid': uid}, 200
+    except:
+        return {'message': 'There was an error logging in'}, 400
 
 
 

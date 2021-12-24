@@ -1,70 +1,70 @@
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import "./Login.css";
 
-import React from 'react';
-import './Login.css';
+function Login({user, setUser}) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
 
-export default function Login() {
+  const postUserData = (body) => {
+    return fetch(`http://localhost:5000/api/token`, {
+      'method': 'POST',
+      headers : {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+    .then(response => response.json())
+    .then(responseJson => setUser(responseJson.uid))
+    .catch(error => console.log(error))
+  }
 
-    return (
-      <div>
-      log(n)
+  const loginUser = () => {
+    postUserData({email, password})
+    setEmail('')
+    setPassword('')
+  }
+
+  useEffect(() => {
+    console.log(user)
+    if (user) history.replace("/listSchedule");
+  }, [user])
+
+  return (
+    <div className="login">
+      <div className="login__container">
+        <input
+          type="text"
+          className="login__textBox"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="E-mail Address"
+        />
+        <input
+          type="password"
+          className="login__textBox"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+        <button
+          className="login__btn"
+          onClick={() => loginUser()}
+        >
+          Login
+        </button>
+        <button className="login__btn login__google">
+          Login with Google
+        </button>
+        <div className="login_text">
+          <Link to="/reset">Forgot Password</Link>
+        </div>
+        <div className="login_text">
+          Don't have an account? <Link to="/register">Register</Link> now.
+        </div>
       </div>
-    );
+    </div>
+  );
 }
-// //  Tutorial Link: https://blog.logrocket.com/user-authentication-firebase-react-apps/
-//
-// import React, { useEffect, useState } from "react";
-// import { Link, useHistory } from "react-router-dom";
-// import { auth, signInWithEmailAndPassword, signInWithGoogle } from "../firebase.js";
-// // the tutorial says to use the below line instead
-// // import { auth, signInWithEmailAndPassword, signInWithGoogle } from "./firebase";
-// import { useAuthState } from "react-firebase-hooks/auth";
-// import "./Login.css";
-// function Login() {
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [user, loading, error] = useAuthState(auth);
-//   const history = useHistory();
-//   useEffect(() => {
-//     if (loading) {
-//       // maybe trigger a loading screen
-//       return;
-//     }
-//     if (user) history.replace("/dashboard");
-//   }, [user, loading]);
-//   return (
-//     <div className="login">
-//       <div className="login__container">
-//         <input
-//           type="text"
-//           className="login__textBox"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           placeholder="E-mail Address"
-//         />
-//         <input
-//           type="password"
-//           className="login__textBox"
-//           value={password}
-//           onChange={(e) => setPassword(e.target.value)}
-//           placeholder="Password"
-//         />
-//         <button
-//           className="login__btn"
-//           onClick={() => signInWithEmailAndPassword(email, password)}
-//         >
-//           Login
-//         </button>
-//         <button className="login__btn login__google" onClick={signInWithGoogle}>
-//           Login with Google
-//         </button>
-//         <div>
-//           <Link to="/reset">Forgot Password</Link>
-//         </div>
-//         <div>
-//           Don't have an account? <Link to="/register">Register</Link> now.
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-// export default Login;
+export default Login;
