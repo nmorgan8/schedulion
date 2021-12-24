@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { HouseDoor, Calendar3, GraphUp, Person } from 'react-bootstrap-icons'
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
-import Home from './components/Home'
-import LandingPage from "./components/LandingPage"
-import Scheduler from "./components/Scheduler"
-import Create from "./components/Create"
-import Statistics from "./components/Statistics"
-import Login from "./components/Login"
-import Register from './components/Register'
-import Team from './components/Team'
-import Rankings from './components/Rankings'
-import ListSchedules from './components/ListSchedules'
+import Home from './components/home/Home'
+import LandingPage from "./components/landing_page/LandingPage"
+import Scheduler from "./components/schedule/Scheduler"
+import Create from "./components/schedule/Create"
+import Login from "./components/user_authentication/Login"
+import Register from './components/user_authentication/Register'
+import Team from './components/dev/Team'
+import Rankings from './components/dev/Rankings'
+import ListSchedules from './components/manage_schedules/ListSchedules'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -75,7 +74,6 @@ export default function App() {
             <text className="Left">Welcome, {username}</text>
             <Link className="Center" to="/">SCHEDULION</Link>
             <Link to="/listSchedule" className="CalendarIcon"><Calendar3 /></Link>
-            <Link className="StatsIcon"to="/statistics"><GraphUp /></Link>
           </div>
           <Switch>
             <Route exact path="/"><LandingPage /></Route>
@@ -94,7 +92,6 @@ export default function App() {
             <Route path="/home"><Home /></Route>
             <Route path="/scheduling/:scheduleID"><Scheduler/></Route>
             <Route path="/create"><Create/></Route>
-            <Route path="/statistics"><Statistics /></Route>
             <Route path="/teams/:team"><Team /></Route>
             <Route path="/listSchedule">
               <ListSchedules 
