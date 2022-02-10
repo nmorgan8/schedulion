@@ -1,35 +1,37 @@
 import sys
+import numpy as np
 from kenpompy.utils import login
 import kenpompy.summary as kp
-sys.path.append("../kenpom_creds")
+# sys.path.append("../kenpom_creds")
 import kenpom_creds as cred
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
+### NOT COMPLETE. DO NOT USE ###
+
 browser = login(cred.login_email, cred.login_password)
 
 def plot_stats_over_time(stat_name, season):
-    stats_arr = []
+    stats = kp.get_efficiency(browser, season=season).sort_values(by=[stat_name])
+    stat_arr = stats[stat_name].values
+    teams_arr = stats['Team'].values
 
-    stats = kp.get_efficiency(browser, season=season)
-    stats_arr = stats[stat_name].values
-    
-    title = '%s vs %s' % (team1_name, team2_name)
-    plot_data(year_arr, team1_stats_arr, team2_stats_arr, 'year', stat_name, title, team1_name, team2_name)
+    title = '%s vs %s' % (stat_name, 'Teams')
+    plot_data(teams_arr, stat_arr, 'Teams', stat_name, title)
 
 
-def plot_data(x, y, x_label, y_label, plot_title, team1_name, team2_name):
+def plot_data(x, y, x_label, y_label, plot_title):
     fig = plt.figure()
     fig.suptitle(plot_title)
+
+    
 
     stats_plot = fig.add_subplot(1,1,1)
     stats_plot.set_xlabel(x_label)
     stats_plot.set_ylabel(y_label)
-
-    stats_plot.xaxis.set_major_locator(MaxNLocator(integer=True))
-
-    stats_plot.plot(x, y1, label=team1_name)
-    stats_plot.plot(x, y2, label=team2_name)
+    
+    x, y = zip(*sorted(zip(x, y)))
+    stats_plot.plot(x, y)
 
     stats_plot.legend()
 
