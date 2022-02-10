@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@coreui/react": "^4.0.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
     "@material-ui/icons": "^4.11.2",
     "@mdi/font": "^6.2.95",
     "@mui/material": "^5.0.3",

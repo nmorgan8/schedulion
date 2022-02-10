@@ -39,11 +39,13 @@ export default function App() {
 
   useEffect(() => {
     const fetchSchedules = () => {
-      return fetch('/api/list_schedules', {method: "GET"}
+      const scheduleUrl = '/api/list_schedules?id=' + user
+      return fetch(scheduleUrl, {method: "GET"}
     )
       .then(res => res.json())
       .then(json => {
         setSchedules(json)
+        console.log(json)
       })
       .catch(err => {
         console.log(err)

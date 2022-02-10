@@ -1,11 +1,12 @@
 import time
 import json
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
+from flask.ext.session import Session
 from flask_cors import CORS
 import pyrebase
 import os
 import firebase_admin
-from firebase_admin import firestore, credentials, auth
+from firebase_admin import firestore, credentials
 import net_predictor.NET_linear_regression as net
 import kenpompy.summary as kp
 from kenpompy.utils import login
@@ -14,6 +15,7 @@ import kenpompy.misc as kpmisc
 
 # create Flask server
 app = Flask(__name__)
+sess = Session()
 CORS(app)
 app.debug = True
 
@@ -25,13 +27,8 @@ firebase = firebase_admin.initialize_app(cred)
 pb = pyrebase.initialize_app(json.load(open('firebase_config.json')))
 db = firestore.client()
 
-# pyrebase authentication
-# pb = pyrebase.initialize_app(cred)
-# auth = pb.auth()
-
 # Firestore Collection References
-SCHEDULE_REF = db.collection('schedules')
-
+schedule_ref = pb.database().child('schedules')
 
 # routes 
 
@@ -48,13 +45,6 @@ def get_LMU_record():
     doc_ref_lmu = db.collection(u'organizations').document(u'LMU')
     retrieve_doc = doc_ref_lmu.get()
     return {'record': retrieve_doc.to_dict()}
-
-@app.route('/api/get_testuser')
-def get_testuser():
-    user = auth.get_user('xmu3kmWaNqXqpzEw1Em0P1U6vSA3')
-    email = auth.get_user_by_email('testuser@gmail.com')
-    all_users = auth.get_users()
-    return {'get user by user id': user.uid, 'get user by email': email.uid}, 200
 
 @app.route('/api/get_netrankings')
 def get_NET_rankings():
@@ -78,10 +68,11 @@ def create_schedule():
         e.g. json={'id': '1', 'title': 'Write a blog post'}
     """
     # TODO(andrewseaman): Ensure that all schedules contain all necessary fields
-
+    if not session['user']:
+        return "Error: No user logged in"
     try:
         schedule_id = request.json['id']
-        SCHEDULE_REF.document(schedule_id).set(request.json)
+        schedule_ref.document(schedule_id).set(request.json)
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
@@ -93,14 +84,17 @@ def read_schedule():
         todo : Return document that matches query ID.
         all_todos : Return all documents.
     """
+    user = pb.auth().sign_in_with_email_and_password(email, password)
+    if not session['user']:
+        return "Error: No user logged in"
     try:
         # Check if ID was passed to URL query
         schedule_id = request.args.get('id')
         if schedule_id:
-            schedule = SCHEDULE_REF.document(schedule_id).get()
+            schedule = schedule_ref.document(schedule_id).get()
             return jsonify(schedule.to_dict()), 200
         else:
-            all_schedules = [doc.to_dict() for doc in SCHEDULE_REF.stream()]
+            all_schedules = [doc.to_dict() for doc in schedule_ref.stream()]
             return jsonify(all_schedules), 200
     except Exception as e:
         return f"An Error Occured: {e}"
@@ -114,7 +108,7 @@ def update_schedule():
     """
     try:
         schedule_id = request.json['id']
-        SCHEDULE_REF.document(schedule_id).update(request.json)
+        schedule_ref.document(schedule_id).update(request.json)
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
@@ -127,7 +121,7 @@ def delete():
     try:
         # Check for ID in URL query
         schedule_id = request.args.get('id')
-        SCHEDULE_REF.document(schedule_id).delete()
+        schedule_ref.document(schedule_id).delete()
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
@@ -142,7 +136,7 @@ def signup():
     try:
         user = pb.auth().create_user_with_email_and_password(email, password)
         userID = user['localId']
-        print(user)
+        session['user'] = user['idToken']
         return {"message": f"Successfully created user {userID}", "userID": userID}, 200
     except Exception as e:
         return {"message": f"Error {e} creating user"}, 402
@@ -154,13 +148,13 @@ def token():
     password = request.json['password']
     try:
         user = pb.auth().sign_in_with_email_and_password(email, password)
-        jwt = user['idToken']
-        uid = user['localId']
+        session['user'] = user['idToken']
         return {'token': jwt, 'uid': uid}, 200
     except:
         return {'message': 'There was an error logging in'}, 400
 
 
-
 if __name__ == '__main__':
+    app.secret_key = "schedulion_super_secret_key"
+    sess.init_app(app)
     app.run(host='0.0.0.0')
