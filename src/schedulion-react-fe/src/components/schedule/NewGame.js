@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import './NewGame.css'
-import {Plus} from 'react-bootstrap-icons';
 
 export default function NewGame(props) {
     return (

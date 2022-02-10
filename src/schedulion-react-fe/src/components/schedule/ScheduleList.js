@@ -1,19 +1,11 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import './DataTable.css';
-import { cloneElement } from 'react';
-import { List, ListActions, Button, CreateButton, ExportButton, TopToolbar, Create } from 'react-admin';
 
-import IconEvent from '@material-ui/icons/Event';
-import {
-  GridToolbarContainer,
-  GridToolbarExport,
-  gridClasses,
-} from '@mui/x-data-grid';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 40 },
-  { field: 'firstName', headerName: 'Team Name', width: 200, editable: true },
+  { field: 'firstName', headerName: 'Schedule Name', width: 200, editable: true },
   { field: 'lastName', headerName: 'Date Scheduled', width: 200, editable: true, type: 'date' },
   {
     field: 'age',
@@ -23,10 +15,10 @@ const columns = [
   },
   {
     field: 'fullName',
-    headerName: 'Full name',
+    headerName: 'Number of Games',
     description: 'This column has a value getter and is not sortable.',
     sortable: true,
-    width: 160,
+    width: 200,
     valueGetter: (params) =>
       `${params.getValue(params.id, 'firstName') || ''} ${
         params.getValue(params.id, 'lastName') || ''
@@ -53,26 +45,24 @@ const rows = [
   { id: 16, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-function CustomToolbar() {
-  return (
-    <GridToolbarContainer className={gridClasses.toolbarContainer}>
-      <GridToolbarExport/>
-    </GridToolbarContainer>
-  );
-}
+// function CustomToolbar() {
+//   return (
+//     <GridToolbarContainer className={gridClasses.toolbarContainer}>
+//       <GridToolbarExport/>
+//     </GridToolbarContainer>
+//   );
+// }
 
-export default function CurrentSchedule() {
+export default function ScheduleList() {
   return (
-    <div className="Grid" style={{ height: '650px', width: '80%' }}>
+    <div className="GridSchedule" style={{ height: '700px', width: '80%' }}>
       <DataGrid
+        rowHeight={75}
         rows={rows}
         columns={columns}
         pageSize={15}
         rowsPerPageOptions={[5]}
         checkboxSelection
-        components={{
-          Toolbar: CustomToolbar,
-        }}
       />
     </div>
   );

@@ -1,8 +1,7 @@
 import React from 'react';
 import './Home.css';
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button'
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'react-bootstrap-icons';
 
 export default function Home() {
     return (

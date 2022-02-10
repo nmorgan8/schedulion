@@ -1,8 +1,11 @@
 import time
-from flask import Flask
+import json
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import pyrebase
 import os
 import firebase_admin
-from firebase_admin import firestore, auth
+from firebase_admin import firestore, credentials, auth
 import net_predictor.NET_linear_regression as net
 import kenpompy.summary as kp
 from kenpompy.utils import login
@@ -11,15 +14,24 @@ import kenpompy.misc as kpmisc
 
 # create Flask server
 app = Flask(__name__)
+CORS(app)
 app.debug = True
 
 # initialize connection to firebase db
-
 cwd = os.getcwd()
 private_key = os.path.join(cwd, 'firebase_creds.json')
-cred = firebase_admin.credentials.Certificate(private_key)
-firebase_admin.initialize_app(cred)
+cred = credentials.Certificate(private_key)
+firebase = firebase_admin.initialize_app(cred)
+pb = pyrebase.initialize_app(json.load(open('firebase_config.json')))
 db = firestore.client()
+
+# pyrebase authentication
+# pb = pyrebase.initialize_app(cred)
+# auth = pb.auth()
+
+# Firestore Collection References
+SCHEDULE_REF = db.collection('schedules')
+
 
 # routes 
 
@@ -55,6 +67,100 @@ def get_team_stats():
     table = kpmisc.get_pomeroy_ratings(browser)
     table = table.dropna()
     return table.to_dict('split')
+
+#Schedule CRUD
+
+@app.route('/add_schedule', methods=['POST'])
+def create_schedule():
+    """
+        create() : Add document to Firestore collection with request body.
+        Ensure you pass a custom ID as part of json body in post request,
+        e.g. json={'id': '1', 'title': 'Write a blog post'}
+    """
+    # TODO(andrewseaman): Ensure that all schedules contain all necessary fields
+
+    try:
+        schedule_id = request.json['id']
+        SCHEDULE_REF.document(schedule_id).set(request.json)
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+@app.route('/api/list_schedules', methods=['GET'])
+def read_schedule():
+    """
+        read() : Fetches documents from Firestore collection as JSON.
+        todo : Return document that matches query ID.
+        all_todos : Return all documents.
+    """
+    try:
+        # Check if ID was passed to URL query
+        schedule_id = request.args.get('id')
+        if schedule_id:
+            schedule = SCHEDULE_REF.document(schedule_id).get()
+            return jsonify(schedule.to_dict()), 200
+        else:
+            all_schedules = [doc.to_dict() for doc in SCHEDULE_REF.stream()]
+            return jsonify(all_schedules), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+@app.route('/update_schedule', methods=['POST', 'PUT'])
+def update_schedule():
+    """
+        update() : Update document in Firestore collection with request body.
+        Ensure you pass a custom ID as part of json body in post request,
+        e.g. json={'id': '1', 'title': 'Write a blog post today'}
+    """
+    try:
+        schedule_id = request.json['id']
+        SCHEDULE_REF.document(schedule_id).update(request.json)
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+@app.route('/delete_schedule', methods=['GET', 'DELETE'])
+def delete():
+    """
+        delete() : Delete a document from Firestore collection.
+    """
+    try:
+        # Check for ID in URL query
+        schedule_id = request.args.get('id')
+        SCHEDULE_REF.document(schedule_id).delete()
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+#Api route to sign up a new user
+@app.route('/api/signup', methods=['POST'], strict_slashes=False)
+def signup():
+    email = request.json['email']
+    password = request.json['password']
+    if email is None or password is None:
+        return {'message': 'Error missing email or password'}, 401
+    try:
+        user = pb.auth().create_user_with_email_and_password(email, password)
+        userID = user['localId']
+        print(user)
+        return {"message": f"Successfully created user {userID}", "userID": userID}, 200
+    except Exception as e:
+        return {"message": f"Error {e} creating user"}, 402
+
+#Api route to geta new token for a valid user
+@app.route('/api/token', methods=['POST'], strict_slashes=False)
+def token():
+    email = request.json['email']
+    password = request.json['password']
+    try:
+        user = pb.auth().sign_in_with_email_and_password(email, password)
+        jwt = user['idToken']
+        uid = user['localId']
+        return {'token': jwt, 'uid': uid}, 200
+    except:
+        return {'message': 'There was an error logging in'}, 400
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')

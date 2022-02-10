@@ -1,6 +1,5 @@
 import React from "react";
 import './LandingPage.css';
-import { CButton } from '@coreui/react'
 
 const LandingPage = () => {
     return (

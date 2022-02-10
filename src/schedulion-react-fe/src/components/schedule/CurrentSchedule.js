@@ -1,13 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { cloneElement } from 'react';
-import { List, ListActions, Button, CreateButton, ExportButton, TopToolbar, Create } from 'react-admin';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import { Pencil, Download, CalendarPlus, Files, Trash }from 'react-bootstrap-icons';
-import ReactTooltip from 'react-tooltip';
 import './DataTable.css';
 
-import IconEvent from '@material-ui/icons/Event';
 import {
   GridToolbarContainer,
   GridToolbarExport,
@@ -16,7 +10,7 @@ import {
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 40 },
-  { field: 'firstName', headerName: 'Schedule Name', width: 200, editable: true },
+  { field: 'firstName', headerName: 'Team Name', width: 200, editable: true },
   { field: 'lastName', headerName: 'Date Scheduled', width: 200, editable: true, type: 'date' },
   {
     field: 'age',
@@ -26,10 +20,10 @@ const columns = [
   },
   {
     field: 'fullName',
-    headerName: 'Number of Games',
+    headerName: 'Full name',
     description: 'This column has a value getter and is not sortable.',
     sortable: true,
-    width: 200,
+    width: 160,
     valueGetter: (params) =>
       `${params.getValue(params.id, 'firstName') || ''} ${
         params.getValue(params.id, 'lastName') || ''
@@ -56,24 +50,26 @@ const rows = [
   { id: 16, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-// function CustomToolbar() {
-//   return (
-//     <GridToolbarContainer className={gridClasses.toolbarContainer}>
-//       <GridToolbarExport/>
-//     </GridToolbarContainer>
-//   );
-// }
-
-export default function ScheduleList() {
+function CustomToolbar() {
   return (
-    <div className="GridSchedule" style={{ height: '700px', width: '80%' }}>
+    <GridToolbarContainer className={gridClasses.toolbarContainer}>
+      <GridToolbarExport/>
+    </GridToolbarContainer>
+  );
+}
+
+export default function CurrentSchedule() {
+  return (
+    <div className="Grid" style={{ height: '650px', width: '80%' }}>
       <DataGrid
-        rowHeight={75}
         rows={rows}
         columns={columns}
         pageSize={15}
         rowsPerPageOptions={[5]}
         checkboxSelection
+        components={{
+          Toolbar: CustomToolbar,
+        }}
       />
     </div>
   );
