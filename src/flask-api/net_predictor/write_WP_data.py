@@ -4,7 +4,7 @@ import kenpompy.summary as kpsum
 import kenpompy.team as kpteam
 import pandas as pd
 
-browser = utils.login(cred.login_email, cred.login_password)
+browser = utils.login(cred.email, cred.password)
 training_season = 2020  # Choose which year's data the model is trained on
 testing_season = 2021   # Choose which year's data the model is tested on
 
