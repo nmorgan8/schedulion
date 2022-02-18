@@ -5,39 +5,37 @@ import './NewGame.css'
 
 export default function NewGame(props) {
     return (
-      <div className="NewGame">
-      <Form>
-  <Row>
-    <Col>
-    <FloatingLabel controlId="floatingSelect" label="Opponent">
-  <Form.Select>
-    <option>Select</option>
-    <option value="1">Gonzaga</option>
-    <option value="2">Pepperdine</option>
-    <option value="3">USF</option>
-  </Form.Select>
-</FloatingLabel>
-    </Col>
-    <Col>
-    <FloatingLabel label="Game Day">
-      <Form.Control type="date" name="dob" placeholder="Date of Game" />
-    </FloatingLabel>
-    </Col>
-    <Col>
-    <FloatingLabel label="Notes">
-    <Form.Control type="textarea" name="notes" placeholder="Notes" />
-    </FloatingLabel>
-    </Col>
-    <Col xs={1}>
-    <Button variant="primary" type="submit" ClassName="SubmitButton">
-    Submit
-  </Button>
-
-    </Col>
-
-  </Row>
-</Form>
-      </div>
+  <div className="NewGame">
+    <Form>
+      <Row>
+        <Col>
+          <FloatingLabel controlId="floatingSelect" label="Opponent">
+            <Form.Select>
+              <option>Select</option>
+              <option value="1">Gonzaga</option>
+              <option value="2">Pepperdine</option>
+              <option value="3">USF</option>
+            </Form.Select>
+          </FloatingLabel>
+        </Col>
+        <Col>
+          <FloatingLabel label="Game Day">
+            <Form.Control type="date" name="dob" placeholder="Date of Game" />
+          </FloatingLabel>
+        </Col>
+        <Col>
+          <FloatingLabel label="Notes">
+            <Form.Control type="textarea" name="notes" placeholder="Notes" />
+          </FloatingLabel>
+        </Col>
+        <Col xs={1}>
+          <Button variant="primary" type="submit" ClassName="SubmitButton">
+            Submit
+          </Button>
+        </Col>
+      </Row>
+    </Form>
+  </div>
     );
 }
 

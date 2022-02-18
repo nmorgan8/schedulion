@@ -38,19 +38,27 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const fetchSchedules = () => {
-      return fetch('/api/list_schedules', {method: "GET"}
-    )
-      .then(res => res.json())
-      .then(json => {
-        setSchedules(json)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    const fetchSchedules = (body) => {
+      if ({user} != undefined) {
+        return fetch(`http://localhost:5000/list_schedules`, {
+          'method': 'GET',
+          headers : {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        })
+        .then(res => res.json())
+        .then(json => {
+          setSchedules(json)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      }
     }
-    fetchSchedules();
-  }, []);
+    fetchSchedules({user});
+  }, [user]);
+
 
   useEffect(() => {
     if (schedules !== null) {
@@ -71,7 +79,6 @@ export default function App() {
           <div>
             <Link to="/home" className="HomeIcon"><HouseDoor /></Link>
             <Link to="/login" className="PersonIcon" ><Person /></Link>
-            <text className="Left">Welcome, {username}</text>
             <Link className="Center" to="/">SCHEDULION</Link>
             <Link to="/listSchedule" className="CalendarIcon"><Calendar3 /></Link>
           </div>
@@ -97,6 +104,7 @@ export default function App() {
               <ListSchedules 
               schedulesLoading={schedulesLoading}
               schedules={schedules}
+              user = {user}
               />
             </Route>
             <Route path="/matchup">

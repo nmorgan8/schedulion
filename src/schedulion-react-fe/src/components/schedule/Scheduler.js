@@ -2,7 +2,7 @@ import * as React from 'react';
 import './DataTable.css';
 import './Scheduler.css';
 import { Link } from 'react-router-dom';
-import { CalendarPlus }from 'react-bootstrap-icons';
+import { CalendarPlus } from 'react-bootstrap-icons';
 import ReactTooltip from 'react-tooltip';
 import ScheduleList from './ScheduleList';
 import './Create.css';

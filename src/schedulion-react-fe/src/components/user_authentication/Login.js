@@ -27,7 +27,6 @@ function Login({user, setUser}) {
   }
 
   useEffect(() => {
-    console.log(user)
     if (user) history.replace("/listSchedule");
   }, [user])
 

@@ -11,6 +11,8 @@ import kenpompy.summary as kp
 from kenpompy.utils import login
 from net_predictor.kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "netpredictor" folder 
 import kenpompy.misc as kpmisc
+from datetime import datetime
+
 
 # create Flask server
 app = Flask(__name__)
@@ -31,7 +33,6 @@ db = firestore.client()
 
 # Firestore Collection References
 SCHEDULE_REF = db.collection('schedules')
-
 
 # routes 
 
@@ -70,7 +71,7 @@ def get_team_stats():
 
 #Schedule CRUD
 
-@app.route('/add_schedule', methods=['POST'])
+@app.route('/add_schedule', methods=['POST'], strict_slashes=False)
 def create_schedule():
     """
         create() : Add document to Firestore collection with request body.
@@ -80,13 +81,27 @@ def create_schedule():
     # TODO(andrewseaman): Ensure that all schedules contain all necessary fields
 
     try:
-        schedule_id = request.json['id']
-        SCHEDULE_REF.document(schedule_id).set(request.json)
-        return jsonify({"success": True}), 200
-    except Exception as e:
-        return f"An Error Occured: {e}"
+        # TODO(andrewseaman): Ensure that a schedule with the same name does not already exist
+        scheduleName = request.json['scheduleName']
+        gameNumber = request.json['gameNumber']
+        uID = request.json['user']
+        currentTime = datetime.now()
 
-@app.route('/api/list_schedules', methods=['GET'])
+        scheduleRef = db.collection('all_schedules').document(uID).collection('schedules').document(scheduleName)
+        scheduleData = {
+            u'gameTotal' : gameNumber,
+            u'gamesLeft' : u'0',
+            u'modified' : currentTime,
+            u'name' : scheduleName
+        }
+        scheduleRef.set(scheduleData, merge=True)
+
+        return {"message": f"Successfully created new schedule {scheduleName} with {gameNumber} games"}, 200
+    except Exception as e:
+        return {'message': f'Error {e} occured making schedule'}, 400
+
+
+@app.route('/list_schedules', methods=['GET'])
 def read_schedule():
     """
         read() : Fetches documents from Firestore collection as JSON.
@@ -94,6 +109,7 @@ def read_schedule():
         all_todos : Return all documents.
     """
     try:
+
         # Check if ID was passed to URL query
         schedule_id = request.args.get('id')
         if schedule_id:
