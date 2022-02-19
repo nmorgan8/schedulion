@@ -16,8 +16,8 @@ const COLUMN_LIST = [
   
 function ListSchedules({schedules, schedulesLoading, user}) {
     useEffect(() => {
-        if (!user) history.replace("/listSchedule")
-      }, [user])
+        if (!user) history.replace("/login")
+      }, [])
 
     const history = useHistory()
 

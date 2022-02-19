@@ -116,7 +116,9 @@ def read_schedule():
             schedule = SCHEDULE_REF.document(schedule_id).get()
             return jsonify(schedule.to_dict()), 200
         else:
-            all_schedules = [doc.to_dict() for doc in SCHEDULE_REF.stream()]
+            uID = request.args.get('uID')
+            user_schedules = db.collection('all_schedules').document(uID).collection('schedules')
+            all_schedules = [doc.to_dict() for doc in user_schedules.stream()]
             return jsonify(all_schedules), 200
     except Exception as e:
         return f"An Error Occured: {e}"

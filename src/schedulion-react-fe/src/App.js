@@ -37,26 +37,46 @@ export default function App() {
     fetchRankings();
   }, []);
 
+  // useEffect(() => {
+  //   const fetchSchedules = (body) => {
+  //     URL = "http://localhost:5000/list_schedules" + "?uID=" + body.user
+  //     if ({user} != undefined) {
+  //       return fetch(`http://localhost:5000/list_schedules`, {
+  //         'method': 'GET',
+  //         headers : {
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify(body)
+  //       })
+  //       .then(res => res.json())
+  //       .then(d => console.log(d))
+  //       .then(json => {
+  //         setSchedules(json)
+  //       })
+  //       .catch(err => {
+  //         console.log(err)
+  //       })
+  //     }
+  //   }
+  //   fetchSchedules({user});
+  // }, [user]);
+
   useEffect(() => {
     const fetchSchedules = (body) => {
-      if ({user} != undefined) {
-        return fetch(`http://localhost:5000/list_schedules`, {
-          'method': 'GET',
-          headers : {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(body)
-        })
-        .then(res => res.json())
-        .then(json => {
-          setSchedules(json)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-      }
+      URL = "http://localhost:5000/list_schedules" + "?uID=" + body.user
+      return fetch(URL, {method: "GET"}
+    )
+      .then(res => res.json())
+      .then(json => {
+        setSchedules(json)
+      })
+      .catch(err => {
+        console.log(err)
+      })
     }
-    fetchSchedules({user});
+    if (user) {
+      fetchSchedules({user});
+    }
   }, [user]);
 
 
