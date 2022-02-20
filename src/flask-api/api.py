@@ -136,10 +136,9 @@ def delete():
     """
     try:
         uID = request.args.get('uID')
-        # Check for ID in URL query
         schedule_id = request.args.get('scheduleID')
-        SCHEDULE_REF.document(schedule_id).delete()
-        return jsonify({"success": True}), 200
+        db.collection('all_schedules').document(uID).collection('schedules').document(schedule_id).delete()
+        return jsonify({"message": f"Successfully deleted schedule {schedule_id} from {uID}"}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
 

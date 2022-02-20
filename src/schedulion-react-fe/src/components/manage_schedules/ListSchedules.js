@@ -6,13 +6,9 @@ import { DataGrid } from '@mui/x-data-grid';
 import '../schedule/DataTable.css';
 import loader from '../images/loader.gif'
 import { CalendarPlus } from 'react-bootstrap-icons';
+import { Button } from '@material-ui/core';
 
-const COLUMN_LIST = [
-    { field: 'name', headerName: 'Schedule Name', width: 200},
-    { field: 'modified', headerName: 'Last Modified', width: 200, type: 'date' },
-    { field: 'gameTotal', headerName: 'Total Season Games', width: 225}, 
-    { field: 'gamesLeft', headerName: 'Unscheduled Games', width: 225} 
-  ];
+
 
 function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
     const history = useHistory()
@@ -30,28 +26,54 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
         setIsModalOpen(false)
     }
 
-    function redirectToSchedule(event) {
-        const selectedSchedule = event.row.id
-        const url = "/scheduling/" + selectedSchedule
-        history.push(url)
+    const deleteSchedule = (user, scheduleName) => {
+        scheduleName = scheduleName.replace(" ", "%20")
+        URL = "http://localhost:5000/delete_schedule" + "?uID=" + user + "&scheduleID=" + scheduleName
+        console.log(URL)
+        return fetch(URL, {method: "DELETE"}
+      )
+        .then(res => res.json())
+        .then(d => console.log(d))
+        .catch(err => {
+          console.log(err)
+        })
     }
-
-    // const deleteSchedule = ({user, scheduleName}) => {
-    //     URL = "http://localhost:5000/delete_schedule" + "?uID=" + body.user + "?scheduleID=" + body.scheduleName
-    //     return fetch(URL, {method: "DELETE"}
-    //   )
-    //     .then(res => res.json())
-    //     .then(json => {
-    //       setSchedules(json)
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-    // }
 
     const handleGetRowID = (e) => {
         return e.name
     }
+
+    const renderDeleteButton = (params) => {
+        return (
+            <strong>
+                <Button
+                    variant="contained"
+                    size="small"
+                    style={{ margin: 32}}
+                    onClick={() => {
+                        deleteSchedule(user, params.id)
+                    }}
+                >
+                    Delete
+                </Button>
+            </strong>
+        )
+    }
+    
+    
+    const COLUMN_LIST = [
+        { field: 'name', headerName: 'Schedule Name', width: 200},
+        { field: 'modified', headerName: 'Last Modified', width: 200, type: 'date' },
+        { field: 'gameTotal', headerName: 'Total Season Games', width: 225}, 
+        { field: 'gamesLeft', headerName: 'Unscheduled Games', width: 225},
+        { 
+            field: 'deleteSchedule', 
+            headerName: 'Delete Schedule', 
+            width: 255,
+            renderCell: renderDeleteButton,
+            disableClickEventBubbling: true
+        }
+      ];
     
     return (
         schedulesLoading ?
@@ -75,7 +97,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
                 getRowId={handleGetRowID}
                 pageSize={15}
                 rowsPerPageOptions={[5]}
-                onCellClick={e=>redirectToSchedule(e)}
             />
         </div>
     );
