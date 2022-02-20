@@ -10,11 +10,12 @@ import Register from './components/user_authentication/Register'
 import Team from './components/dev/Team'
 import Rankings from './components/dev/Rankings'
 import ListSchedules from './components/manage_schedules/ListSchedules'
+import { useLocalStorage } from './components/tools/useLocalStorage'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useLocalStorage("user", "")
   const [rankingList, setRankingList] = useState(null)
   const [rankingsLoading, setRankingsLoading] = useState(true)
   const [schedulesLoading, setSchedulesLoading] = useState(true)
@@ -66,6 +67,7 @@ export default function App() {
       setRankingsLoading(false)
     }
   }, [rankingList])
+
 
   return (
     <div className="App">

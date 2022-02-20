@@ -6,7 +6,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import '../schedule/DataTable.css';
 import loader from '../images/loader.gif'
 import { CalendarPlus } from 'react-bootstrap-icons';
-import { Db } from 'mongodb';
 
 const COLUMN_LIST = [
     { field: 'name', headerName: 'Schedule Name', width: 200},
@@ -37,18 +36,18 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
         history.push(url)
     }
 
-    const deleteSchedule = ({user, scheduleName}) => {
-        URL = "http://localhost:5000/delete_schedule" + "?uID=" + body.user + "?scheduleID=" + body.scheduleName
-        return fetch(URL, {method: "DELETE"}
-      )
-        .then(res => res.json())
-        .then(json => {
-          setSchedules(json)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
+    // const deleteSchedule = ({user, scheduleName}) => {
+    //     URL = "http://localhost:5000/delete_schedule" + "?uID=" + body.user + "?scheduleID=" + body.scheduleName
+    //     return fetch(URL, {method: "DELETE"}
+    //   )
+    //     .then(res => res.json())
+    //     .then(json => {
+    //       setSchedules(json)
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+    // }
 
     const handleGetRowID = (e) => {
         return e.name
