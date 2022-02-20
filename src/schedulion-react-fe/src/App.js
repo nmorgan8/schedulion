@@ -15,12 +15,23 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function App() {
   const [user, setUser] = useState(null)
-  const [username, setUsername] = useState("Andrew")
   const [rankingList, setRankingList] = useState(null)
   const [rankingsLoading, setRankingsLoading] = useState(true)
   const [schedulesLoading, setSchedulesLoading] = useState(true)
   const [schedules, setSchedules] = useState(null)
 
+  const fetchSchedules = (body) => {
+    URL = "http://localhost:5000/list_schedules" + "?uID=" + body.user
+    return fetch(URL, {method: "GET"}
+  )
+    .then(res => res.json())
+    .then(json => {
+      setSchedules(json)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 
   useEffect(() => {
     const fetchRankings = () => {
@@ -37,43 +48,7 @@ export default function App() {
     fetchRankings();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchSchedules = (body) => {
-  //     URL = "http://localhost:5000/list_schedules" + "?uID=" + body.user
-  //     if ({user} != undefined) {
-  //       return fetch(`http://localhost:5000/list_schedules`, {
-  //         'method': 'GET',
-  //         headers : {
-  //           'Content-Type': 'application/json'
-  //         },
-  //         body: JSON.stringify(body)
-  //       })
-  //       .then(res => res.json())
-  //       .then(d => console.log(d))
-  //       .then(json => {
-  //         setSchedules(json)
-  //       })
-  //       .catch(err => {
-  //         console.log(err)
-  //       })
-  //     }
-  //   }
-  //   fetchSchedules({user});
-  // }, [user]);
-
   useEffect(() => {
-    const fetchSchedules = (body) => {
-      URL = "http://localhost:5000/list_schedules" + "?uID=" + body.user
-      return fetch(URL, {method: "GET"}
-    )
-      .then(res => res.json())
-      .then(json => {
-        setSchedules(json)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
     if (user) {
       fetchSchedules({user});
     }
@@ -125,6 +100,7 @@ export default function App() {
               schedulesLoading={schedulesLoading}
               schedules={schedules}
               user = {user}
+              refreshSchedules = {fetchSchedules}
               />
             </Route>
             <Route path="/matchup">

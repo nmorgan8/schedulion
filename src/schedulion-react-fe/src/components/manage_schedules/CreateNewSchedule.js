@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function CreateNewSchedule({user}) {
+export default function CreateNewSchedule({user, refreshSchedules}) {
     const [scheduleName, setScheduleName] = useState("")
     const [gameNumber, setGameNumber] = useState(0)
 
@@ -23,6 +23,7 @@ export default function CreateNewSchedule({user}) {
         createSchedule({scheduleName, gameNumber, user})
         setScheduleName('')
         setGameNumber('')
+        refreshSchedules({user})
     }
 
 

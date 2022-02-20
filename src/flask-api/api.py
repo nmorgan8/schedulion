@@ -105,21 +105,13 @@ def create_schedule():
 def read_schedule():
     """
         read() : Fetches documents from Firestore collection as JSON.
-        todo : Return document that matches query ID.
         all_todos : Return all documents.
     """
     try:
-
-        # Check if ID was passed to URL query
-        schedule_id = request.args.get('id')
-        if schedule_id:
-            schedule = SCHEDULE_REF.document(schedule_id).get()
-            return jsonify(schedule.to_dict()), 200
-        else:
-            uID = request.args.get('uID')
-            user_schedules = db.collection('all_schedules').document(uID).collection('schedules')
-            all_schedules = [doc.to_dict() for doc in user_schedules.stream()]
-            return jsonify(all_schedules), 200
+        uID = request.args.get('uID')
+        user_schedules = db.collection('all_schedules').document(uID).collection('schedules')
+        all_schedules = [doc.to_dict() for doc in user_schedules.stream()]
+        return jsonify(all_schedules), 200
     except Exception as e:
         return f"An Error Occured: {e}"
 
@@ -143,8 +135,9 @@ def delete():
         delete() : Delete a document from Firestore collection.
     """
     try:
+        uID = request.args.get('uID')
         # Check for ID in URL query
-        schedule_id = request.args.get('id')
+        schedule_id = request.args.get('scheduleID')
         SCHEDULE_REF.document(schedule_id).delete()
         return jsonify({"success": True}), 200
     except Exception as e:

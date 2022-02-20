@@ -6,6 +6,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import '../schedule/DataTable.css';
 import loader from '../images/loader.gif'
 import { CalendarPlus } from 'react-bootstrap-icons';
+import { Db } from 'mongodb';
 
 const COLUMN_LIST = [
     { field: 'name', headerName: 'Schedule Name', width: 200},
@@ -13,15 +14,14 @@ const COLUMN_LIST = [
     { field: 'gameTotal', headerName: 'Total Season Games', width: 225}, 
     { field: 'gamesLeft', headerName: 'Unscheduled Games', width: 225} 
   ];
-  
-function ListSchedules({schedules, schedulesLoading, user}) {
+
+function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
+    const history = useHistory()
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    
     useEffect(() => {
         if (!user) history.replace("/login")
       }, [])
-
-    const history = useHistory()
-
-    const [isModalOpen, setIsModalOpen] = useState(false)
     
     const setIsModalOpenToTrue = () => {
         setIsModalOpen(true)
@@ -35,6 +35,19 @@ function ListSchedules({schedules, schedulesLoading, user}) {
         const selectedSchedule = event.row.id
         const url = "/scheduling/" + selectedSchedule
         history.push(url)
+    }
+
+    const deleteSchedule = ({user, scheduleName}) => {
+        URL = "http://localhost:5000/delete_schedule" + "?uID=" + body.user + "?scheduleID=" + body.scheduleName
+        return fetch(URL, {method: "DELETE"}
+      )
+        .then(res => res.json())
+        .then(json => {
+          setSchedules(json)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     const handleGetRowID = (e) => {
@@ -53,6 +66,7 @@ function ListSchedules({schedules, schedulesLoading, user}) {
                 <button onClick={setModalIsOpenToFalse}>x</button>
                 <CreateNewSchedule 
                     user = {user}
+                    refreshSchedules = {refreshSchedules}
                 />
             </Modal>
             <DataGrid
