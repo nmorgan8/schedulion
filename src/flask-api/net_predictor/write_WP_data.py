@@ -54,7 +54,7 @@ for team_name in valid_teams_test:
   team_stats_test = stats_test[stats_test['Team'] == team_name].drop(['Conference', 'Team'], axis=1)
   team_stats_test.columns = 'team_' + team_stats_test.columns[0:]
 
-  # Rename opponent stats to have the prefix 'oponnent_'
+  # Rename opponent stats to have the prefix 'opponent_'
   opponent_stats_test = stats_test.drop(['Conference'], axis=1)
   opponent_stats_test.columns = opponent_stats_test.columns[:1].union('opponent_' + opponent_stats_test.columns[1:])
   opponent_stats_test = opponent_stats_test.rename(columns={'Team': 'Opponent Name'})

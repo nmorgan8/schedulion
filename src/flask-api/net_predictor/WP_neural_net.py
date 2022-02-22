@@ -73,6 +73,9 @@ with torch.no_grad():
   accuracy_train = (y_train_pred_class.eq(y_train).sum())/float(y_train.shape[0])
   accuracy_test = (y_test_pred_class.eq(y_test).sum())/float(y_test.shape[0])
 
+print(accuracy_test)
+
+
 # Determine accuracy using rounded accuracy
 print('Neural Net model\'s train and test accuracy')
 print("Training Accuracy:", accuracy_train.item()) # 73.1
