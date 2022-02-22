@@ -10,6 +10,7 @@ import Register from './components/user_authentication/Register'
 import Team from './components/dev/Team'
 import Rankings from './components/dev/Rankings'
 import ListSchedules from './components/manage_schedules/ListSchedules'
+import TeamCard from './components/schedule/TeamCard.js'
 import { useLocalStorage } from './components/tools/useLocalStorage'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -20,6 +21,8 @@ export default function App() {
   const [rankingsLoading, setRankingsLoading] = useState(true)
   const [schedulesLoading, setSchedulesLoading] = useState(true)
   const [schedules, setSchedules] = useState(null)
+  const [games, setGames] = useState(null)
+
 
   const fetchSchedules = (body) => {
     URL = "http://localhost:5000/list_schedules" + "?uID=" + body.user
@@ -94,7 +97,11 @@ export default function App() {
               />
             </Route>
             <Route path="/home"><Home /></Route>
-            <Route path="/scheduling/:scheduleID"><Scheduler/></Route>
+            <Route path="/scheduling/:schedule">
+              <Scheduler
+                user = {user}
+              />
+            </Route>
             <Route path="/create"><Create/></Route>
             <Route path="/teams/:team"><Team /></Route>
             <Route path="/listSchedule">
@@ -109,6 +116,13 @@ export default function App() {
               <Rankings
               predictedRankings={rankingList}
               rankingsLoading={rankingsLoading}
+              />
+            </Route>
+            <Route path="/teamCard">
+              <TeamCard 
+                teamName={"Gonzaga"}
+                score={33}
+                ranking={1}
               />
             </Route>
           </Switch>
