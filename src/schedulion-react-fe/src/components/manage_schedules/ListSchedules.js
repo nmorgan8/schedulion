@@ -8,8 +8,6 @@ import loader from '../images/loader.gif'
 import { CalendarPlus } from 'react-bootstrap-icons';
 import { Button } from '@material-ui/core';
 
-
-
 function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
     const history = useHistory()
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -39,8 +37,25 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
         })
     }
 
-    const handleGetRowID = (e) => {
-        return e.name
+    const editSchedule = (scheduleName) => {
+        history.replace("/scheduling/" + scheduleName)
+    }
+
+    const renderEditButton = (params) => {
+        return (
+            <strong>
+                <Button
+                    variant="contained"
+                    size="small"
+                    style={{ margin: 32}}
+                    onClick={() => {
+                        editSchedule(params.id)
+                    }}
+                >
+                    EDIT
+                </Button>
+            </strong>
+        )
     }
 
     const renderDeleteButton = (params) => {
@@ -60,19 +75,28 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
         )
     }
     
-    
+    const handleGetRowID = (e) => {
+        return e.name
+    }
+
     const COLUMN_LIST = [
         { field: 'name', headerName: 'Schedule Name', width: 200},
-        { field: 'modified', headerName: 'Last Modified', width: 200, type: 'date' },
         { field: 'gameTotal', headerName: 'Total Season Games', width: 225}, 
         { field: 'gamesLeft', headerName: 'Unscheduled Games', width: 225},
+        { 
+            field: 'editSchedule', 
+            headerName: 'Edit Schedule', 
+            width: 255,
+            renderCell: renderEditButton,
+            disableClickEventBubbling: true
+        }, 
         { 
             field: 'deleteSchedule', 
             headerName: 'Delete Schedule', 
             width: 255,
             renderCell: renderDeleteButton,
             disableClickEventBubbling: true
-        }
+        },   
       ];
     
     return (
