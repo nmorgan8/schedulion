@@ -8,7 +8,7 @@ from sklearn.metrics import precision_recall_fscore_support
 complete_data_train = pd.read_csv('WP_data_train.csv')
 complete_data_test = pd.read_csv('WP_data_test.csv')
 
-columns_to_drop = ['Result', 'Opponent Name', 'Location_Semi-Away', 'Location_Semi-Home']
+columns_to_drop = ['Result', 'Opponent Name', 'Location_Semi-Away', 'Location_Semi-Home', 'Team']
 label_name = 'Result'
 
 # Get the names of the features based on columns_to_drop
@@ -27,11 +27,12 @@ else:
 class Net(nn.Module):
     def __init__(self, num_input, num_output):
       super().__init__()
-      self.fc1 = nn.Linear(num_input, num_output)
+      self.fc1 = nn.Linear(num_input, 4)
+      self.fc2 = nn.Linear(4, num_output)
       self.out = nn.Sigmoid()
 
     def forward(self, x):
-      x = self.out(self.fc1(x))
+      x = self.out(self.fc2(self.fc1(x)))
       return x
 
 model = Net(x_train.shape[1], 1).to(device)
@@ -90,3 +91,7 @@ print("Testing:")
 print("\tPrecision: ", precision_test) 
 print("\tRecall: ", recall_test) 
 print("\tf1: ", f1_test) 
+
+y_pred_df = pd.DataFrame(y_test_pred, columns=['Calculated_Win_Percentage'])
+y_pred_teams = pd.concat([y_pred_df, complete_data_test['Team'], complete_data_test['Opponent Name']], axis=1)
+print(y_pred_teams)

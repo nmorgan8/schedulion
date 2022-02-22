@@ -31,6 +31,7 @@ for team_name in valid_teams_train:
 
   team_stats_train = stats_train[stats_train['Team'] == team_name].drop(['Conference', 'Team'], axis=1)
   team_stats_train.columns = 'team_' + team_stats_train.columns[0:]
+  team_stats_train['Team Name'] = team_name
 
   # Rename opponent stats to have the prefix 'oponnent_'
   opponent_stats_train = stats_train.drop(['Conference'], axis=1)
@@ -53,6 +54,7 @@ for team_name in valid_teams_test:
 
   team_stats_test = stats_test[stats_test['Team'] == team_name].drop(['Conference', 'Team'], axis=1)
   team_stats_test.columns = 'team_' + team_stats_test.columns[0:]
+  team_stats_test['Team Name'] = team_name
 
   # Rename opponent stats to have the prefix 'oponnent_'
   opponent_stats_test = stats_test.drop(['Conference'], axis=1)
