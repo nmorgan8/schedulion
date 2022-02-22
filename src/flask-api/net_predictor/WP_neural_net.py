@@ -96,5 +96,7 @@ print("\tRecall: ", recall_test)
 print("\tf1: ", f1_test) 
 
 y_pred_df = pd.DataFrame(y_test_pred, columns=['Calculated_Win_Percentage'])
-y_pred_teams = pd.concat([y_pred_df, complete_data_test['Team'], complete_data_test['Opponent Name']], axis=1)
+location_list = [1 if complete_data_test['Location_Home'][i] == 1 else 0 for i in complete_data_test.index]
+y_pred_df["Home"] = location_list
+y_pred_teams = pd.concat([y_pred_df, complete_data_test['Team Name'], complete_data_test['Opponent Name']], axis=1)
 print(y_pred_teams)
