@@ -1,15 +1,15 @@
 import { Doughnut } from 'react-chartjs-2';
 
-const WinningPercentageChart = (team) => {
+const WinningPercentageChart = ({oppName, homeWP, oppWP}) => {
     return (
         <div>
             <Doughnut
                 data = {{
-                    labels: ['Loyola Marymount', 'Opponent'],
+                    labels: ['Loyola Marymount', oppName],
                     datasets: [
                         {
-                          label: ['Loyola Marymount', 'Opponent'],
-                          data: [50, 50],
+                          label: ['Loyola Marymount', oppName],
+                          data: [homeWP, oppWP],
                           // you can set indiviual colors for each bar
                           backgroundColor: [
                             'rgba(0, 255, 0, 0.6)',
