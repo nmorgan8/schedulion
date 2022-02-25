@@ -1,13 +1,13 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
-# from .kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "net_predictor" folder 
+from kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "net_predictor" folder 
 from kenpompy.utils import login
 import kenpompy.summary as kp
 import kenpompy.misc as kpmisc
 
 def run_regression():
-    browser = login("andrew.seamanco@gmail.com", "@Champ119")
+    browser = login(email, password)
     training_season = 2021  # Choose which year's data the model is trained on
     testing_season = 2022   # Choose which year's data the model is tested on
     stats_train = kp.get_efficiency(browser, season=training_season)
