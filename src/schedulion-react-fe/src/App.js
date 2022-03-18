@@ -9,7 +9,7 @@ import Register from './components/user_authentication/Register'
 import Team from './components/dev/Team'
 import Rankings from './components/dev/Rankings'
 import ListSchedules from './components/manage_schedules/ListSchedules'
-// import TeamCard from './components/schedule/TeamCard.js'
+import TeamCard from './components/schedule/TeamCard.js'
 import Teams from './components/schedule/Teams'
 
 import { useLocalStorage } from './components/tools/useLocalStorage'
@@ -108,6 +108,8 @@ export default function App() {
             <Route path="/scheduling/:schedule">
               <Scheduler
                 user = {user}
+                teams={games}
+                teamsLoading={gamesLoading}
               />
             </Route>
             <Route path="/create"><Create/></Route>

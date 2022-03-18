@@ -6,8 +6,9 @@ import { CalendarPlus } from 'react-bootstrap-icons';
 import ReactTooltip from 'react-tooltip';
 import ScheduleList from './ScheduleList';
 import './Create.css';
+import Teams from './Teams'
 
-export default function Scheduler() {
+export default function Scheduler({teams, teamsLoading}) {
   return (
     <div className="Create">
 
@@ -20,6 +21,10 @@ export default function Scheduler() {
               </ReactTooltip>
     </text>
     <ScheduleList/>
+    <Teams 
+      teams={teams}
+      teamsLoading={teamsLoading}
+    />
     </div>
   );
 }
