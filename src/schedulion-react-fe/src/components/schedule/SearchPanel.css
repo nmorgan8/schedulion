@@ -1,0 +1,30 @@
+.float-container {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.float-child-right {
+    width: 75%;
+    float: right;
+    padding-left: 2%
+
+}
+
+.float-child-left {
+    width: 25%;
+    float: left;
+    height: 800px;
+    background-color: #005B80;
+}
+
+
+.Page {
+  color: #545454;
+  background-color: #cfdae6;
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+  font-family: 'Open Sans', sans-serif;
+}

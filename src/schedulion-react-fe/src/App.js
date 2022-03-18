@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { HouseDoor, Calendar3, GraphUp, Person } from 'react-bootstrap-icons'
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
-import Home from './components/home/Home'
 import LandingPage from "./components/landing_page/LandingPage"
 import Scheduler from "./components/schedule/Scheduler"
 import Create from "./components/schedule/Create"
@@ -88,10 +87,9 @@ export default function App() {
       <header className="App-header">
         <BrowserRouter>
           <div>
-            <Link to="/home" className="HomeIcon"><HouseDoor /></Link>
-            <Link to="/login" className="PersonIcon" ><Person /></Link>
             <Link className="Center" to="/">SCHEDULION</Link>
-            <Link to="/listSchedule" className="CalendarIcon"><Calendar3 /></Link>
+            <Link to="/listSchedule" className="HomeIcon"><HouseDoor /></Link>
+            <Link to="/login" className="PersonIcon" ><Person /></Link>
           </div>
           <Switch>
             <Route exact path="/"><LandingPage /></Route>
@@ -107,7 +105,6 @@ export default function App() {
               setUser = {setUser}
               />
             </Route>
-            <Route path="/home"><Home /></Route>
             <Route path="/scheduling/:schedule">
               <Scheduler
                 user = {user}
@@ -115,7 +112,7 @@ export default function App() {
             </Route>
             <Route path="/create"><Create/></Route>
             <Route path="/listSchedule">
-              <ListSchedules 
+              <ListSchedules
               schedulesLoading={schedulesLoading}
               schedules={schedules}
               user = {user}

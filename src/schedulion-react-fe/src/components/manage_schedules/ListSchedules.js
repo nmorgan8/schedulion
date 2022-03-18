@@ -7,18 +7,19 @@ import '../schedule/DataTable.css';
 import loader from '../images/loader.gif'
 import { CalendarPlus } from 'react-bootstrap-icons';
 import { Button } from '@material-ui/core';
+import SearchPanel from '../schedule/SearchPanel';
 
 function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
     const history = useHistory()
     const [isModalOpen, setIsModalOpen] = useState(false)
-    
+
     useEffect(() => {
         if (!user) history.replace("/login")
       }, [])
-    
+
     const setIsModalOpenToTrue = () => {
         setIsModalOpen(true)
-    } 
+    }
 
     const setModalIsOpenToFalse=()=> {
         setIsModalOpen(false)
@@ -74,46 +75,51 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
             </strong>
         )
     }
-    
+
     const handleGetRowID = (e) => {
         return e.name
     }
 
     const COLUMN_LIST = [
         { field: 'name', headerName: 'Schedule Name', width: 200},
-        { field: 'gameTotal', headerName: 'Total Season Games', width: 225}, 
+        { field: 'gameTotal', headerName: 'Total Season Games', width: 225},
         { field: 'gamesLeft', headerName: 'Unscheduled Games', width: 225},
-        { 
-            field: 'editSchedule', 
-            headerName: 'Edit Schedule', 
+        {
+            field: 'editSchedule',
+            headerName: 'Edit Schedule',
             width: 255,
             renderCell: renderEditButton,
             disableClickEventBubbling: true
-        }, 
-        { 
-            field: 'deleteSchedule', 
-            headerName: 'Delete Schedule', 
+        },
+        {
+            field: 'deleteSchedule',
+            headerName: 'Delete Schedule',
             width: 255,
             renderCell: renderDeleteButton,
             disableClickEventBubbling: true
-        },   
+        },
       ];
-    
+
     return (
         schedulesLoading ?
         <img src={loader} alt="loading..." /> :
-        <div className="GridSchedule" style={{ height: '700px', width: '80%' }}>
-            <CalendarPlus onClick={setIsModalOpenToTrue}/>
-            <Modal 
-                isOpen={isModalOpen}
-                ariaHideApp={false}
-            >
-                <button onClick={setModalIsOpenToFalse}>x</button>
-                <CreateNewSchedule 
-                    user = {user}
-                    refreshSchedules = {refreshSchedules}
-                />
-            </Modal>
+        <div className='Page'>
+        <CalendarPlus onClick={setIsModalOpenToTrue}/>
+        <Modal
+            isOpen={isModalOpen}
+            ariaHideApp={false}
+        >
+            <button onClick={setModalIsOpenToFalse}>x</button>
+            <CreateNewSchedule
+                user = {user}
+                refreshSchedules = {refreshSchedules}
+            />
+        </Modal>
+        <div className='float-container'>
+        <div className='float-child-left'><SearchPanel/></div>
+        <div className='float-child-right'>
+        <div className="Grid" style={{ height: '700px', width: '100%' }}>
+
             <DataGrid
                 rowHeight={75}
                 columns={COLUMN_LIST}
@@ -122,6 +128,9 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
                 pageSize={15}
                 rowsPerPageOptions={[5]}
             />
+            </div>
+        </div>
+        </div>
         </div>
     );
 }

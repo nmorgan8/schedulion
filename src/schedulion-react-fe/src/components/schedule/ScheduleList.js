@@ -24,14 +24,16 @@ const columns = [
   //       params.getValue(params.id, 'lastName') || ''
   //     }`,
   // },
-  { field: "gameDate", headerName: "Game Date", width: 200 },
-  { field: "opponent", headerName: "Opponent", width: 200 },
+  { field: "gameDate", headerName: "Game Date", width: 200, editable: true, type: 'date' },
+  { field: "opponent", headerName: "Opponent", width: 200},
   { field: "score", headerName: "Predicted Score", width: 300 },
+  { field: "homeAway", headerName: "Home/Away", width: 200 },
+  { field: "quadrant", headerName: "Quadrant", width: 200 }
 ];
 
 const rows = [
-  { id: 1, gameDate: "1/1/2020", opponent: 'Gonzaga', score: 33 },
-  { id: 2, gameDate: "1/2/2020", opponent: 'BYU', score: 45 }
+  { id: 1, gameDate: "1/1/2020", opponent: 'Gonzaga', score: 33, homeAway:'Home', quadrant:50  },
+  // { id: 2, gameDate: "1/2/2020", opponent: 'BYU', score: 45 }
 ];
 
 export default function ScheduleList() {
