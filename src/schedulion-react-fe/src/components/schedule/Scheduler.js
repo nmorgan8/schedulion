@@ -7,8 +7,9 @@ import ReactTooltip from 'react-tooltip';
 import ScheduleList from './ScheduleList';
 import './Create.css';
 import SearchPanel from '../schedule/SearchPanel';
+import Teams from './Teams';
 
-export default function Scheduler() {
+export default function Scheduler({teams, teamsLoading}) {
   return (
     <div className="Create">
 
@@ -22,6 +23,10 @@ export default function Scheduler() {
     </text>
     <SearchPanel/>
     <ScheduleList/>
+    <Teams
+      teams={teams}
+      teamsLoading={teamsLoading}
+    />
     </div>
   );
 }
