@@ -16,9 +16,11 @@
 }
 
 .ScheduleList {
-  background-color: #005B80;
+  /* background-color: #005B80; background-color: #ffdfa3;*/
+  background-color: #ffdfa3;
 }
 
 .Page {
-  background-color: #cfdae6;
+  /* background-color: #cfdae6; */
+  background-color: #ffdfa3;
 }

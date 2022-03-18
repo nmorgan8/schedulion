@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
 import TeamCard from "./TeamCard";
 import loader from "../images/loader.gif";
+import orangeLoader from '../images/orange-loader.gif';
 
 export default function TeamCards({ teamsLoading, teams }) {
   const [teamCards, setTeamCards] = useState([]);
@@ -26,7 +27,7 @@ export default function TeamCards({ teamsLoading, teams }) {
   }, [teamsLoading]);
 
   return teamsLoading ? (
-    <img src={loader} alt="loading..." />
+    <img src={orangeLoader} alt="loading..." />
   ) : (
     <Grid container>
       {teamCards.map((element, index) => {

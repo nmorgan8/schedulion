@@ -6,6 +6,7 @@ import { CalendarPlus } from 'react-bootstrap-icons';
 import ReactTooltip from 'react-tooltip';
 import ScheduleList from './ScheduleList';
 import './Create.css';
+import SearchPanel from '../schedule/SearchPanel';
 
 export default function Scheduler() {
   return (
@@ -19,6 +20,7 @@ export default function Scheduler() {
                 Create
               </ReactTooltip>
     </text>
+    <SearchPanel/>
     <ScheduleList/>
     </div>
   );

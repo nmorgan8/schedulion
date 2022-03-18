@@ -14,13 +14,15 @@
     width: 25%;
     float: left;
     height: 800px;
-    background-color: #005B80;
+    /* background-color: #005B80; */
+    background-color: white;
 }
 
 
 .Page {
   color: #545454;
   background-color: #cfdae6;
+  /* background-color: #ffdfa3; */
   position: fixed;
   min-width: 100%;
   min-height: 100%;

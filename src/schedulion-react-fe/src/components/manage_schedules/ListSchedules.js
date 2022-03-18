@@ -116,7 +116,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
             />
         </Modal>
         <div className='float-container'>
-        <div className='float-child-left'><SearchPanel/></div>
+        {/* <div className='float-child-left'><SearchPanel/></div> */}
         <div className='float-child-right'>
         <div className="Grid" style={{ height: '700px', width: '100%' }}>
 
