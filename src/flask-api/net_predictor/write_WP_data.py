@@ -5,43 +5,46 @@ import kenpompy.team as kpteam
 import pandas as pd
 
 browser = utils.login(cred.email, cred.password)
-training_season = 2020  # Choose which year's data the model is trained on
+training_seasons = range(2015, 2021)  # Choose which years of data the model is trained on
 testing_season = 2021   # Choose which year's data the model is tested on
 
-valid_teams_train = kpteam.get_valid_teams(browser, season=training_season)
 valid_teams_test = kpteam.get_valid_teams(browser, season=testing_season)
 
-stats_train = kpsum.get_efficiency(browser, season=training_season)
 stats_test = kpsum.get_efficiency(browser, season=testing_season)
 
 complete_data_train = pd.DataFrame()
 complete_data_test = pd.DataFrame()
 
-valid_teams_train = [team for team in valid_teams_train if team[-1] != '*' and '&' not in team]
 valid_teams_test = [team for team in valid_teams_test if team[-1] != '*' and '&' not in team]
 
-for team_name in valid_teams_train:
-  team_win_loss_train = kpteam.get_schedule(browser, team=team_name, season=training_season)
+for training_season in training_seasons:
+  print(training_season)
+  valid_teams_train = kpteam.get_valid_teams(browser, season=training_season)
+  stats_train = kpsum.get_efficiency(browser, season=training_season)
+  valid_teams_train = [team for team in valid_teams_train if team[-1] != '*' and '&' not in team]
 
-  # Get a teams schedule by getting a dataframe with whether or not they won or lost, and the name of their opponent
-  team_win_loss_train = team_win_loss_train[team_win_loss_train['Opponent Name'].isin(valid_teams_train)][['Result', 'Opponent Name', 'Location']]
-  team_win_loss_train['Result'] = team_win_loss_train['Result'].apply(lambda x: x[:1])
-  team_win_loss_train['Result'] = team_win_loss_train['Result'].replace({'W': 1, 'L': 0})
-  team_win_loss_train = pd.get_dummies(team_win_loss_train, columns=['Location']) # One-Hot Encoding
+  for team_name in valid_teams_train:
+    team_win_loss_train = kpteam.get_schedule(browser, team=team_name, season=training_season)
 
-  team_stats_train = stats_train[stats_train['Team'] == team_name].drop(['Conference', 'Team'], axis=1)
-  team_stats_train.columns = 'team_' + team_stats_train.columns[0:]
-  team_stats_train['Team Name'] = team_name
+    # Get a teams schedule by getting a dataframe with whether or not they won or lost, and the name of their opponent
+    team_win_loss_train = team_win_loss_train[team_win_loss_train['Opponent Name'].isin(valid_teams_train)][['Result', 'Opponent Name', 'Location']]
+    team_win_loss_train['Result'] = team_win_loss_train['Result'].apply(lambda x: x[:1])
+    team_win_loss_train['Result'] = team_win_loss_train['Result'].replace({'W': 1, 'L': 0})
+    team_win_loss_train = pd.get_dummies(team_win_loss_train, columns=['Location']) # One-Hot Encoding
 
-  # Rename opponent stats to have the prefix 'oponnent_'
-  opponent_stats_train = stats_train.drop(['Conference'], axis=1)
-  opponent_stats_train.columns = opponent_stats_train.columns[:1].union('opponent_' + opponent_stats_train.columns[1:])
-  opponent_stats_train = opponent_stats_train.rename(columns={'Team': 'Opponent Name'})
+    team_stats_train = stats_train[stats_train['Team'] == team_name].drop(['Conference', 'Team'], axis=1)
+    team_stats_train.columns = 'team_' + team_stats_train.columns[0:]
+    team_stats_train['Team Name'] = team_name
 
-  combined_stats_train = pd.merge(team_win_loss_train, opponent_stats_train, on=['Opponent Name'])
-  combined_stats_train[team_stats_train.columns] = team_stats_train.iloc[0]
+    # Rename opponent stats to have the prefix 'oponnent_'
+    opponent_stats_train = stats_train.drop(['Conference'], axis=1)
+    opponent_stats_train.columns = opponent_stats_train.columns[:1].union('opponent_' + opponent_stats_train.columns[1:])
+    opponent_stats_train = opponent_stats_train.rename(columns={'Team': 'Opponent Name'})
 
-  complete_data_train = complete_data_train.append(combined_stats_train)
+    combined_stats_train = pd.merge(team_win_loss_train, opponent_stats_train, on=['Opponent Name'])
+    combined_stats_train[team_stats_train.columns] = team_stats_train.iloc[0]
+
+    complete_data_train = complete_data_train.append(combined_stats_train)
 
 for team_name in valid_teams_test:
   team_win_loss_test = kpteam.get_schedule(browser, team=team_name, season=testing_season)
