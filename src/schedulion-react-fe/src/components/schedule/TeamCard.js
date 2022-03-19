@@ -11,7 +11,12 @@ import { Stack } from '@mui/material'
 import WinningPercentageChart from '../dev/matchup-data-visualization/WinningPercentageChart'
 
 
-export default function MediaCard({teamName}) {
+export default function MediaCard({teamName, winningPercentage, ranking, oppName}) {
+    const homeTeamWP = winningPercentage * 100
+    const awayTeamWP = 100 - homeTeamWP
+
+    console.log(ranking)
+
     const wp = (
         <Box
             sx={{
@@ -20,7 +25,7 @@ export default function MediaCard({teamName}) {
                 margin: "auto"
             }}
         >
-            <WinningPercentageChart LMU={50} Opp={50} OppName={"Gonzaga"}/>
+            <WinningPercentageChart homeWP={homeTeamWP} oppWP={awayTeamWP} oppName={oppName}/>
         </Box>
     )
     
@@ -35,12 +40,12 @@ export default function MediaCard({teamName}) {
                 justifyContent: 'center',
             }}
         >
-            <Box>Ranked #75</Box>
+            <Box>Predicted Rank #{ranking}</Box>
         </Box>
     )
 
   return (
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} md={6} lg={4}>
             <Card sx={{ minWidth: 300 }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">

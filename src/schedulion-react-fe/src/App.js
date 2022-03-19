@@ -10,7 +10,9 @@ import Register from './components/user_authentication/Register'
 import Team from './components/dev/Team'
 import Rankings from './components/dev/Rankings'
 import ListSchedules from './components/manage_schedules/ListSchedules'
-import TeamCard from './components/schedule/TeamCard.js'
+// import TeamCard from './components/schedule/TeamCard.js'
+import Teams from './components/schedule/Teams'
+
 import { useLocalStorage } from './components/tools/useLocalStorage'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -22,6 +24,7 @@ export default function App() {
   const [schedulesLoading, setSchedulesLoading] = useState(true)
   const [schedules, setSchedules] = useState(null)
   const [games, setGames] = useState(null)
+  const [gamesLoading, setGamesLoading] = useState(true)
 
 
   const fetchSchedules = (body) => {
@@ -37,20 +40,22 @@ export default function App() {
     })
   }
 
+  const fetchPossibleGames = () => {
+    URL = "http://localhost:5000/get_possible_games" + "?teamID=" + "Loyola Marymount"
+    return fetch(URL, {method: "GET"}
+  )
+    .then(res => res.json())
+    .then(json => {
+      setGames(json)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   useEffect(() => {
-    const fetchRankings = () => {
-      return fetch('/api/get_netrankings', {method: "GET"}
-    )
-      .then(res => res.json())
-      .then(json => {
-        setRankingList(json)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-    }
-    fetchRankings();
-  }, []);
+    fetchPossibleGames()
+  }, [])
 
   useEffect(() => {
     if (user) {
@@ -70,6 +75,12 @@ export default function App() {
       setRankingsLoading(false)
     }
   }, [rankingList])
+
+  useEffect(() => {
+    if (games !== null) {
+      setGamesLoading(false)
+    }
+  }, [games])
 
 
   return (
@@ -103,7 +114,6 @@ export default function App() {
               />
             </Route>
             <Route path="/create"><Create/></Route>
-            <Route path="/teams/:team"><Team /></Route>
             <Route path="/listSchedule">
               <ListSchedules 
               schedulesLoading={schedulesLoading}
@@ -118,11 +128,10 @@ export default function App() {
               rankingsLoading={rankingsLoading}
               />
             </Route>
-            <Route path="/teamCard">
-              <TeamCard 
-                teamName={"Gonzaga"}
-                score={33}
-                ranking={1}
+            <Route path="/teams">
+              <Teams
+              teams={games}
+              teamsLoading={gamesLoading}
               />
             </Route>
           </Switch>

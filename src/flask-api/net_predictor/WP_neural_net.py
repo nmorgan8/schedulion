@@ -17,16 +17,15 @@ class Net(nn.Module):
       x = self.out(self.fc3(self.fc2(self.fc1(x))))
       return x
 
-def train_neural_net():
-  complete_data_train = pd.read_csv('WP_data_train.csv')
-  complete_data_test = pd.read_csv('WP_data_test.csv')
+def run_WP_nn():
+  complete_data_train = pd.read_csv('./net_predictor/WP_data_train.csv')
+  complete_data_test = pd.read_csv('./net_predictor/WP_data_test.csv')
 
   columns_to_drop = ['Result', 'Opponent Name', 'Location_Semi-Away', 'Location_Semi-Home', 'Team Name']
   label_name = 'Result'
 
   # Get the names of the features based on columns_to_drop
   feature_names = complete_data_train.drop(columns_to_drop, axis=1).columns
-  print(feature_names)
 
   x_train = complete_data_train[feature_names].values.astype(float)
   y_train = complete_data_train[label_name].values.reshape(-1,1).astype(float).reshape((-1,))
@@ -79,10 +78,11 @@ def train_neural_net():
 
   print(accuracy_test)
 
+
   # Determine accuracy using rounded accuracy
   print('Neural Net model\'s train and test accuracy')
-  print("Training Accuracy:", accuracy_train.item()) # 72.7 75.9
-  print("Testing Accuracy:", accuracy_test.item()) # 74.6 74.8
+  print("Training Accuracy:", accuracy_train.item()) # 73.1
+  print("Testing Accuracy:", accuracy_test.item()) # 73.7
 
   print('Neural Net model\'s train and test precision, recall, and F1 scores')
   precision_train, recall_train, f1_train, _ = precision_recall_fscore_support(y_train, y_train_pred_class)

@@ -7,6 +7,8 @@ import os
 import firebase_admin
 from firebase_admin import firestore, credentials, auth
 import net_predictor.NET_linear_regression as net
+import net_predictor.WP_neural_net as WP
+import pandas as pd
 import kenpompy.summary as kp
 from kenpompy.utils import login
 from net_predictor.kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "netpredictor" folder 
@@ -27,9 +29,6 @@ firebase = firebase_admin.initialize_app(cred)
 pb = pyrebase.initialize_app(json.load(open('firebase_config.json')))
 db = firestore.client()
 
-# pyrebase authentication
-# pb = pyrebase.initialize_app(cred)
-# auth = pb.auth()
 
 # Firestore Collection References
 SCHEDULE_REF = db.collection('schedules')
@@ -61,6 +60,19 @@ def get_testuser():
 def get_NET_rankings():
     regression = net.run_regression()
     return regression.to_dict('split')
+
+@app.route('/get_possible_games')
+def get_possible_matchups():
+    try:
+        teamID = request.args.get('teamID')
+        possible_game_ref = db.collection(u'wp_results').document(teamID)
+        possible_games = possible_game_ref.get()
+        if possible_games.exists:
+            return jsonify(possible_games.to_dict())
+        else:
+            raise Exception("{teamID} does not exist.  Try a different spelling of the name.")
+    except Exception as e:
+        return {'message': f'Error: {e} occured'}
 
 @app.route('/api/get_teamstats')
 def get_team_stats():
