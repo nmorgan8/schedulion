@@ -23,53 +23,66 @@
 .HomeIcon {
   font-size: 30px;
   color: #545454;
-  padding-left: 1%;
   padding-right: 1%;
+  text-align: right;
+
+  /* flex: 1; */
 
 }
 
 .PersonIcon {
   font-size: 30px;
   color: #545454;
+  padding-right: 1%;
+
 }
 
 .CalendarIcon {
   font-size: 30px;
   color: #545454;
+  flex: 1;
   padding-right: 1%;
 }
 
-.StatsIcon {
+/* .StatsIcon {
   font-size: 30px;
   padding-left: 1%;
   padding-right: 1%;
   color: #545454;
   text-decoration: none;
   position: relative;
-}
+} */
 
 .Center {
   font-size: 30px;
-  margin-right: 35%;
+  /* margin-right: 35%; */
   color: black;
   text-decoration: none;
   position: relative;
   font-family: 'Graduate', cursive;
   text-align: center;
   color: black;
-  text-decoration: none;
+  /* display: block; */
+  /* width: 100%; */
+  /* align-items: center; */
+  padding-left: 40%;
+  padding-right: 40%
+  /* flex: 1; */
+  /* flex-direction: row; */
 }
 
 .Center:hover {
   color: #545454;
 }
 
-.StatsIcon:hover {
+/* .StatsIcon:hover {
   color: black;
-}
+
+} */
 
 .CalendarIcon:hover {
   color: black;
+  text-align: right;
 }
 
 .PersonIcon:hover {

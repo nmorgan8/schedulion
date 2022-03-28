@@ -1,6 +1,5 @@
 .Grid {
   margin-top: 4%;
-  margin-left: 10%;
   margin-right: 10%;
   background-color: white;
   font-family: 'Open Sans', sans-serif;
@@ -14,4 +13,14 @@
   background-color: white;
   font-family: 'Open Sans', sans-serif;
   margin-bottom: 1%;
+}
+
+.ScheduleList {
+  /* background-color: #005B80; background-color: #ffdfa3;*/
+  background-color: #ffdfa3;
+}
+
+.Page {
+  /* background-color: #cfdae6; */
+  background-color: #ffdfa3;
 }
