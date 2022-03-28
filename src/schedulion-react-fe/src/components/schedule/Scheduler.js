@@ -21,12 +21,14 @@ export default function Scheduler({teams, teamsLoading}) {
                 Create
               </ReactTooltip>
     </text>
-    <SearchPanel/>
+    <div className='float-child-left'>
+      <SearchPanel
+        teams={teams}
+        teamsLoading={teamsLoading}/>
+    </div>
+    <div className='float-child-right'>
     <ScheduleList/>
-    <Teams
-      teams={teams}
-      teamsLoading={teamsLoading}
-    />
+    </div>
     </div>
   );
 }
