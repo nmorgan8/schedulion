@@ -2,7 +2,7 @@ FROM python:3.9
 WORKDIR /schedulion-api
 
 COPY ./requirements.txt ./api.py ./.flaskenv ./net_predictor/ ./firebase_creds.json ./
-RUN pip3 install -r ./requirements.txt
+RUN pip3 install --no-cache-dir -r ./requirements.txt
 
 EXPOSE 5000
 CMD [ "python3", "api.py" ]

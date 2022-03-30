@@ -1,18 +1,19 @@
 import React from 'react';
-import CurrentSchedule from "./CurrentSchedule";
 import './Create.css';
-import NewGame from "./NewGame";
-
+import SearchPanel from "./SearchPanel";
+import ListSchedules from '../manage_schedules/ListSchedules'
 
 export default function Create(props) {
     return (
       <div className="Create">
-
-
-      <CurrentSchedule/>
-      <NewGame/>
+      <div className="float-container">
+      <div class="float-child-left">
+        <SearchPanel/>
+        </div>
+      <div class="float-child-right">
+      <ListSchedules/>
+      </div>
+        </div>
       </div>
     );
 }
-
-// <Plus/>

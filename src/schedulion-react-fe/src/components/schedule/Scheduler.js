@@ -6,8 +6,10 @@ import { CalendarPlus } from 'react-bootstrap-icons';
 import ReactTooltip from 'react-tooltip';
 import ScheduleList from './ScheduleList';
 import './Create.css';
+import SearchPanel from '../schedule/SearchPanel';
+import Teams from './Teams';
 
-export default function Scheduler() {
+export default function Scheduler({teams, teamsLoading}) {
   return (
     <div className="Create">
 
@@ -19,7 +21,14 @@ export default function Scheduler() {
                 Create
               </ReactTooltip>
     </text>
+    <div className='float-child-left'>
+      <SearchPanel
+        teams={teams}
+        teamsLoading={teamsLoading}/>
+    </div>
+    <div className='float-child-right'>
     <ScheduleList/>
+    </div>
     </div>
   );
 }
