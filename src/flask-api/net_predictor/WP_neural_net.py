@@ -47,8 +47,8 @@ def run_WP_nn():
   loss_fn = nn.BCELoss()
   optimizer = optim.Adam(model.parameters(), lr=0.00001)
 
-  n_epochs = 5000
-  epoch_print_index = 100 #n_epochs//10
+  n_epochs = 3000
+  epoch_print_index = 500
   BATCH_SIZE = 100
   for epoch in range(n_epochs):
     for i in range(x_train.shape[0]//BATCH_SIZE):
