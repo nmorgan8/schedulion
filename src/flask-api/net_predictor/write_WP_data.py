@@ -4,7 +4,7 @@ import kenpompy.summary as kpsum
 import kenpompy.team as kpteam
 import pandas as pd
 
-browser = utils.login(cred.email, cred.password)
+browser = utils.login(cred.login_email, cred.login_password)
 training_seasons = range(2015, 2021)  # Choose which years of data the model is trained on
 testing_season = 2021   # Choose which year's data the model is tested on
 
@@ -47,6 +47,7 @@ for training_season in training_seasons:
     complete_data_train = complete_data_train.append(combined_stats_train)
 
 for team_name in valid_teams_test:
+  print(team_name)
   team_win_loss_test = kpteam.get_schedule(browser, team=team_name, season=testing_season)
 
   # Get a teams schedule by getting a dataframe with whether or not they won or lost, and the name of their opponent

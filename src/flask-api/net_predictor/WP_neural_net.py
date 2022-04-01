@@ -18,8 +18,8 @@ class Net(nn.Module):
       return x
 
 def run_WP_nn():
-  complete_data_train = pd.read_csv('./net_predictor/WP_data_train.csv')
-  complete_data_test = pd.read_csv('./net_predictor/WP_data_test.csv')
+  complete_data_train = pd.read_csv('../net_predictor/WP_data_train.csv')
+  complete_data_test = pd.read_csv('../net_predictor/WP_data_test.csv')
 
   columns_to_drop = ['Result', 'Opponent Name', 'Location_Semi-Away', 'Location_Semi-Home', 'Team Name']
   label_name = 'Result'
@@ -45,11 +45,11 @@ def run_WP_nn():
   y_test = torch.Tensor(y_test)
 
   loss_fn = nn.BCELoss()
-  optimizer = optim.Adam(model.parameters(), lr=0.0001)
+  optimizer = optim.Adam(model.parameters(), lr=0.00001)
 
-  n_epochs = 1000 # change this to 100 or 1000 so it doesn't take too long
-  epoch_print_index = n_epochs//10
-  BATCH_SIZE = 10
+  n_epochs = 5000
+  epoch_print_index = 100 #n_epochs//10
+  BATCH_SIZE = 100
   for epoch in range(n_epochs):
     for i in range(x_train.shape[0]//BATCH_SIZE):
       start_index = i * BATCH_SIZE
@@ -66,9 +66,7 @@ def run_WP_nn():
       
   with torch.no_grad():
     y_train_pred = model(x_train).view(x_train.shape[0])
-    train_loss = loss_fn(y_train_pred, y_train)
     y_test_pred = model(x_test).view(x_test.shape[0])
-    test_loss = loss_fn(y_test_pred, y_test)
 
     y_train_pred_class = y_train_pred.round()
     y_test_pred_class = y_test_pred.round()

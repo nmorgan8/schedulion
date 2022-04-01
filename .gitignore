@@ -7,3 +7,4 @@ bin/
 lib/
 pyvenv.cfg
 *.csv
+*.pth
