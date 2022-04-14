@@ -12,6 +12,7 @@ import ListSchedules from './components/manage_schedules/ListSchedules'
 import TeamCard from './components/schedule/TeamCard.js'
 import Teams from './components/schedule/Teams'
 
+
 import { useLocalStorage } from './components/tools/useLocalStorage'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -24,6 +25,7 @@ export default function App() {
   const [schedules, setSchedules] = useState(null)
   const [games, setGames] = useState(null)
   const [gamesLoading, setGamesLoading] = useState(true)
+  const [NETRankings, setNETRankings] = useState(null)
 
 
   const fetchSchedules = (body) => {
@@ -40,7 +42,7 @@ export default function App() {
   }
 
   const fetchPossibleGames = () => {
-    URL = "http://localhost:5000/get_possible_games" + "?teamID=" + "Loyola Marymount"
+    URL = "http://localhost:5000/get_cards"
     return fetch(URL, {method: "GET"}
   )
     .then(res => res.json())
@@ -52,9 +54,30 @@ export default function App() {
     })
   }
 
+  const fetchRankings = () => {
+    URL = "http://localhost:5000/get_NET_rankings"
+    return fetch(URL, {method: "GET"})
+    .then (res => res.json())
+    .then(json => {
+      setNETRankings(json)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   useEffect(() => {
     fetchPossibleGames()
+    fetchRankings()
   }, [])
+
+  // useEffect(() => {
+  //   if (NETRankings) {
+  //     const valid_teams = Object.keys(NETRankings)
+  //     generateCards(valid_teams)
+  //   }
+  // }, [NETRankings]);
+
 
   useEffect(() => {
     if (user) {

@@ -25,7 +25,7 @@ export default function MediaCard({teamName, winningPercentage, ranking, oppName
                 margin: "auto"
             }}
         >
-            <WinningPercentageChart homeWP={homeTeamWP} oppWP={awayTeamWP} oppName={oppName}/>
+            {awayTeamWP}
         </Box>
     )
     
@@ -40,12 +40,11 @@ export default function MediaCard({teamName, winningPercentage, ranking, oppName
                 justifyContent: 'center',
             }}
         >
-            <Box>Predicted Rank #{ranking}</Box>
+            <Box>{ranking}</Box>
         </Box>
     )
 
   return (
-        <Grid item xs={12} md={6} lg={4}>
             <Card sx={{ minWidth: 300 }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -64,6 +63,5 @@ export default function MediaCard({teamName, winningPercentage, ranking, oppName
                 <Button size="small">More Details</Button>
             </CardActions>
             </Card>
-        </Grid>
   );
 }
