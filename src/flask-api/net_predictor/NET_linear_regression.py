@@ -51,6 +51,6 @@ def run_regression():
     y_pred_teams = y_pred_teams.sort_values(by='Calculated_Ranking')
     y_pred_teams.insert(1, 'True_Ranking', range(1, 1 + len(y_pred_teams)))
     y_pred_teams = y_pred_teams.drop(columns=['Calculated_Ranking'])
-    y_pred_teams = y_pred_teams.rename({'Team': 'Opponent Name'}, axis='columns')
+    y_pred_teams = y_pred_teams.rename({'Team': 'team'}, axis='columns')
     print(y_pred_teams)
     return y_pred_teams

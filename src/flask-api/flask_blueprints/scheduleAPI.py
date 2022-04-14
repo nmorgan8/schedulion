@@ -1,18 +1,11 @@
 import json
 import os
 from datetime import datetime
+from firebase_admin import firestore
 
-from firebase_admin import firestore, credentials, auth
-import firebase_admin
 from flask import Blueprint, request, jsonify
 
 schedule_api = Blueprint('schedule_api', __name__)
-
-# initialize connection to firebase db
-cwd = os.getcwd()
-private_key = os.path.join(cwd, 'firebase_creds.json')
-cred = credentials.Certificate(private_key)
-firebase = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # Firestore Collection References

@@ -1,23 +1,23 @@
 import sys
 import pandas as pd
-import kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in this folder 
+import net_predictor.kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in this folder 
 from kenpompy import utils
 import kenpompy.summary as kpsum
-import kenpompy.team as kpteam
 
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from sklearn.metrics import precision_recall_fscore_support
-from WP_neural_net import Net
-
-browser = utils.login(cred.email, cred.password)
-current_year = 2022 #Change this every year
-PATH = 'trained_model.pth'
+from net_predictor.WP_neural_net import Net
 
 def get_matchup_WP(home_team, away_team):
+  browser = utils.login(cred.email, cred.password)
+  current_year = 2022 #Change this every year
+  PATH = 'trained_model.pth'
+
   columns_to_drop = ['Team', 'Conference']
+
   stats = kpsum.get_efficiency(browser, season=current_year)
   combined_stats = pd.DataFrame([[0,0,1]], columns=['Location-Away', 'Location-Home', 'Location-Neutral'])
 
@@ -41,12 +41,13 @@ def get_matchup_WP(home_team, away_team):
   with torch.no_grad():
     y_pred = model(x_tensor)
 
-  print(y_pred.item())
+  # print(y_pred.item())
   return y_pred.item()
 
 def main():
   stats = kpsum.get_efficiency(browser, season=current_year)
   school_names = stats["Team"].values
+  print(type(school_names))
   USAGE_MESSAGE = ('ERROR:\n'
                   '-----------------------------\n'
                   'Usage: python get_matchup_WP.py "home_team" "away_team"\n'

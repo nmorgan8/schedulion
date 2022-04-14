@@ -15,8 +15,13 @@ from flask_blueprints.modelAPI import model_api
 from flask_blueprints.scheduleAPI import schedule_api
 from flask_blueprints.loginAPI import login_api
 
+import os
+
 # create Flask server
 app = Flask(__name__)
+
+def run_server():
+    app.run(host='0.0.0.0', use_reloader=False)
 
 # Add blueprints
 app.register_blueprint(login_api)
@@ -64,4 +69,4 @@ def get_team_stats():
     return table.to_dict('split')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    run_server()

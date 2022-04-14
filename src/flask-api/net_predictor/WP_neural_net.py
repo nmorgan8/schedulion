@@ -107,5 +107,3 @@ def run_WP_nn():
 
   # Can be used to get weights. Need to figure out what format the database needs it in
   return(model.state_dict())
-
-run_WP_nn()
