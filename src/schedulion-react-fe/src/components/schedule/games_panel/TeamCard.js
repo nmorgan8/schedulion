@@ -2,18 +2,32 @@ import React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Grid } from '@material-ui/core'
 import { Stack } from '@mui/material'
-import WinningPercentageChart from '../dev/matchup-data-visualization/WinningPercentageChart'
 
 
-export default function MediaCard({winningPercentage, ranking, oppName, advantage}) {
+export default function MediaCard({winningPercentage, ranking, opponentName, advantage}) {
     const homeTeamWP = winningPercentage * 100
     const awayTeamWP = 100 - homeTeamWP
+
+    const postGameRequest = (body) => {
+        return fetch(`http://localhost:5000/api/token`, {
+          'method': 'POST',
+          headers : {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        })
+        .then(response => response.json())
+        .then(responseJson => refreshPage(responseJson))
+        .catch(error => console.log(error))
+    }
+
+    function refreshPage(response) {
+        console.log(response)
+    }
 
     const wp = (
         <Box
@@ -29,6 +43,10 @@ export default function MediaCard({winningPercentage, ranking, oppName, advantag
             {awayTeamWP}
         </Box>
     )
+
+    const addGame = () => {
+        postGameRequest({opponentName})
+    }
     
     const rank = (
         <Box
@@ -49,7 +67,7 @@ export default function MediaCard({winningPercentage, ranking, oppName, advantag
             <Card sx={{ minWidth: 300 }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                {oppName} ({advantage})
+                {opponentName} ({advantage})
                 </Typography>
                 <Stack style={{
                     display: "flex",
@@ -60,8 +78,12 @@ export default function MediaCard({winningPercentage, ranking, oppName, advantag
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button size="small">Select</Button>
-                <Button size="small">More Details</Button>
+                <Button 
+                    size="small"
+                    onClick={addGame}
+                >
+                    Select
+                </Button>
             </CardActions>
             </Card>
   );

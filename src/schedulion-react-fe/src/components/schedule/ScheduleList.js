@@ -4,26 +4,6 @@ import './DataTable.css';
 
 
 const columns = [
-  // { field: 'id', headerName: 'ID', width: 40 },
-  // { field: 'firstName', headerName: 'Schedule Name', width: 200, editable: true },
-  // { field: 'lastName', headerName: 'Date Scheduled', width: 200, editable: true, type: 'date' },
-  // {
-  //   field: 'age',
-  //   headerName: 'Score',
-  //   type: 'number',
-  //   width: 150,
-  // },
-  // {
-  //   field: 'fullName',
-  //   headerName: 'Number of Games',
-  //   description: 'This column has a value getter and is not sortable.',
-  //   sortable: true,
-  //   width: 200,
-  //   valueGetter: (params) =>
-  //     `${params.getValue(params.id, 'firstName') || ''} ${
-  //       params.getValue(params.id, 'lastName') || ''
-  //     }`,
-  // },
   { field: "gameDate", headerName: "Game Date", width: 200, editable: true, type: 'date' },
   { field: "opponent", headerName: "Opponent", width: 200},
   { field: "score", headerName: "Predicted Score", width: 300 },
@@ -33,7 +13,6 @@ const columns = [
 
 const rows = [
   { id: 1, gameDate: "1/1/2020", opponent: 'Gonzaga', score: 33, homeAway:'Home', quadrant:50  },
-  // { id: 2, gameDate: "1/2/2020", opponent: 'BYU', score: 45 }
 ];
 
 export default function ScheduleList() {

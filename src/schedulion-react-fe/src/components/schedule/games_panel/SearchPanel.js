@@ -6,6 +6,7 @@ import Teams from './Teams'
 export default function SearchPanel({teams, teamsLoading, rankings, rankingsLoading}) {
   const [games, setGames] = useState(null)
   const [gamesLoading, setGamesLoading] = useState(true)
+
   return (
     <div className="SearchPanel">
     <Teams

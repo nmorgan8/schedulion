@@ -7,15 +7,20 @@ import '../schedule/DataTable.css';
 import loader from '../images/loader.gif'
 import { CalendarPlus } from 'react-bootstrap-icons';
 import { Button } from '@material-ui/core';
-import SearchPanel from '../schedule/SearchPanel';
+import SearchPanel from '../schedule/games_panel/SearchPanel';
 
-function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
+function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, selectedSchedule, setSelectedSchedule}) {
     const history = useHistory()
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     useEffect(() => {
         if (!user) history.replace("/login")
+        if (!selectedSchedule) history.replace("/scheduling")
       }, [])
+
+    const editSchedule = (scheduleID) => {
+        setSelectedSchedule(scheduleID)
+    }
 
     const setIsModalOpenToTrue = () => {
         setIsModalOpen(true)
@@ -38,9 +43,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
         })
     }
 
-    const editSchedule = (scheduleName) => {
-        history.replace("/scheduling/" + scheduleName)
-    }
 
     const renderEditButton = (params) => {
         return (
@@ -116,7 +118,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules}) {
             />
         </Modal>
         <div className='float-container'>
-        {/* <div className='float-child-left'><SearchPanel/></div> */}
         <div className='float-child-right'>
         <div className="Grid" style={{ height: '700px', width: '100%' }}>
 

@@ -9,8 +9,8 @@ import Register from './components/user_authentication/Register'
 import Team from './components/dev/Team'
 import Rankings from './components/dev/Rankings'
 import ListSchedules from './components/manage_schedules/ListSchedules'
-import TeamCard from './components/schedule/TeamCard.js'
-import Teams from './components/schedule/Teams'
+import TeamCard from './components/schedule/games_panel/TeamCard.js'
+import Teams from './components/schedule/games_panel/Teams'
 
 
 import { useLocalStorage } from './components/tools/useLocalStorage'
@@ -22,10 +22,10 @@ export default function App() {
   const [rankingsLoading, setRankingsLoading] = useState(true)
   const [schedulesLoading, setSchedulesLoading] = useState(true)
   const [schedules, setSchedules] = useState(null)
+  const [selectedSchedule, setSelectedSchedule] = useState("")
   const [games, setGames] = useState(null)
   const [gamesLoading, setGamesLoading] = useState(true)
   const [NETRankings, setNETRankings] = useState(null)
-
 
   const fetchSchedules = (body) => {
     URL = "http://localhost:5000/list_schedules" + "?uID=" + body.user
@@ -64,7 +64,7 @@ export default function App() {
       console.log(err)
     })
   }
-
+  
   useEffect(() => {
     fetchPossibleGames()
     fetchRankings()
@@ -120,13 +120,16 @@ export default function App() {
               setUser = {setUser}
               />
             </Route>
-            <Route path="/scheduling/:schedule">
+            <Route path="/scheduling">
               <Scheduler
                 user = {user}
                 teams={games}
                 teamsLoading={gamesLoading}
                 rankings={NETRankings}
                 rankingsLoading={rankingsLoading}
+                user = {user}
+                setSelectedSchedule = {setSelectedSchedule}
+                selectedSchedule = {selectedSchedule}
               />
             </Route>
             <Route path="/create"><Create/></Route>
@@ -136,6 +139,8 @@ export default function App() {
               schedules={schedules}
               user = {user}
               refreshSchedules = {fetchSchedules}
+              setSelectedSchedule = {setSelectedSchedule}
+              selectedSchedule = {selectedSchedule}
               />
             </Route>
             <Route path="/teams">
@@ -143,7 +148,7 @@ export default function App() {
                 teamsLoading={gamesLoading}
                 teams={games}
                 rankings = {NETRankings}
-                rankingsLoading={rankingsLoading}
+                rankingsLoading = {rankingsLoading}
               />
             </Route>
           </Switch>
