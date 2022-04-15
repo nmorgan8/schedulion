@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material'
 
 
-export default function MediaCard({winningPercentage, ranking, opponentName, advantage}) {
+export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user}) {
     const homeTeamWP = winningPercentage * 100
     const awayTeamWP = 100 - homeTeamWP
 
@@ -45,7 +45,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     )
 
     const addGame = () => {
-        postGameRequest({opponentName})
+        postGameRequest({opponentName, user, selectedSchedule})
     }
     
     const rank = (
@@ -64,7 +64,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     )
 
   return (
-            <Card sx={{ minWidth: 300 }}>
+            <Card>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                 {opponentName} ({advantage})

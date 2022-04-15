@@ -15,8 +15,8 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
 
     useEffect(() => {
         if (!user) history.replace("/login")
-        if (!selectedSchedule) history.replace("/scheduling")
-      }, [])
+        if (selectedSchedule) history.replace("/scheduling")
+      }, [selectedSchedule, user])
 
     const editSchedule = (scheduleID) => {
         setSelectedSchedule(scheduleID)

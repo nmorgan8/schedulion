@@ -3,10 +3,8 @@ import './SearchPanel.css'
 import Teams from './Teams'
 
 
-export default function SearchPanel({teams, teamsLoading, rankings, rankingsLoading}) {
-  const [games, setGames] = useState(null)
-  const [gamesLoading, setGamesLoading] = useState(true)
-
+export default function SearchPanel({teams, teamsLoading, rankings, rankingsLoading, selectedSchedule, user}) {
+  // Teams should just be renamed to search panel
   return (
     <div className="SearchPanel">
     <Teams
@@ -14,6 +12,8 @@ export default function SearchPanel({teams, teamsLoading, rankings, rankingsLoad
       teamsLoading={teamsLoading}
       rankings={rankings}
       rankingsLoading={rankingsLoading}
+      selectedSchedule={selectedSchedule}
+      user={user}
     />
     </div>
   );

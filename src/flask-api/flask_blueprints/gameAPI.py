@@ -32,3 +32,18 @@ def create_schedule():
         return {"message": f"Successfully added the game against {gameOpponent} to {scheduleName}"}, 200
     except Exception as e:
         return {'message': f'Error {e} occured making schedule'}, 400
+
+@game_api.route('/get_games')
+def read_scheduled_games():
+    """
+        read() : Fetches documents from Firestore collection as JSON.
+        all_todos : Return all documents.
+    """
+    try:
+        uID = request.args.get('uID')
+        scheduleName = request.args.get('selectedSchedule')
+        scheduled_games = db.collection('all_schedules').document(uID).collection('schedules').document(scheduleName).collection('games')
+        all_scheduled_games = [doc.to_dict() for doc in scheduled_games.stream()]
+        return jsonify(all_scheduled_games), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"

@@ -1,7 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import './DataTable.css';
-
 
 const columns = [
   { field: "gameDate", headerName: "Game Date", width: 200, editable: true, type: 'date' },
@@ -12,10 +11,11 @@ const columns = [
 ];
 
 const rows = [
-  { id: 1, gameDate: "1/1/2020", opponent: 'Gonzaga', score: 33, homeAway:'Home', quadrant:50  },
-];
+  { id: 1, gameDate: '1/1/2022', opponent: 'Baylor', score: 7, homeAway: 'home', quadrant: 4 }
+]
 
-export default function ScheduleList() {
+
+export default function ScheduledGames() {
   return (
     <div className="GridSchedule" style={{ height: '700px', width: '80%' }}>
       <DataGrid
