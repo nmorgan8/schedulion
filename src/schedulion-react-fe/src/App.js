@@ -19,7 +19,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function App() {
   const [user, setUser] = useLocalStorage("user", "")
-  const [rankingList, setRankingList] = useState(null)
   const [rankingsLoading, setRankingsLoading] = useState(true)
   const [schedulesLoading, setSchedulesLoading] = useState(true)
   const [schedules, setSchedules] = useState(null)
@@ -71,13 +70,6 @@ export default function App() {
     fetchRankings()
   }, [])
 
-  // useEffect(() => {
-  //   if (NETRankings) {
-  //     const valid_teams = Object.keys(NETRankings)
-  //     generateCards(valid_teams)
-  //   }
-  // }, [NETRankings]);
-
 
   useEffect(() => {
     if (user) {
@@ -93,10 +85,10 @@ export default function App() {
   }, [schedules])
 
   useEffect(() => {
-    if (rankingList !== null) {
+    if (NETRankings !== null) {
       setRankingsLoading(false)
     }
-  }, [rankingList])
+  }, [NETRankings])
 
   useEffect(() => {
     if (games !== null) {
@@ -133,6 +125,8 @@ export default function App() {
                 user = {user}
                 teams={games}
                 teamsLoading={gamesLoading}
+                rankings={NETRankings}
+                rankingsLoading={rankingsLoading}
               />
             </Route>
             <Route path="/create"><Create/></Route>
@@ -144,16 +138,12 @@ export default function App() {
               refreshSchedules = {fetchSchedules}
               />
             </Route>
-            <Route path="/matchup">
-              <Rankings
-              predictedRankings={rankingList}
-              rankingsLoading={rankingsLoading}
-              />
-            </Route>
             <Route path="/teams">
               <Teams
-              teams={games}
-              teamsLoading={gamesLoading}
+                teamsLoading={gamesLoading}
+                teams={games}
+                rankings = {NETRankings}
+                rankingsLoading={rankingsLoading}
               />
             </Route>
           </Switch>

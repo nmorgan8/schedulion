@@ -9,7 +9,9 @@ import './Create.css';
 import SearchPanel from '../schedule/SearchPanel';
 import Teams from './Teams';
 
-export default function Scheduler({teams, teamsLoading}) {
+export default function Scheduler({teams, teamsLoading, rankings, rankingsLoading}) {
+  
+  console.log(rankings)
   return (
     <div className="Create">
 
@@ -24,7 +26,10 @@ export default function Scheduler({teams, teamsLoading}) {
     <div className='float-child-left'>
       <SearchPanel
         teams={teams}
-        teamsLoading={teamsLoading}/>
+        teamsLoading={teamsLoading}
+        rankings={rankings}
+        rankingsLoading={rankingsLoading}
+        />
     </div>
     <div className='float-child-right'>
     <ScheduleList/>

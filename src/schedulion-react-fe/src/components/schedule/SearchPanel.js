@@ -3,7 +3,7 @@ import './SearchPanel.css'
 import Teams from './Teams'
 
 
-export default function SearchPanel({teams, teamsLoading}) {
+export default function SearchPanel({teams, teamsLoading, rankings, rankingsLoading}) {
   const [games, setGames] = useState(null)
   const [gamesLoading, setGamesLoading] = useState(true)
   return (
@@ -11,6 +11,8 @@ export default function SearchPanel({teams, teamsLoading}) {
     <Teams
       teams={teams}
       teamsLoading={teamsLoading}
+      rankings={rankings}
+      rankingsLoading={rankingsLoading}
     />
     </div>
   );

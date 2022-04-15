@@ -11,7 +11,6 @@ db = firestore.client()
 # Firestore Collection References
 SCHEDULE_REF = db.collection('schedules')
 
-
 #Schedule CRUD
 @schedule_api.route('/add_schedule', methods=['POST'], strict_slashes=False)
 def create_schedule():

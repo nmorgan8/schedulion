@@ -48,3 +48,9 @@ def getMatchups():
         return jsonify(team_cards), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+
+@model_api.route('/get_NET_rankings')
+def get_NET():
+  net_values = net_reg.run_regression()
+  net_values = net_values.to_dict(orient='records')
+  return jsonify(net_values)

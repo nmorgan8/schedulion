@@ -10,9 +10,11 @@ export default function TeamCards({ teamsLoading, teams }) {
   function populateTeamCards() {
     let newArray = [];
 
+    console.log(teams)
+
     Object.keys(teams).forEach(function (key) {
       Object.keys(teams[key]).forEach(function (t) {
-        console.log(teams[key][t]['rank'])
+        // console.log(key)
         newArray.push([t, teams[key][t]['win_pt'], teams[key][t]['rank']]);
       });
     });
