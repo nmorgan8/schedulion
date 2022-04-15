@@ -11,7 +11,7 @@ import { Stack } from '@mui/material'
 import WinningPercentageChart from '../dev/matchup-data-visualization/WinningPercentageChart'
 
 
-export default function MediaCard({winningPercentage, ranking, oppName}) {
+export default function MediaCard({winningPercentage, ranking, oppName, advantage}) {
     const homeTeamWP = winningPercentage * 100
     const awayTeamWP = 100 - homeTeamWP
 
@@ -49,7 +49,7 @@ export default function MediaCard({winningPercentage, ranking, oppName}) {
             <Card sx={{ minWidth: 300 }}>
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                {oppName}
+                {oppName} ({advantage})
                 </Typography>
                 <Stack style={{
                     display: "flex",

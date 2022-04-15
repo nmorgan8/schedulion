@@ -11,7 +11,6 @@ import Teams from './Teams';
 
 export default function Scheduler({teams, teamsLoading, rankings, rankingsLoading}) {
   
-  console.log(rankings)
   return (
     <div className="Create">
 
