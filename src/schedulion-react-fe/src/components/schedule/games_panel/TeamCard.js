@@ -13,10 +13,10 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     const awayTeamWP = 100 - homeTeamWP
 
     const postGameRequest = (body) => {
-        return fetch(`http://localhost:5000/api/token`, {
+        return fetch(`http://localhost:5000/add_game`, {
           'method': 'POST',
           headers : {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify(body)
         })

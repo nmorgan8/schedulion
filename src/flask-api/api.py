@@ -12,6 +12,7 @@ from kenpompy.utils import login
 from net_predictor.kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "netpredictor" folder 
 import kenpompy.misc as kpmisc
 from flask_blueprints.modelAPI import model_api
+from flask_blueprints.gameAPI import game_api
 from flask_blueprints.scheduleAPI import schedule_api
 from flask_blueprints.loginAPI import login_api
 
@@ -27,6 +28,8 @@ def run_server():
 app.register_blueprint(login_api)
 app.register_blueprint(schedule_api)
 app.register_blueprint(model_api)
+app.register_blueprint(game_api)
+
 
 CORS(app)
 app.debug = True
