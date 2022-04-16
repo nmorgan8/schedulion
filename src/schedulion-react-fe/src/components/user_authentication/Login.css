@@ -1,6 +1,12 @@
 .login {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  background-image: url(../images/landing.png);
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,11 +15,13 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  opacity: 0.4;
   background-color: #dcdcdc;
   padding: 30px;
   width: 40%;
   min-width: 500px;
   max-width: 600px;
+  opacity: 1;
 }
 .login__textBox {
   padding: 10px;
@@ -37,4 +45,13 @@
 
 .login_text {
   font-size: 15px
+}
+
+.Title {
+  font-family: 'Graduate', cursive;
+  font-size: 120px;
+  color: white;
+  padding-bottom: 30%;
+  position: absolute;
+
 }

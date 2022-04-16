@@ -1,20 +1,18 @@
-.float-container {
-    padding-left: 2%;
-    padding-right: 2%;
-}
 
 .float-child-right {
-    width: 75%;
+    margin-top: 1%;
+    margin-right: 10%;
+    width: 60%;
     float: right;
-    padding-left: 2%
 
 }
 
 .float-child-left {
-    width: 25%;
+    width: 20%;
+    margin-top: 3%;
     float: left;
-    height: 800px;
-    /* background-color: #005B80; */
+    height: 650px;
+    margin-left: 10%;
     background-color: white;
 }
 
@@ -29,4 +27,19 @@
   background-size: cover;
   background-position: center;
   font-family: 'Open Sans', sans-serif;
+}
+
+.SearchBar {
+  border-radius: 30px;
+  margin-top: 4%;
+  font-size: 40px;
+  padding-left: 5px;
+  width: 90%;
+  height: 70%;
+  border-color: #c9c9c9;
+}
+
+.loading-gif {
+  height: 100px;
+  width:100px;
 }

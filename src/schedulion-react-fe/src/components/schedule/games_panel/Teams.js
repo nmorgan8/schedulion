@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core";
 import TeamCard from "./TeamCard";
 import loader from "../../images/loader.gif";
 import GameSearchBar from "./GameSearchBar";
+import './SearchPanel.css'
 
 export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user }) {
   const [teamCards, setTeamCards] = useState([])
@@ -47,7 +48,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         cardProperties.push(ranking)
         cardProperties.push('away')
         cards.push(cardProperties)
-  
+
         cardProperties = []
         cardProperties.push(key)
         cardProperties.push(teams[key]['home'].toFixed(2))
@@ -84,10 +85,10 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
   }, [teamsLoading, rankingsLoading]);
 
   return teamsLoading || rankingsLoading || queryLoading ? (
-    <img src={loader} alt="loading..." />
+    <img className='loading-gif' src={loader} alt="loading..." />
   ) : (
     <Grid container>
-      <GameSearchBar 
+      <GameSearchBar
         setQuery = {setQuery}
         query = {gameQuery}
       />

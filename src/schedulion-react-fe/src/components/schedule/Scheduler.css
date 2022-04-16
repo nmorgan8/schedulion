@@ -1,8 +1,6 @@
 .Scheduler {
-  /* background-image: url(./images/hank.png); */
-
-  /* background-color: #cfdae6; */
-  background-color: #ffdfa3;
+  background-color: #cfdae6;
+  /* background-color: #545454; */
   position: fixed;
   min-width: 100%;
   min-height: 100%;
@@ -29,4 +27,14 @@
   background-color: white;
   /* height: 80%; */
   width: 80%;
+}
+
+.arrow {
+  color: black;
+  margin-right: 80%;
+  margin-top: 1%;
+}
+
+.arrow:hover {
+  color: #545454;
 }

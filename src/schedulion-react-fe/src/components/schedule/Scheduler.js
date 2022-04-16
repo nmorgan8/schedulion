@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
-import './DataTable.css';
 import './Scheduler.css';
 import { Link } from 'react-router-dom';
-import { CalendarPlus, ArrowLeftCircle } from 'react-bootstrap-icons';
+import { ArrowLeftCircle } from 'react-bootstrap-icons';
 import ReactTooltip from 'react-tooltip';
 import ScheduledGames from './ScheduledGames';
-import './Create.css';
 import SearchPanel from './games_panel/SearchPanel';
 
 export default function Scheduler({teams, teamsLoading, rankings, rankingsLoading, user, selectedSchedule, setSelectedSchedule}) {
@@ -101,20 +99,11 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
 
   return (
-    <div className="Create">
-      <div data-tip data-for="addTip" className="NewSchedule">
-        <Link to="/create" className="CreateIcon">
-          <CalendarPlus/>
-        </Link>
-        <ReactTooltip id="addTip" place="right" effect="solid">
-          Create
-        </ReactTooltip>
-      </div>
-      <div>
-        <ArrowLeftCircle 
-          onClick = {returnToScheduleList}
-        />
-      </div>
+    <div className='Scheduler'>
+      <ArrowLeftCircle
+        className = 'arrow'
+        onClick = {returnToScheduleList}
+      />
       <div className='float-child-left'>
         <SearchPanel
           teams={teams}
