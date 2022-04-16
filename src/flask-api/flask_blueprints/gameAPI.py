@@ -15,6 +15,7 @@ def create_schedule():
     try:
         # TODO(andrewseaman): Ensure that a game with the same name does not already exist
         gameOpponent = request.json['opponentName']
+        advantage = request.json['advantage']
         scheduledTime = datetime.now()
 
         uID = request.json['user']
@@ -23,6 +24,7 @@ def create_schedule():
         scheduleRef = db.collection('all_schedules').document(uID).collection('schedules').document(scheduleName).collection('games').document()
         gameData = {
             u'gameOpponent' : gameOpponent,
+            u'advantage' : advantage,
             u'scheduledTime': scheduledTime
         }
         scheduleRef.set(gameData, merge=True)
@@ -31,14 +33,14 @@ def create_schedule():
     except Exception as e:
         return {'message': f'Error {e} occured making schedule'}, 400
 
-@game_api.route('/get_games')
+@game_api.route('/list_scheduled_games')
 def read_scheduled_games():
     """
         read() : Fetches documents from Firestore collection as JSON.
         all_todos : Return all documents.
     """
     try:
-        uID = request.args.get('uID')
+        uID = request.args.get('user')
         scheduleName = request.args.get('selectedSchedule')
         scheduled_games = db.collection('all_schedules').document(uID).collection('schedules').document(scheduleName).collection('games')
         all_scheduled_games = [doc.to_dict() for doc in scheduled_games.stream()]

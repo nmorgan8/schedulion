@@ -11,18 +11,67 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   const history = useHistory()
 
   const [scheduledGames, setScheduledGames] = useState(null)
+  const [processedGames, setProcessed] = useState(null)
+  const [scheduledGamesLoading, setScheduledGamesLoading] = useState(true)
 
   const fetchScheduledGames = (body) => {
-    URL = "http://localhost:5000/list_scheduled_games" + "?uID=" + body.user + "%scheduleName=" + body.selectedSchedule
+    console.log("SELECTED" + body.selectedSchedule)
+    URL = "http://localhost:5000/list_scheduled_games" + "?user=" + body.user + "&selectedSchedule=" + body.selectedSchedule
     return fetch(URL, {method: "GET"}
   )
     .then(res => res.json())
     .then(json => {
       setScheduledGames(json)
+      console.log(json)
     })
     .catch(err => {
       console.log(err)
     })
+  }
+
+
+  function processGames() {
+    scheduledGames.forEach((game, index) => {
+      const gameOpponent = game.gameOpponent
+      const advantage = game.advantage
+      scheduledGames[index] = 
+      {
+        opponent: gameOpponent,
+        advantage: capitalize(advantage),
+        winPercentage: getWinPercentage(gameOpponent, advantage),
+        ranking: getRanking(gameOpponent),
+        quadrant: 3
+      }
+    });
+
+    return scheduledGames
+  }
+
+  function capitalize(advantage) {
+    return advantage.charAt(0).toUpperCase() + advantage.slice(1);
+  }
+
+  function getWinPercentage(opponent, advantage) {
+    let courtAdvantage = advantage.toLowerCase()
+    for (const key in teams) {
+      if (key == opponent) {
+        return teams[key][courtAdvantage].toFixed(2)
+      }
+    }
+    return -1
+  }
+
+  function getRanking(opponent) {
+    for (const key in rankings) {
+      if (rankings[key]['team'] == opponent) {
+        return rankings[key]['True_Ranking']
+      }
+    }
+    return -1
+  }
+
+  function returnToScheduleList() {
+    setSelectedSchedule("")
   }
 
   useEffect(() => {
@@ -30,9 +79,24 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
     if (!selectedSchedule) history.replace("/listSchedule")
   }, [selectedSchedule, user,])
 
-  function returnToScheduleList() {
-    setSelectedSchedule("")
-  }
+  useEffect(() => {
+    fetchScheduledGames({user, selectedSchedule})
+  }, [])
+
+  useEffect(() => {
+    if (scheduledGames && !rankingsLoading && !teamsLoading) {
+      const processed = processGames(scheduledGames)
+      setProcessed(processed)
+    }
+  }, [scheduledGames, rankingsLoading, teamsLoading])
+
+  useEffect(() => {
+    console.log(teams)
+    if (processedGames != null) {
+      setScheduledGamesLoading(false)
+    }
+  }, [processedGames])
+
 
   return (
     <div className='Scheduler'>
@@ -51,7 +115,10 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
           />
       </div>
       <div className='float-child-right'>
-      <ScheduledGames/>
+      <ScheduledGames
+        scheduledGames = {processedGames}
+        scheduledGamesLoading = {scheduledGamesLoading}
+      />
       </div>
     </div>
   );
