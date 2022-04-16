@@ -18,6 +18,8 @@ from flask_blueprints.loginAPI import login_api
 
 import os
 
+email, password = os.environ['email'], os.environ['password']
+
 # create Flask server
 app = Flask(__name__)
 
