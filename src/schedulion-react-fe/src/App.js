@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { HouseDoor, Calendar3, GraphUp, Person } from 'react-bootstrap-icons'
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
-import LandingPage from "./components/landing_page/LandingPage"
 import Scheduler from "./components/schedule/Scheduler"
 import Create from "./components/schedule/Create"
 import Login from "./components/user_authentication/Login"
@@ -64,7 +63,7 @@ export default function App() {
       console.log(err)
     })
   }
-  
+
   useEffect(() => {
     fetchPossibleGames()
     fetchRankings()
@@ -107,7 +106,6 @@ export default function App() {
             <Link to="/login" className="PersonIcon" ><Person /></Link>
           </div>
           <Switch>
-            <Route exact path="/"><LandingPage /></Route>
             <Route path="/login">
               <Login
               user = {user}

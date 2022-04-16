@@ -106,7 +106,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
         schedulesLoading ?
         <img src={loader} alt="loading..." /> :
         <div className='Page'>
-        <CalendarPlus onClick={setIsModalOpenToTrue}/>
+        <CalendarPlus className='icon' Click={setIsModalOpenToTrue}/>
         <Modal
             isOpen={isModalOpen}
             ariaHideApp={false}
@@ -117,10 +117,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
                 refreshSchedules = {refreshSchedules}
             />
         </Modal>
-        <div className='float-container'>
-        <div className='float-child-right'>
-        <div className="Grid" style={{ height: '700px', width: '100%' }}>
-
+        <div className="AllSchedules" style={{ height: '800px', width: '80%' }}>
             <DataGrid
                 rowHeight={75}
                 columns={COLUMN_LIST}
@@ -130,8 +127,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
                 rowsPerPageOptions={[5]}
             />
             </div>
-        </div>
-        </div>
         </div>
     );
 }

@@ -1,9 +1,8 @@
-.Grid {
-  margin-top: 4%;
-  margin-right: 10%;
+.AllSchedules {
+  margin-left: 10%;
+  margin-top: 2%;
   background-color: white;
   font-family: 'Open Sans', sans-serif;
-  margin-bottom: 2%;
 }
 
 .GridSchedule {
@@ -16,11 +15,19 @@
 }
 
 .ScheduleList {
-  /* background-color: #005B80; background-color: #ffdfa3;*/
   background-color: #ffdfa3;
 }
 
 .Page {
   /* background-color: #cfdae6; */
   background-color: #ffdfa3;
+}
+
+.icon {
+  color: black;
+  margin-right: 75%
+}
+
+.icon:hover {
+  color: #545454;
 }
