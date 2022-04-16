@@ -9,7 +9,7 @@ import net_predictor.WP_neural_net as WP
 import pandas as pd
 import kenpompy.summary as kp
 from kenpompy.utils import login
-from net_predictor.kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "netpredictor" folder 
+# from net_predictor.kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "netpredictor" folder 
 import kenpompy.misc as kpmisc
 from flask_blueprints.modelAPI import model_api
 from flask_blueprints.gameAPI import game_api
