@@ -80,6 +80,7 @@ export default function App() {
 
   useEffect(() => {
     if (schedules !== null) {
+      console.log(schedules)
       setSchedulesLoading(false)
     }
   }, [schedules])

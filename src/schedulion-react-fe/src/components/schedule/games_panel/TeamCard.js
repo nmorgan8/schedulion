@@ -45,7 +45,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     )
 
     const addGame = () => {
-        postGameRequest({opponentName, user, selectedSchedule})
+        postGameRequest({opponentName, advantage, user, selectedSchedule})
     }
     
     const rank = (
