@@ -8,7 +8,7 @@ private_key = os.environ['config']
 
 login_api = Blueprint('login_api', __name__)
 
-pb = pyrebase.initialize_app(private_key)
+pb = pyrebase.initialize_app(json.loads(private_key))
 
 #Api route to sign up a new user
 @login_api.route('/api/signup', methods=['POST'], strict_slashes=False)
