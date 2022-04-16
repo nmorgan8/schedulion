@@ -1,8 +1,6 @@
 import json
 from datetime import datetime
 from firebase_admin import firestore
-
-
 from flask import Blueprint, request, jsonify
 
 game_api = Blueprint('game_api', __name__)
@@ -16,11 +14,11 @@ def create_schedule():
 
     try:
         # TODO(andrewseaman): Ensure that a game with the same name does not already exist
-        gameOpponent = request.json['opponent']
+        gameOpponent = request.json['opponentName']
         scheduledTime = datetime.now()
 
         uID = request.json['user']
-        scheduleName = request.json['scheduleName']
+        scheduleName = request.json['selectedSchedule']
 
         scheduleRef = db.collection('all_schedules').document(uID).collection('schedules').document(scheduleName).collection('games').document()
         gameData = {
