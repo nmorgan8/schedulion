@@ -17,7 +17,7 @@ const rows = [
 
 export default function ScheduledGames() {
   return (
-    <div className="GridSchedule" style={{ height: '700px', width: '80%' }}>
+    <div className="GridSchedule" style={{ height: '700px', width: '100%' }}>
       <DataGrid
         rowHeight={75}
         rows={rows}

@@ -37,6 +37,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   return (
     <div className='Scheduler'>
       <ArrowLeftCircle
+        className = 'arrow'
         onClick = {returnToScheduleList}
       />
       <div className='float-child-left'>

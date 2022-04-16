@@ -28,3 +28,13 @@
   /* height: 80%; */
   width: 80%;
 }
+
+.arrow {
+  color: black;
+  margin-right: 80%;
+  margin-top: 1%;
+}
+
+.arrow:hover {
+  color: #545454;
+}
