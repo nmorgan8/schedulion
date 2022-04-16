@@ -1,10 +1,13 @@
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
-from net_predictor.kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "net_predictor" folder 
+# from net_predictor.kenpom_creds import email, password # A file (named "kenpom_creds.py") with proper credentials must be made in the "net_predictor" folder 
 from kenpompy.utils import login
 import kenpompy.summary as kp
 import kenpompy.misc as kpmisc
+import os
+
+email, password = os.environ['email'], os.environ['password']
 
 def run_regression():
     browser = login(email, password)

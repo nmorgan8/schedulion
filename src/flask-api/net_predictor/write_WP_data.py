@@ -1,10 +1,13 @@
-import kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in this folder 
+# import kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in this folder 
 from kenpompy import utils
 import kenpompy.summary as kpsum
 import kenpompy.team as kpteam
 import pandas as pd
+import os
 
-browser = utils.login(cred.login_email, cred.login_password)
+email, password = os.environ['email'], os.environ['password']
+
+browser = utils.login(email, password)
 training_seasons = range(2015, 2021)  # Choose which years of data the model is trained on
 testing_season = 2021   # Choose which year's data the model is tested on
 
