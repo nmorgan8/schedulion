@@ -5,6 +5,7 @@ import kenpompy.summary as kpsum
 # import net_predictor.kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in this folder 
 from kenpompy import utils
 import kenpompy.summary as kpsum
+import json
 
 import net_predictor.get_matchup_WP as wp_nn
 import net_predictor.NET_linear_regression as net_reg
@@ -16,7 +17,7 @@ private_key = os.environ['creds']
 
 def init_firebase():
     # initialize connection to firebase db
-    cred = credentials.Certificate(private_key)
+    cred = credentials.Certificate(json.loads(private_key))
     firebase_admin.initialize_app(cred)
 
 init_firebase()
