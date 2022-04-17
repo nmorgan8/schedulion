@@ -24,7 +24,8 @@ email, password = os.environ['email'], os.environ['password']
 app = Flask(__name__)
 
 def run_server():
-    app.run(host='0.0.0.0', use_reloader=False)
+    # app.run(host='0.0.0.0', use_reloader=False)
+    app.run()
 
 # Add blueprints
 app.register_blueprint(login_api)

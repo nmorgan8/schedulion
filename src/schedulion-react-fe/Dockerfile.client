@@ -7,7 +7,9 @@ COPY ./ ./
 
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+# CMD ["npm", "install", "serve", "-g", "&&", "npm", "run", "build", "&&", "serve", "-s", "build"]
+CMD ["npm", "start"]
+
 # build image for frontend:
 # docker build -f Dockerfile.client -t schedulion-client .
 
