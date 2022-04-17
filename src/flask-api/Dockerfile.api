@@ -5,7 +5,8 @@ COPY ./requirements.txt ./api.py ./.flaskenv ./net_predictor/ ./firebase_creds.j
 RUN pip3 install --no-cache-dir -r ./requirements.txt
 
 EXPOSE 5000
-CMD [ "python3", "api.py" ]
+# CMD [ "python3", "api.py" ]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "wsgi:app"]
 
 # build image for backend:
 # docker build -f Dockerfile.api -t schedulion-api .
