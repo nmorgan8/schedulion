@@ -17,7 +17,10 @@ private_key = os.environ['creds']
 
 def init_firebase():
     # initialize connection to firebase db
-    cred = credentials.Certificate(json.loads(private_key))
+    cwd = os.getcwd()
+    private_key = os.path.join(cwd, 'firebase_creds.json')
+    # cred = credentials.Certificate(json.loads(private_key))
+    cred = credentials.Certificate(private_key)
     firebase_admin.initialize_app(cred)
 
 init_firebase()

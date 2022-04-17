@@ -8,7 +8,8 @@ private_key = os.environ['config']
 
 login_api = Blueprint('login_api', __name__)
 
-pb = pyrebase.initialize_app(json.loads(private_key))
+# pb = pyrebase.initialize_app(json.loads(private_key))
+pb = pyrebase.initialize_app(json.load(open('firebase_config.json')))
 
 #Api route to sign up a new user
 @login_api.route('/api/signup', methods=['POST'], strict_slashes=False)
