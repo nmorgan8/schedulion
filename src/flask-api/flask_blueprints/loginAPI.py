@@ -4,8 +4,6 @@ import json
 import pyrebase
 import os
 
-private_key = os.environ['config']
-
 login_api = Blueprint('login_api', __name__)
 
 # pb = pyrebase.initialize_app(json.loads(private_key))
