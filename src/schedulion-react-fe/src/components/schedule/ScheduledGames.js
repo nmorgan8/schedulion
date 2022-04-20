@@ -22,7 +22,7 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
   return (
       scheduledGamesLoading ?
       <div className="GridSchedule" style={{ height: '700px', width: '100%' }}>
-        <img src={loader} alt="loading..." />
+        <img className='loading-gif' src={loader} alt="loading..." />
       </div> :
       <div className="GridSchedule" style={{ height: '700px', width: '100%' }}>
         <DataGrid

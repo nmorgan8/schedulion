@@ -31,3 +31,8 @@
 .icon:hover {
   color: #545454;
 }
+
+.loading-gif {
+  height: 100px;
+  width:100px;
+}

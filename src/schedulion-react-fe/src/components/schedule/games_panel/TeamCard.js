@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material'
+import './TeamCard.css';
 
 
 export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE}) {
@@ -31,7 +32,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     }
 
     const wp = (
-        <Box
+        <Box className='wp'
         sx={{
             display: 'flex',
             width: 150,
@@ -48,9 +49,9 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     const addGame = () => {
         postGameRequest({opponentName, advantage, user, selectedSchedule})
     }
-    
+
     const rank = (
-        <Box
+        <Box className='rank'
             sx={{
                 display: 'flex',
                 width: 150,
@@ -79,7 +80,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button 
+                <Button
                     size="small"
                     onClick={addGame}
                 >

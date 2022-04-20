@@ -103,10 +103,10 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
 
     return (
         schedulesLoading ?
-        <img src={loader} alt="loading..." /> :
+        <img className='loading-gif' src={loader} alt="loading..." /> :
         <div className='Page'>
-        <CalendarPlus 
-            className='icon' 
+        <CalendarPlus
+            className='icon'
             onClick={setIsModalOpenToTrue}
         />
         <Modal
