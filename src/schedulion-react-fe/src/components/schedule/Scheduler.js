@@ -47,6 +47,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
       const advantage = game.advantage
       scheduledGames[index] = 
       {
+        gameDate: game.scheduledTime,
         opponent: gameOpponent,
         advantage: capitalize(advantage),
         winPercentage: getWinPercentage(gameOpponent, advantage),
