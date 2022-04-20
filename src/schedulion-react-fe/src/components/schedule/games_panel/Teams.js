@@ -46,14 +46,14 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         cardProperties.push(key)
         cardProperties.push(teams[key]['away'].toFixed(2))
         cardProperties.push(ranking)
-        cardProperties.push('away')
+        cardProperties.push('Away')
         cards.push(cardProperties)
 
         cardProperties = []
         cardProperties.push(key)
         cardProperties.push(teams[key]['home'].toFixed(2))
         cardProperties.push(ranking)
-        cardProperties.push('home')
+        cardProperties.push('Home')
         cards.push(cardProperties)
       }
     }
