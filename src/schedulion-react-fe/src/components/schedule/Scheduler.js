@@ -120,7 +120,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
       className = 'arrow'
       onClick = {returnToScheduleList}
     />
-    <div className='float-child-left'>
+    <div style={{ height: '800px', width: '80%' }}>
       <SearchPanel
         teams={teams}
         teamsLoading={teamsLoading}
