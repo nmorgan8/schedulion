@@ -9,7 +9,7 @@ import { Stack } from '@mui/material'
 import './TeamCard.css';
 
 
-export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE}) {
+export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE, gameDate}) {
     const homeTeamWP = winningPercentage * 100
     const awayTeamWP = 100 - homeTeamWP
 
@@ -47,7 +47,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     )
 
     const addGame = () => {
-        postGameRequest({opponentName, advantage, user, selectedSchedule})
+        postGameRequest({opponentName, advantage, user, selectedSchedule, gameDate})
     }
 
     const rank = (

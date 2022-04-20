@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
 import './Scheduler.css';
 import { Link } from 'react-router-dom';
-import { ArrowLeftCircle } from 'react-bootstrap-icons';
+import { ArrowLeftCircle, CalendarDate } from 'react-bootstrap-icons';
 import ReactTooltip from 'react-tooltip';
 import ScheduledGames from './ScheduledGames';
 import SearchPanel from './games_panel/SearchPanel';
+import Modal from 'react-modal'
+import TextField from '@material-ui/core/TextField';
 
 export default function Scheduler({teams, teamsLoading, rankings, rankingsLoading, user, selectedSchedule, setSelectedSchedule, URL_VARIABLE}) {
   const history = useHistory()
@@ -13,6 +15,17 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   const [scheduledGames, setScheduledGames] = useState(null)
   const [processedGames, setProcessed] = useState(null)
   const [scheduledGamesLoading, setScheduledGamesLoading] = useState(true)
+  const [isSchedulingGame, setSchedulingGame] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [gameDate, setGameDate] = useState("2017-05-24")
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (gameDate != "") {
+      setSchedulingGame(true)
+    }
+  }
 
   const fetchScheduledGames = (body) => {
     URL = URL_VARIABLE + "list_scheduled_games" + "?user=" + body.user + "&selectedSchedule=" + body.selectedSchedule
@@ -101,23 +114,71 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
 
   return (
+    isSchedulingGame ?
+    <div className='Scheduler'>
+    <ArrowLeftCircle
+      className = 'arrow'
+      onClick = {returnToScheduleList}
+    />
+    <div className='float-child-left'>
+      <SearchPanel
+        teams={teams}
+        teamsLoading={teamsLoading}
+        rankings={rankings}
+        rankingsLoading={rankingsLoading}
+        selectedSchedule={selectedSchedule}
+        user={user}
+        URL_VARIABLE={URL_VARIABLE}
+        gameDate = {gameDate}
+        />
+    </div>
+    <div className='float-child-right'>
+    <ScheduledGames
+      scheduledGames = {processedGames}
+      scheduledGamesLoading = {scheduledGamesLoading}
+    />
+    </div>
+  </div>
+  :
     <div className='Scheduler'>
       <ArrowLeftCircle
         className = 'arrow'
         onClick = {returnToScheduleList}
       />
-      <div className='float-child-left'>
-        <SearchPanel
-          teams={teams}
-          teamsLoading={teamsLoading}
-          rankings={rankings}
-          rankingsLoading={rankingsLoading}
-          selectedSchedule={selectedSchedule}
-          user={user}
-          URL_VARIABLE={URL_VARIABLE}
-          />
-      </div>
+      <CalendarDate
+        onClick = {() => {
+          setModalOpen(true)
+        }}
+      />
       <div className='float-child-right'>
+        <Modal
+            isOpen={isModalOpen}
+            ariaHideApp={false}
+        >
+            <button onClick={()=>{setModalOpen(false)}}>x</button>
+            <div style={{
+              margin: 'auto',
+              display: 'block',
+              width: 'fit-content'
+            }}>
+            <form onSubmit={handleSubmit}>
+              <h3>Choose a date for new game</h3>
+              <TextField
+                id="date"
+                label="Choose game date"
+                type="date"
+                defaultValue="2017-05-24"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                onChange={(e)=> {
+                  setGameDate(e.target.value)
+                }}
+              />
+              <input type="submit" value="Submit" />
+              </form>
+            </div>
+        </Modal>
       <ScheduledGames
         scheduledGames = {processedGames}
         scheduledGamesLoading = {scheduledGamesLoading}

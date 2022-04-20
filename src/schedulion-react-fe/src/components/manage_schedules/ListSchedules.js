@@ -83,8 +83,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
 
     const COLUMN_LIST = [
         { field: 'name', headerName: 'Schedule Name', width: 200},
-        { field: 'gameTotal', headerName: 'Total Season Games', width: 225},
-        { field: 'gamesLeft', headerName: 'Unscheduled Games', width: 225},
         {
             field: 'editSchedule',
             headerName: 'Edit Schedule',
