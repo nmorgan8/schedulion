@@ -120,7 +120,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
       className = 'arrow'
       onClick = {returnToScheduleList}
     />
-    <div style={{ height: '800px', width: '80%' }}>
+    <div className='float-child-left'>
       <SearchPanel
         teams={teams}
         teamsLoading={teamsLoading}
@@ -150,7 +150,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
           setModalOpen(true)
         }}
       />
-      <div className='float-child-right'>
+      <div style={{ height: '800px', width: '80%' }}>
         <Modal
             isOpen={isModalOpen}
             ariaHideApp={false}
