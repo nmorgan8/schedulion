@@ -9,7 +9,7 @@ import { CalendarPlus } from 'react-bootstrap-icons';
 import { Button } from '@material-ui/core';
 import SearchPanel from '../schedule/games_panel/SearchPanel';
 
-function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, selectedSchedule, setSelectedSchedule}) {
+function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, selectedSchedule, setSelectedSchedule, URL_VARIABLE}) {
     const history = useHistory()
     const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -32,7 +32,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
 
     const deleteSchedule = (user, scheduleName) => {
         scheduleName = scheduleName.replace(" ", "%20")
-        URL = "http://localhost:5000/delete_schedule" + "?uID=" + user + "&scheduleID=" + scheduleName
+        URL = URL_VARIABLE + "delete_schedule" + "?uID=" + user + "&scheduleID=" + scheduleName
         return fetch(URL, {method: "DELETE"}
       )
         .then(res => res.json())
@@ -105,7 +105,10 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
         schedulesLoading ?
         <img src={loader} alt="loading..." /> :
         <div className='Page'>
-        <CalendarPlus className='icon' Click={setIsModalOpenToTrue}/>
+        <CalendarPlus 
+            className='icon' 
+            onClick={setIsModalOpenToTrue}
+        />
         <Modal
             isOpen={isModalOpen}
             ariaHideApp={false}
@@ -114,6 +117,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
             <CreateNewSchedule
                 user = {user}
                 refreshSchedules = {refreshSchedules}
+                URL_VARIABLE = {URL_VARIABLE}
             />
         </Modal>
         <div className="AllSchedules" style={{ height: '800px', width: '80%' }}>

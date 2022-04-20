@@ -3,7 +3,7 @@ import './SearchPanel.css'
 import Teams from './Teams'
 
 
-export default function SearchPanel({teams, teamsLoading, rankings, rankingsLoading, selectedSchedule, user}) {
+export default function SearchPanel({teams, teamsLoading, rankings, rankingsLoading, selectedSchedule, user, URL_VARIABLE}) {
   // Teams should just be renamed to search panel
   return (
     <div className="SearchPanel">
@@ -14,6 +14,7 @@ export default function SearchPanel({teams, teamsLoading, rankings, rankingsLoad
       rankingsLoading={rankingsLoading}
       selectedSchedule={selectedSchedule}
       user={user}
+      URL_VARIABLE={URL_VARIABLE}
     />
     </div>
   );

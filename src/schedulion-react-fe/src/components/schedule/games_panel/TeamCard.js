@@ -8,12 +8,13 @@ import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material'
 
 
-export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user}) {
+export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE}) {
     const homeTeamWP = winningPercentage * 100
     const awayTeamWP = 100 - homeTeamWP
 
     const postGameRequest = (body) => {
-        return fetch(`http://localhost:5000/add_game`, {
+        URL = URL_VARIABLE + 'add_game'
+        return fetch(URL, {
           'method': 'POST',
           headers : {
             'Content-Type': 'application/json',
