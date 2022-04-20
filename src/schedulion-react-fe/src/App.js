@@ -132,7 +132,6 @@ export default function App() {
                 teamsLoading={gamesLoading}
                 rankings={NETRankings}
                 rankingsLoading={rankingsLoading}
-                user = {user}
                 URL_VARIABLE = {URL_VARIABLE}
                 setSelectedSchedule = {setSelectedSchedule}
                 selectedSchedule = {selectedSchedule}
