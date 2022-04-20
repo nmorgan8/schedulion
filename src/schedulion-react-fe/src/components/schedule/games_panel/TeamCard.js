@@ -35,7 +35,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
         <Box className='wp'
         sx={{
             display: 'flex',
-            width: 150,
+            width: 200,
             height: 150,
             margin: "auto",
             alignItems: 'center',
@@ -54,7 +54,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
         <Box className='rank'
             sx={{
                 display: 'flex',
-                width: 150,
+                width: 200,
                 height: 150,
                 margin: "auto",
                 alignItems: 'center',
