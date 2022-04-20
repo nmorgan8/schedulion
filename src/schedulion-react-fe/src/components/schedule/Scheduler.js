@@ -7,7 +7,7 @@ import ReactTooltip from 'react-tooltip';
 import ScheduledGames from './ScheduledGames';
 import SearchPanel from './games_panel/SearchPanel';
 
-export default function Scheduler({teams, teamsLoading, rankings, rankingsLoading, user, selectedSchedule, setSelectedSchedule}) {
+export default function Scheduler({teams, teamsLoading, rankings, rankingsLoading, user, selectedSchedule, setSelectedSchedule, URL_VARIABLE}) {
   const history = useHistory()
 
   const [scheduledGames, setScheduledGames] = useState(null)
@@ -15,8 +15,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   const [scheduledGamesLoading, setScheduledGamesLoading] = useState(true)
 
   const fetchScheduledGames = (body) => {
-    console.log("SELECTED" + body.selectedSchedule)
-    URL = "http://localhost:5000/list_scheduled_games" + "?user=" + body.user + "&selectedSchedule=" + body.selectedSchedule
+    URL = URL_VARIABLE + "list_scheduled_games" + "?user=" + body.user + "&selectedSchedule=" + body.selectedSchedule
     return fetch(URL, {method: "GET"}
   )
     .then(res => res.json())
@@ -28,7 +27,6 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
       console.log(err)
     })
   }
-
 
   function processGames() {
     scheduledGames.forEach((game, index) => {
@@ -46,6 +44,10 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
     return scheduledGames
   }
+
+  useEffect(() => {
+    console.log(URL_VARIABLE)
+  }, [])
 
   function capitalize(advantage) {
     return advantage.charAt(0).toUpperCase() + advantage.slice(1);
@@ -112,6 +114,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
           rankingsLoading={rankingsLoading}
           selectedSchedule={selectedSchedule}
           user={user}
+          URL_VARIABLE={URL_VARIABLE}
           />
       </div>
       <div className='float-child-right'>

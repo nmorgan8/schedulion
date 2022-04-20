@@ -5,7 +5,7 @@ import loader from "../../images/loader.gif";
 import GameSearchBar from "./GameSearchBar";
 import './SearchPanel.css'
 
-export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user }) {
+export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user, URL_VARIABLE }) {
   const [teamCards, setTeamCards] = useState([])
   const [displayCards, setDisplayCards] = useState([])
   const [gameQuery, setGameQuery] = useState("")
@@ -80,6 +80,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
 
   useEffect(() => {
     if (teamsLoading == false && rankingsLoading == false) {
+      console.log(URL_VARIABLE)
       populateTeamCards();
     }
   }, [teamsLoading, rankingsLoading]);
@@ -93,7 +94,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         query = {gameQuery}
       />
       {displayCards.map((element, index) => {
-        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user}/>;
+        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE}/>;
       })}
     </Grid>
   );

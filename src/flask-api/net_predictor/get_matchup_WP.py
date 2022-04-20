@@ -1,8 +1,9 @@
 import sys
 import pandas as pd
-import net_predictor.kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in this folder 
+# import net_predictor.kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in this folder 
 from kenpompy import utils
 import kenpompy.summary as kpsum
+import os
 
 import torch
 import torch.nn as nn
@@ -10,6 +11,8 @@ import torch.optim as optim
 import torch.nn.functional as F
 from sklearn.metrics import precision_recall_fscore_support
 from net_predictor.WP_neural_net import Net
+
+email, password = os.environ['email'], os.environ['password']
 
 def get_matchup_WP(home_team, away_team):
   browser = utils.login(cred.email, cred.password)

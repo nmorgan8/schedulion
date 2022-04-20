@@ -2,19 +2,23 @@ from flask import Blueprint, request, jsonify
 from firebase_admin import firestore, credentials
 import firebase_admin
 import kenpompy.summary as kpsum
-import net_predictor.kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in this folder 
+# import net_predictor.kenpom_creds as cred # A file (named "kenpom_creds.py") with proper credentials must be made in this folder 
 from kenpompy import utils
 import kenpompy.summary as kpsum
+import json
 
 import net_predictor.get_matchup_WP as wp_nn
 import net_predictor.NET_linear_regression as net_reg
 
 import os
 
+email, password = os.environ['email'], os.environ['password']
+
 def init_firebase():
     # initialize connection to firebase db
     cwd = os.getcwd()
     private_key = os.path.join(cwd, 'firebase_creds.json')
+    # cred = credentials.Certificate(json.loads(private_key))
     cred = credentials.Certificate(private_key)
     firebase_admin.initialize_app(cred)
 
@@ -22,7 +26,7 @@ init_firebase()
 
 model_api = Blueprint('model_api', __name__)
 
-browser = utils.login(cred.email, cred.password)
+browser = utils.login(email, password)
 current_year = 2022 #Change this every year
 
 db = firestore.client()

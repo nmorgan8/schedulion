@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function CreateNewSchedule({user, refreshSchedules}) {
+export default function CreateNewSchedule({user, refreshSchedules, URL_VARIABLE}) {
     const [scheduleName, setScheduleName] = useState("")
     const [gameNumber, setGameNumber] = useState(0)
 
@@ -8,8 +8,8 @@ export default function CreateNewSchedule({user, refreshSchedules}) {
         e.preventDefault()
 
         const createSchedule = (body) => {
-            console.log(body)
-            return fetch(`http://localhost:5000/add_schedule`, {
+            URL = URL_VARIABLE + 'add_schedule'
+            return fetch(URL, {
                 'method': 'POST',
                 headers : {
                   'Content-Type': 'application/json'

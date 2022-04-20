@@ -8,3 +8,4 @@ lib/
 pyvenv.cfg
 *.csv
 *.pth
+*.env
