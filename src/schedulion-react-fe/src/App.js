@@ -53,7 +53,7 @@ export default function App() {
 
   const fetchRankings = () => {
     URL = "http://localhost:5000/get_NET_rankings"
-    return fetch(URL, {method: "GET"})
+    return fetch(URL, {method: "GET", mode: 'no-cors'})
     .then (res => res.json())
     .then(json => {
       setNETRankings(json)
