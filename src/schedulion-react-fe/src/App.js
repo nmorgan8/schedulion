@@ -9,6 +9,7 @@ import Rankings from './components/dev/Rankings'
 import ListSchedules from './components/manage_schedules/ListSchedules'
 import TeamCard from './components/schedule/games_panel/TeamCard.js'
 import Teams from './components/schedule/games_panel/Teams'
+import { TESTING_URLS, DEPLOYMENT_URLS } from './global_variables/Variables'
 
 
 import { useLocalStorage } from './components/tools/useLocalStorage'
@@ -25,8 +26,12 @@ export default function App() {
   const [gamesLoading, setGamesLoading] = useState(true)
   const [NETRankings, setNETRankings] = useState(null)
 
+  const isTesting = false
+
+  const URL_VARIABLE = isTesting ? TESTING_URLS.url : DEPLOYMENT_URLS.url
+
   const fetchSchedules = (body) => {
-    URL = "http://localhost:5000/list_schedules" + "?uID=" + body.user
+    URL = URL_VARIABLE + "list_schedules" + "?uID=" + body.user
     return fetch(URL, {method: "GET"}
   )
     .then(res => res.json())
@@ -39,7 +44,7 @@ export default function App() {
   }
 
   const fetchPossibleGames = () => {
-    URL = "http://localhost:5000/get_cards"
+    URL = URL_VARIABLE + "get_cards"
     return fetch(URL, {method: "GET"}
   )
     .then(res => res.json())
@@ -52,7 +57,7 @@ export default function App() {
   }
 
   const fetchRankings = () => {
-    URL = "http://localhost:5000/get_NET_rankings"
+    URL = URL_VARIABLE + "get_NET_rankings"
     return fetch(URL, {method: "GET"})
     .then (res => res.json())
     .then(json => {
@@ -110,12 +115,14 @@ export default function App() {
               <Login
               user = {user}
               setUser = {setUser}
+              URL_VARIABLE = {URL_VARIABLE}
               />
             </Route>
             <Route path="/register">
               <Register
               user = {user}
               setUser = {setUser}
+              URL_VARIABLE = {URL_VARIABLE}
               />
             </Route>
             <Route path="/scheduling">
@@ -126,8 +133,10 @@ export default function App() {
                 rankings={NETRankings}
                 rankingsLoading={rankingsLoading}
                 user = {user}
+                URL_VARIABLE = {URL_VARIABLE}
                 setSelectedSchedule = {setSelectedSchedule}
                 selectedSchedule = {selectedSchedule}
+
               />
             </Route>
             <Route path="/listSchedule">

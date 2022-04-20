@@ -1,7 +1,7 @@
-const TESTING = {
-    apiURL: 'https://localhost:5000/'
+export const TESTING_URLS = {
+    url: 'https://localhost:5000/'
 }
 
-const DEPLOYMENT = {
-    apiURL: 'https://schedulion.herokuapp.com/'
+export const DEPLOYMENT_URLS = {
+    url: 'https://schedulion.herokuapp.com/'
 }

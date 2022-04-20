@@ -33,7 +33,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
     const deleteSchedule = (user, scheduleName) => {
         scheduleName = scheduleName.replace(" ", "%20")
         URL = "http://localhost:5000/delete_schedule" + "?uID=" + user + "&scheduleID=" + scheduleName
-        console.log(URL)
         return fetch(URL, {method: "DELETE"}
       )
         .then(res => res.json())

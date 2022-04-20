@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./Register.css";
 
-function Register({user, setUser}) {
+function Register({user, setUser, URL_VARIABLE}) {
   const [firstName, setFirstName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const history = useHistory()
 
   const postUserData = (body) => {
-    return fetch(`http://localhost:5000/api/signup`, {
+    const URL = URL_VARIABLE + 'api/signup'
+    return fetch(URL, {
       'method': 'POST',
       headers : {
         'Content-Type': 'application/json'
