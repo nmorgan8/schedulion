@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material'
 import './TeamCard.css';
 
-
 export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE, gameDate}) {
     const homeTeamWP = winningPercentage * 100
     const awayTeamWP = 100 - homeTeamWP
@@ -36,7 +35,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
         sx={{
             display: 'flex',
             width: 200,
-            height: 150,
+            height: 50,
             margin: "auto",
             alignItems: 'center',
             justifyContent: 'center',
@@ -55,7 +54,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
             sx={{
                 display: 'flex',
                 width: 200,
-                height: 150,
+                height: 50,
                 margin: "auto",
                 alignItems: 'center',
                 justifyContent: 'center',
