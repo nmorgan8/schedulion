@@ -5,7 +5,7 @@ import loader from "../../images/loader.gif";
 import GameSearchBar from "./GameSearchBar";
 import './SearchPanel.css'
 
-export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user, URL_VARIABLE, gameDate }) {
+export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user, URL_VARIABLE, gameDate, postGameRequest }) {
   const [teamCards, setTeamCards] = useState([])
   const [displayCards, setDisplayCards] = useState([])
   const [gameQuery, setGameQuery] = useState("")
@@ -64,11 +64,23 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
     setDisplayCards(sorted)
   }
 
+  function getWeightedScore(winPercentage, NET_Ranking) {
+    let MAXIMUM_RANKING = 323
+    MAXIMUM_RANKING = MAXIMUM_RANKING - 1
+    const MODIFIED_RANKING = parseFloat(NET_Ranking)
+    const NET_WEIGHT = 50 - (50*((MODIFIED_RANKING - 1) / MAXIMUM_RANKING))
+
+    const MODIFIED_WP = winPercentage * 100
+    const WP_WEIGHT = MODIFIED_WP / 2
+
+    return NET_WEIGHT + WP_WEIGHT
+  }
+
   function aggregateRanking(teamScoreArray){
-    let maxNETScore = Math.max.apply(null, teamScoreArray.map(function(row){ return row[1]; }))
     for(let teamData of teamScoreArray){
       if (typeof teamData[4] === 'undefined') {
-        teamData.push(parseFloat(((maxNETScore - parseFloat(teamData[1]) + 1) * teamData[2]).toFixed(2)))
+        const score = getWeightedScore(teamData[1], teamData[2])
+        teamData.push(score)
       }
     }
     const arr = teamScoreArray.sort(function(a, b){ return b[4] - a[4]})
@@ -107,7 +119,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         query = {gameQuery}
       />
       {displayCards.map((element, index) => {
-        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE} gameDate={gameDate}/>;
+        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE} gameDate={gameDate} postGameRequest={postGameRequest}/>;
       })}
     </Grid>
   );

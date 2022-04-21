@@ -16,7 +16,7 @@ def create_schedule():
         # TODO(andrewseaman): Ensure that a game with the same name does not already exist
         gameOpponent = request.json['opponentName']
         advantage = request.json['advantage']
-        scheduledTime = datetime.now()
+        date = request.json['gameDate']
 
         uID = request.json['user']
         scheduleName = request.json['selectedSchedule']
@@ -25,7 +25,7 @@ def create_schedule():
         gameData = {
             u'gameOpponent' : gameOpponent,
             u'advantage' : advantage,
-            u'scheduledTime': scheduledTime
+            u'scheduledTime': date
         }
         scheduleRef.set(gameData, merge=True)
 
