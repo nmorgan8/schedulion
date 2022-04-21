@@ -17,7 +17,6 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   const [isModalOpen, setModalOpen] = useState(false)
   const [gameDate, setGameDate] = useState("2017-05-24")
 
-
   function postGameRequest(body) {
     const URL = URL_VARIABLE + 'add_game'
     return fetch(URL, {
@@ -33,6 +32,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   }
 
   const refreshPage = (json) => {
+    console.log(json)
     setSchedulingGame(false)
     setModalOpen(false)
     fetchScheduledGames({user, selectedSchedule})
