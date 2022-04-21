@@ -32,7 +32,8 @@ function Register({user, setUser, URL_VARIABLE}) {
   useEffect(() => {
     console.log(user)
     if (user) history.replace("/listSchedule");
-  }, [user])
+  }, [user, history])
+  
 
   return (
     <div className="register">

@@ -7,7 +7,6 @@ import '../schedule/DataTable.css';
 import loader from '../images/loader.gif'
 import { CalendarPlus } from 'react-bootstrap-icons';
 import { Button } from '@material-ui/core';
-import SearchPanel from '../schedule/games_panel/SearchPanel';
 import { styled } from '@mui/material/styles';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
@@ -29,7 +28,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
     useEffect(() => {
         if (!user) history.replace("/login")
         if (selectedSchedule) history.replace("/scheduling")
-      }, [selectedSchedule, user])
+      }, [selectedSchedule, user, history])
 
     const editSchedule = (scheduleID) => {
         setSelectedSchedule(scheduleID)
@@ -45,7 +44,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
 
     const deleteSchedule = (user, scheduleName) => {
         scheduleName = scheduleName.replace(" ", "%20")
-        URL = URL_VARIABLE + "delete_schedule" + "?uID=" + user + "&scheduleID=" + scheduleName
+        const URL = URL_VARIABLE + "delete_schedule?uID=" + user + "&scheduleID=" + scheduleName
         return fetch(URL, {method: "DELETE"}
       )
         .then(res => res.json())

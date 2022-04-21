@@ -19,7 +19,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
 
   function postGameRequest(body) {
-    URL = URL_VARIABLE + 'add_game'
+    const URL = URL_VARIABLE + 'add_game'
     return fetch(URL, {
       'method': 'POST',
       headers : {
@@ -35,17 +35,19 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   const refreshPage = (json) => {
     setSchedulingGame(false)
     setModalOpen(false)
+    fetchScheduledGames({user, selectedSchedule})
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (gameDate != "") {
+    if (gameDate !== "") {
       setSchedulingGame(true)
     }
   }
 
   const fetchScheduledGames = (body) => {
-    URL = URL_VARIABLE + "list_scheduled_games" + "?user=" + body.user + "&selectedSchedule=" + body.selectedSchedule
+    setScheduledGamesLoading(true)
+    const URL = URL_VARIABLE + "list_scheduled_games?user=" + body.user + "&selectedSchedule=" + body.selectedSchedule
     return fetch(URL, {method: "GET"}
   )
     .then(res => res.json())
@@ -82,7 +84,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   function getWinPercentage(opponent, advantage) {
     let courtAdvantage = advantage.toLowerCase()
     for (const key in teams) {
-      if (key == opponent) {
+      if (key === opponent) {
         return teams[key][courtAdvantage].toFixed(2)
       }
     }
@@ -91,7 +93,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
   function getRanking(opponent) {
     for (const key in rankings) {
-      if (rankings[key]['team'] == opponent) {
+      if (rankings[key]['team'] === opponent) {
         return rankings[key]['True_Ranking']
       }
     }
@@ -105,10 +107,11 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   useEffect(() => {
     if (!user) history.replace("/login")
     if (!selectedSchedule) history.replace("/listSchedule")
-  }, [selectedSchedule, user,])
+  }, [selectedSchedule, user, history])
 
   useEffect(() => {
     fetchScheduledGames({user, selectedSchedule})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -116,6 +119,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
       const processed = processGames(scheduledGames)
       setProcessed(processed)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scheduledGames, rankingsLoading, teamsLoading])
 
   useEffect(() => {

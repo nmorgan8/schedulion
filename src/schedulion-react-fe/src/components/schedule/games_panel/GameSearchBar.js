@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './SearchPanel.css'
 
 function GameSearchBar({setQuery, gameQuery}) {

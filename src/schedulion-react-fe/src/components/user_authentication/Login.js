@@ -29,7 +29,7 @@ function Login({user, setUser, URL_VARIABLE}) {
 
   useEffect(() => {
     if (user) history.replace("/listSchedule");
-  }, [user])
+  }, [user, history])
 
 
 

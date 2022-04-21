@@ -8,7 +8,7 @@ export default function CreateNewSchedule({user, refreshSchedules, URL_VARIABLE}
         e.preventDefault()
 
         const createSchedule = (body) => {
-            URL = URL_VARIABLE + 'add_schedule'
+            const URL = URL_VARIABLE + 'add_schedule'
             return fetch(URL, {
                 'method': 'POST',
                 headers : {
