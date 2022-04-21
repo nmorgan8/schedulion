@@ -5,7 +5,7 @@ import loader from "../../images/loader.gif";
 import GameSearchBar from "./GameSearchBar";
 import './SearchPanel.css'
 
-export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user, URL_VARIABLE }) {
+export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user, URL_VARIABLE, gameDate }) {
   const [teamCards, setTeamCards] = useState([])
   const [displayCards, setDisplayCards] = useState([])
   const [gameQuery, setGameQuery] = useState("")
@@ -58,8 +58,21 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
       }
     }
 
-    setTeamCards(cards);
-    setDisplayCards(cards)
+    const sorted = aggregateRanking(cards)
+
+    setTeamCards(sorted);
+    setDisplayCards(sorted)
+  }
+
+  function aggregateRanking(teamScoreArray){
+    let maxNETScore = Math.max.apply(null, teamScoreArray.map(function(row){ return row[1]; }))
+    for(let teamData of teamScoreArray){
+      if (typeof teamData[4] === 'undefined') {
+        teamData.push(parseFloat(((maxNETScore - parseFloat(teamData[1]) + 1) * teamData[2]).toFixed(2)))
+      }
+    }
+    const arr = teamScoreArray.sort(function(a, b){ return b[4] - a[4]})
+    return teamScoreArray.sort(function(a, b){ return b[5] - a[5]})
   }
 
   function updateQuery(query) {
@@ -74,13 +87,13 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         display.push(cards[i])
       }
     }
-    setDisplayCards(display)
+    const sorted = aggregateRanking(display)
+    setDisplayCards(sorted)
     setQueryLoading(false)
   }
 
   useEffect(() => {
     if (teamsLoading == false && rankingsLoading == false) {
-      console.log(URL_VARIABLE)
       populateTeamCards();
     }
   }, [teamsLoading, rankingsLoading]);
@@ -94,7 +107,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         query = {gameQuery}
       />
       {displayCards.map((element, index) => {
-        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE}/>;
+        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE} gameDate={gameDate}/>;
       })}
     </Grid>
   );

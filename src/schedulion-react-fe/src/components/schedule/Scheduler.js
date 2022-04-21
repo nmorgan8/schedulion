@@ -34,7 +34,6 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
     .then(res => res.json())
     .then(json => {
       setScheduledGames(json)
-      console.log(json)
     })
     .catch(err => {
       console.log(err)
@@ -58,10 +57,6 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
     return scheduledGames
   }
-
-  useEffect(() => {
-    console.log(URL_VARIABLE)
-  }, [])
 
   function capitalize(advantage) {
     return advantage.charAt(0).toUpperCase() + advantage.slice(1);
@@ -107,7 +102,6 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   }, [scheduledGames, rankingsLoading, teamsLoading])
 
   useEffect(() => {
-    console.log(teams)
     if (processedGames != null) {
       setScheduledGamesLoading(false)
     }

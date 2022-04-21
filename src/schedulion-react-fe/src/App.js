@@ -11,7 +11,6 @@ import TeamCard from './components/schedule/games_panel/TeamCard.js'
 import Teams from './components/schedule/games_panel/Teams'
 import { TESTING_URLS, DEPLOYMENT_URLS } from './global_variables/Variables'
 
-
 import { useLocalStorage } from './components/tools/useLocalStorage'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -83,7 +82,6 @@ export default function App() {
 
   useEffect(() => {
     if (schedules !== null) {
-      console.log(schedules)
       setSchedulesLoading(false)
     }
   }, [schedules])
