@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import './DataTable.css';
 import loader from '../images/loader.gif'
 
@@ -25,7 +25,7 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
         <img className='loading-gif' src={loader} alt="loading..." />
       </div> :
       <div className="GridSchedule" style={{ height: '700px', width: '100%' }}>
-        <DataGrid
+        <DataGrid components={{ Toolbar: GridToolbar }}
           rowHeight={75}
           columns={COLUMN_LIST}
           rows = {scheduledGames}
