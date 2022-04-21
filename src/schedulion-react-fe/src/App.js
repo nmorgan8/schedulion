@@ -105,8 +105,12 @@ export default function App() {
         <BrowserRouter>
           <div>
             <Link className="Center" to="/">SCHEDULION</Link>
+            <Login
+            user = {user}
+            setUser = {setUser}
+            URL_VARIABLE = {URL_VARIABLE}
+            />
             <Link to="/listSchedule" className="HomeIcon"><HouseDoor /></Link>
-            <Link to="/login" className="PersonIcon" ><Person /></Link>
           </div>
           <Switch>
             <Route path="/login">

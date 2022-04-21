@@ -3,18 +3,15 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import './DataTable.css';
 import loader from '../images/loader.gif'
 
-
-
-
 export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) {
   let idIt = -1
 
   const COLUMN_LIST = [
-    { field: "gameDate", headerName: "Game Date", width: 200, editable: true, type: 'date' },
-    { field: "opponent", headerName: "Opponent", width: 200},
+    { field: "opponent", headerName: "Opponent", width: 300},
+    { field: "advantage", headerName: "Home / Away", width: 200 },
+    { field: "gameDate", headerName: "Game Date", width: 300, editable: true, type: 'date' },
     { field: "winPercentage", headerName: "Predicted Win Percentage", width: 300 },
-    { field: "ranking", headerName: "Predicted NET", width: 200 },
-    { field: "advantage", headerName: "Home / Away", width: 200 }
+    { field: "ranking", headerName: "Predicted NET", width: 200 }
   ];
 
   const handleGetRowID = (e) => {

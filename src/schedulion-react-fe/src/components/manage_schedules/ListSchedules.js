@@ -8,6 +8,19 @@ import loader from '../images/loader.gif'
 import { CalendarPlus } from 'react-bootstrap-icons';
 import { Button } from '@material-ui/core';
 import SearchPanel from '../schedule/games_panel/SearchPanel';
+import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+
+const GreyTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: 'rgba(136, 139, 141, 0.97)',
+    color: 'rgba(255, 255, 255, 1)',
+    boxShadow: theme.shadows[1],
+    fontSize: 16,
+  },
+}));
 
 function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, selectedSchedule, setSelectedSchedule, URL_VARIABLE}) {
     const history = useHistory()
@@ -82,18 +95,18 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
     }
 
     const COLUMN_LIST = [
-        { field: 'name', headerName: 'Schedule Name', width: 200},
+        { field: 'name', headerName: 'Schedule Name', width: 600},
         {
             field: 'editSchedule',
             headerName: 'Edit Schedule',
-            width: 255,
+            width: 500,
             renderCell: renderEditButton,
             disableClickEventBubbling: true
         },
         {
             field: 'deleteSchedule',
             headerName: 'Delete Schedule',
-            width: 255,
+            width: 500,
             renderCell: renderDeleteButton,
             disableClickEventBubbling: true
         },
@@ -103,10 +116,12 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
         schedulesLoading ?
         <img className='loading-gif' src={loader} alt="loading..." /> :
         <div className='Page'>
-        <CalendarPlus
-            className='icon'
-            onClick={setIsModalOpenToTrue}
-        />
+        <GreyTooltip title="New Schedule" placement="right" arrow>
+          <CalendarPlus
+              className='icon'
+              onClick={setIsModalOpenToTrue}
+          />
+        </GreyTooltip>
         <Modal
             isOpen={isModalOpen}
             ariaHideApp={false}
@@ -131,6 +146,5 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
         </div>
     );
 }
-
 
 export default ListSchedules
