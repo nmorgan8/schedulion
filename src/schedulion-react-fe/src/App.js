@@ -135,6 +135,7 @@ export default function App() {
               schedulesLoading={schedulesLoading}
               schedules={schedules}
               user = {user}
+              URL_VARIABLE = {URL_VARIABLE}
               refreshSchedules = {fetchSchedules}
               setSelectedSchedule = {setSelectedSchedule}
               selectedSchedule = {selectedSchedule}
@@ -142,6 +143,7 @@ export default function App() {
             </Route>
             <Route path="/teams">
               <Teams
+                URL_VARIABLE = {URL_VARIABLE}
                 teamsLoading={gamesLoading}
                 teams={games}
                 rankings = {NETRankings}
