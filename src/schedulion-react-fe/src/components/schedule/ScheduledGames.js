@@ -3,6 +3,9 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import './DataTable.css';
 import loader from '../images/loader.gif'
 
+
+
+
 export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) {
   let idIt = -1
 
@@ -32,6 +35,7 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
           getRowId={handleGetRowID}
           pageSize={15}
           rowsPerPageOptions={[5]}
+          components={{ Toolbar: GridToolbar }}
         />
       </div>
   );

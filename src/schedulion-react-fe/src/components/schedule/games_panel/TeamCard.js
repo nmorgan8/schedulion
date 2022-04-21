@@ -7,13 +7,26 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material'
 import './TeamCard.css';
+import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
+const GreyTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: 'rgba(136, 139, 141, 0.97)',
+    color: 'rgba(255, 255, 255, 1)',
+    boxShadow: theme.shadows[1],
+    fontSize: 16,
+  },
+}));
 
 export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE, gameDate, postGameRequest}) {
-    const homeTeamWP = winningPercentage * 100
-    const awayTeamWP = 100 - homeTeamWP
+  const homeTeamWP = parseInt(winningPercentage * 100)
+  const awayTeamWP = parseInt(100 - homeTeamWP)
 
     const wp = (
+        <GreyTooltip title="Win Percentage" arrow>
         <Box className='wp'
         sx={{
             display: 'flex',
@@ -26,6 +39,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
         >
             {awayTeamWP}
         </Box>
+        </GreyTooltip>
     )
 
     const addGame = () => {
@@ -35,6 +49,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     }
 
     const rank = (
+      <GreyTooltip title="Rank" arrow>
         <Box className='rank'
             sx={{
                 display: 'flex',
@@ -47,6 +62,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
         >
             <Box>{ranking}</Box>
         </Box>
+        </GreyTooltip>
     )
 
   return (
