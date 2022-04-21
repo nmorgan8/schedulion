@@ -5,7 +5,7 @@ import loader from "../../images/loader.gif";
 import GameSearchBar from "./GameSearchBar";
 import './SearchPanel.css'
 
-export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user, URL_VARIABLE, gameDate }) {
+export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user, URL_VARIABLE, gameDate, postGameRequest }) {
   const [teamCards, setTeamCards] = useState([])
   const [displayCards, setDisplayCards] = useState([])
   const [gameQuery, setGameQuery] = useState("")
@@ -73,17 +73,13 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
     const MODIFIED_WP = winPercentage * 100
     const WP_WEIGHT = MODIFIED_WP / 2
 
-    console.log(WP_WEIGHT)
-
     return NET_WEIGHT + WP_WEIGHT
   }
 
   function aggregateRanking(teamScoreArray){
-    let maxNETScore = Math.max.apply(null, teamScoreArray.map(function(row){ return row[1]; }))
     for(let teamData of teamScoreArray){
       if (typeof teamData[4] === 'undefined') {
         const score = getWeightedScore(teamData[1], teamData[2])
-        console.log(teamData[0])
         teamData.push(score)
       }
     }
@@ -123,7 +119,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         query = {gameQuery}
       />
       {displayCards.map((element, index) => {
-        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE} gameDate={gameDate}/>;
+        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE} gameDate={gameDate} postGameRequest={postGameRequest}/>;
       })}
     </Grid>
   );

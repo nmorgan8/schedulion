@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
 import './Scheduler.css';
-import { Link } from 'react-router-dom';
 import { ArrowLeftCircle, CalendarDate } from 'react-bootstrap-icons';
-import ReactTooltip from 'react-tooltip';
 import ScheduledGames from './ScheduledGames';
 import SearchPanel from './games_panel/SearchPanel';
 import Modal from 'react-modal'
@@ -19,6 +17,25 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   const [isModalOpen, setModalOpen] = useState(false)
   const [gameDate, setGameDate] = useState("2017-05-24")
 
+
+  function postGameRequest(body) {
+    URL = URL_VARIABLE + 'add_game'
+    return fetch(URL, {
+      'method': 'POST',
+      headers : {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body)
+    })
+    .then(response => response.json())
+    .then(responseJson => refreshPage(responseJson))
+    .catch(error => console.log(error))
+  }
+
+  const refreshPage = (json) => {
+    setSchedulingGame(false)
+    setModalOpen(false)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -125,6 +142,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
         user={user}
         URL_VARIABLE={URL_VARIABLE}
         gameDate = {gameDate}
+        postGameRequest = {postGameRequest}
         />
     </div>
     <div className='float-child-right'>

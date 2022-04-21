@@ -9,27 +9,9 @@ import { Stack } from '@mui/material'
 import './TeamCard.css';
 
 
-export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE, gameDate}) {
+export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE, gameDate, postGameRequest}) {
     const homeTeamWP = winningPercentage * 100
     const awayTeamWP = 100 - homeTeamWP
-
-    const postGameRequest = (body) => {
-        URL = URL_VARIABLE + 'add_game'
-        return fetch(URL, {
-          'method': 'POST',
-          headers : {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body)
-        })
-        .then(response => response.json())
-        .then(responseJson => refreshPage(responseJson))
-        .catch(error => console.log(error))
-    }
-
-    function refreshPage(response) {
-        console.log(response)
-    }
 
     const wp = (
         <Box className='wp'
@@ -47,6 +29,8 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     )
 
     const addGame = () => {
+        console.log(postGameRequest)
+
         postGameRequest({opponentName, advantage, user, selectedSchedule, gameDate})
     }
 
