@@ -112,6 +112,13 @@ export default function App() {
             <Link to="/listSchedule" className="HomeIcon"><HouseDoor /></Link>
           </div>
           <Switch>
+          <Route path="/login">
+              <Login
+              user = {user}
+              setUser = {setUser}
+              URL_VARIABLE = {URL_VARIABLE}
+              />
+            </Route>
             <Route path="/login">
               <Login
               user = {user}
