@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './SearchPanel.css'
 
 function GameSearchBar({setQuery, gameQuery}) {
@@ -8,7 +8,7 @@ function GameSearchBar({setQuery, gameQuery}) {
         <div>
             <input
             className='SearchBar'
-            placeholder = 'LMU'
+            placeholder = 'search...'
             onChange = {setQuery}
             value = {gameQuery}
             />

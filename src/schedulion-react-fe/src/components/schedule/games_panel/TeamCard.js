@@ -6,35 +6,32 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material'
+import './TeamCard.css';
+import { styled } from '@mui/material/styles';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 
+const GreyTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: 'rgba(136, 139, 141, 0.97)',
+    color: 'rgba(255, 255, 255, 1)',
+    boxShadow: theme.shadows[1],
+    fontSize: 16,
+  },
+}));
 
-export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user}) {
-    const homeTeamWP = winningPercentage * 100
-    const awayTeamWP = 100 - homeTeamWP
-
-    const postGameRequest = (body) => {
-        return fetch(`http://localhost:5000/add_game`, {
-          'method': 'POST',
-          headers : {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body)
-        })
-        .then(response => response.json())
-        .then(responseJson => refreshPage(responseJson))
-        .catch(error => console.log(error))
-    }
-
-    function refreshPage(response) {
-        console.log(response)
-    }
+export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE, gameDate, postGameRequest}) {
+  const homeTeamWP = parseInt(winningPercentage * 100)
+  const awayTeamWP = parseInt(100 - homeTeamWP)
 
     const wp = (
-        <Box
+        <GreyTooltip title="Win Percentage" arrow>
+        <Box className='wp'
         sx={{
             display: 'flex',
-            width: 150,
-            height: 150,
+            width: 200,
+            height: 50,
             margin: "auto",
             alignItems: 'center',
             justifyContent: 'center',
@@ -42,18 +39,22 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
         >
             {awayTeamWP}
         </Box>
+        </GreyTooltip>
     )
 
     const addGame = () => {
-        postGameRequest({opponentName, advantage, user, selectedSchedule})
+        console.log(postGameRequest)
+
+        postGameRequest({opponentName, advantage, user, selectedSchedule, gameDate})
     }
-    
+
     const rank = (
-        <Box
+      <GreyTooltip title="Rank" arrow>
+        <Box className='rank'
             sx={{
                 display: 'flex',
-                width: 150,
-                height: 150,
+                width: 200,
+                height: 50,
                 margin: "auto",
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -61,6 +62,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
         >
             <Box>{ranking}</Box>
         </Box>
+        </GreyTooltip>
     )
 
   return (
@@ -78,7 +80,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
                 </Stack>
             </CardContent>
             <CardActions>
-                <Button 
+                <Button
                     size="small"
                     onClick={addGame}
                 >

@@ -1,41 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
 import './Scheduler.css';
-import { Link } from 'react-router-dom';
 import { ArrowLeftCircle } from 'react-bootstrap-icons';
-import ReactTooltip from 'react-tooltip';
 import ScheduledGames from './ScheduledGames';
 import SearchPanel from './games_panel/SearchPanel';
+import Modal from 'react-modal'
+import TextField from '@material-ui/core/TextField';
 
-export default function Scheduler({teams, teamsLoading, rankings, rankingsLoading, user, selectedSchedule, setSelectedSchedule}) {
+export default function Scheduler({teams, teamsLoading, rankings, rankingsLoading, user, selectedSchedule, setSelectedSchedule, URL_VARIABLE}) {
   const history = useHistory()
 
   const [scheduledGames, setScheduledGames] = useState(null)
   const [processedGames, setProcessed] = useState(null)
   const [scheduledGamesLoading, setScheduledGamesLoading] = useState(true)
+  const [isSchedulingGame, setSchedulingGame] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false)
+  const [gameDate, setGameDate] = useState("2017-05-24")
+
+  function postGameRequest(body) {
+    const URL = URL_VARIABLE + 'add_game'
+    return fetch(URL, {
+      'method': 'POST',
+      headers : {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body)
+    })
+    .then(response => response.json())
+    .then(responseJson => refreshPage(responseJson))
+    .catch(error => console.log(error))
+  }
+
+  const refreshPage = (json) => {
+    console.log(json)
+    setSchedulingGame(false)
+    setModalOpen(false)
+    fetchScheduledGames({user, selectedSchedule})
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (gameDate !== "") {
+      setSchedulingGame(true)
+    }
+  }
 
   const fetchScheduledGames = (body) => {
-    console.log("SELECTED" + body.selectedSchedule)
-    URL = "http://localhost:5000/list_scheduled_games" + "?user=" + body.user + "&selectedSchedule=" + body.selectedSchedule
+    setScheduledGamesLoading(true)
+    const URL = URL_VARIABLE + "list_scheduled_games?user=" + body.user + "&selectedSchedule=" + body.selectedSchedule
     return fetch(URL, {method: "GET"}
   )
     .then(res => res.json())
     .then(json => {
       setScheduledGames(json)
-      console.log(json)
     })
     .catch(err => {
       console.log(err)
     })
   }
 
-
   function processGames() {
     scheduledGames.forEach((game, index) => {
       const gameOpponent = game.gameOpponent
       const advantage = game.advantage
-      scheduledGames[index] = 
+      scheduledGames[index] =
       {
+        gameDate: game.scheduledTime,
         opponent: gameOpponent,
         advantage: capitalize(advantage),
         winPercentage: getWinPercentage(gameOpponent, advantage),
@@ -54,7 +84,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   function getWinPercentage(opponent, advantage) {
     let courtAdvantage = advantage.toLowerCase()
     for (const key in teams) {
-      if (key == opponent) {
+      if (key === opponent) {
         return teams[key][courtAdvantage].toFixed(2)
       }
     }
@@ -63,7 +93,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
   function getRanking(opponent) {
     for (const key in rankings) {
-      if (rankings[key]['team'] == opponent) {
+      if (rankings[key]['team'] === opponent) {
         return rankings[key]['True_Ranking']
       }
     }
@@ -77,10 +107,11 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
   useEffect(() => {
     if (!user) history.replace("/login")
     if (!selectedSchedule) history.replace("/listSchedule")
-  }, [selectedSchedule, user,])
+  }, [selectedSchedule, user, history])
 
   useEffect(() => {
     fetchScheduledGames({user, selectedSchedule})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -88,10 +119,10 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
       const processed = processGames(scheduledGames)
       setProcessed(processed)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scheduledGames, rankingsLoading, teamsLoading])
 
   useEffect(() => {
-    console.log(teams)
     if (processedGames != null) {
       setScheduledGamesLoading(false)
     }
@@ -100,26 +131,29 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
   return (
     <div className='Scheduler'>
-      <ArrowLeftCircle
-        className = 'arrow'
-        onClick = {returnToScheduleList}
-      />
-      <div className='float-child-left'>
-        <SearchPanel
-          teams={teams}
-          teamsLoading={teamsLoading}
-          rankings={rankings}
-          rankingsLoading={rankingsLoading}
-          selectedSchedule={selectedSchedule}
-          user={user}
-          />
-      </div>
-      <div className='float-child-right'>
-      <ScheduledGames
-        scheduledGames = {processedGames}
-        scheduledGamesLoading = {scheduledGamesLoading}
-      />
-      </div>
+    <ArrowLeftCircle
+      className = 'arrow'
+      onClick = {returnToScheduleList}
+    />
+    <div className='float-child-left'>
+      <SearchPanel
+        teams={teams}
+        teamsLoading={teamsLoading}
+        rankings={rankings}
+        rankingsLoading={rankingsLoading}
+        selectedSchedule={selectedSchedule}
+        user={user}
+        URL_VARIABLE={URL_VARIABLE}
+        gameDate = {gameDate}
+        postGameRequest = {postGameRequest}
+        />
     </div>
+    <div className='float-child-right'>
+    <ScheduledGames
+      scheduledGames = {processedGames}
+      scheduledGamesLoading = {scheduledGamesLoading}
+    />
+    </div>
+  </div>
   );
 }

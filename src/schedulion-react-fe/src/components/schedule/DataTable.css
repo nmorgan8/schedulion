@@ -1,5 +1,5 @@
 .AllSchedules {
-  margin-left: 15%;
+  margin-left: 11%;
   margin-top: 2%;
   background-color: white;
   font-family: 'Open Sans', sans-serif;
@@ -30,4 +30,9 @@
 
 .icon:hover {
   color: #545454;
+}
+
+.loading-gif {
+  height: 100px;
+  width:100px;
 }

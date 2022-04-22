@@ -5,7 +5,7 @@ import loader from "../../images/loader.gif";
 import GameSearchBar from "./GameSearchBar";
 import './SearchPanel.css'
 
-export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user }) {
+export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, selectedSchedule, user, URL_VARIABLE, gameDate, postGameRequest }) {
   const [teamCards, setTeamCards] = useState([])
   const [displayCards, setDisplayCards] = useState([])
   const [gameQuery, setGameQuery] = useState("")
@@ -20,7 +20,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
   function getRankingValue(teamName) {
     for (const key in rankings) {
       const rankingTeam = rankings[key]['team']
-      if (teamName == rankingTeam) {
+      if (teamName === rankingTeam) {
         const ranking = rankings[key]['True_Ranking']
         const found = true
         return {ranking, found}
@@ -46,20 +46,44 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         cardProperties.push(key)
         cardProperties.push(teams[key]['away'].toFixed(2))
         cardProperties.push(ranking)
-        cardProperties.push('away')
+        cardProperties.push('Away')
         cards.push(cardProperties)
 
         cardProperties = []
         cardProperties.push(key)
         cardProperties.push(teams[key]['home'].toFixed(2))
         cardProperties.push(ranking)
-        cardProperties.push('home')
+        cardProperties.push('Home')
         cards.push(cardProperties)
       }
     }
 
-    setTeamCards(cards);
-    setDisplayCards(cards)
+    const sorted = aggregateRanking(cards)
+
+    setTeamCards(sorted);
+    setDisplayCards(sorted)
+  }
+
+  function getWeightedScore(winPercentage, NET_Ranking) {
+    let MAXIMUM_RANKING = 323
+    MAXIMUM_RANKING = MAXIMUM_RANKING - 1
+    const MODIFIED_RANKING = parseFloat(NET_Ranking)
+    const NET_WEIGHT = 50 - (50*((MODIFIED_RANKING - 1) / MAXIMUM_RANKING))
+
+    const MODIFIED_WP = winPercentage * 100
+    const WP_WEIGHT = MODIFIED_WP / 2
+
+    return NET_WEIGHT + WP_WEIGHT
+  }
+
+  function aggregateRanking(teamScoreArray){
+    for(let teamData of teamScoreArray){
+      if (typeof teamData[4] === 'undefined') {
+        const score = getWeightedScore(teamData[1], teamData[2])
+        teamData.push(score)
+      }
+    }
+    return teamScoreArray.sort(function(a, b){ return b[5] - a[5]})
   }
 
   function updateQuery(query) {
@@ -74,14 +98,16 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         display.push(cards[i])
       }
     }
-    setDisplayCards(display)
+    const sorted = aggregateRanking(display)
+    setDisplayCards(sorted)
     setQueryLoading(false)
   }
 
   useEffect(() => {
-    if (teamsLoading == false && rankingsLoading == false) {
+    if (teamsLoading === false && rankingsLoading === false) {
       populateTeamCards();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamsLoading, rankingsLoading]);
 
   return teamsLoading || rankingsLoading || queryLoading ? (
@@ -93,7 +119,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         query = {gameQuery}
       />
       {displayCards.map((element, index) => {
-        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user}/>;
+        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE} gameDate={gameDate} postGameRequest={postGameRequest}/>;
       })}
     </Grid>
   );

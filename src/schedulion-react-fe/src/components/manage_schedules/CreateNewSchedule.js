@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
+import { Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import Button from 'react-bootstrap/Button'
 
-export default function CreateNewSchedule({user, refreshSchedules}) {
+function CreateNewSchedule({user, refreshSchedules, URL_VARIABLE, hide}) {
     const [scheduleName, setScheduleName] = useState("")
     const [gameNumber, setGameNumber] = useState(0)
+    const [show, setShow] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         const createSchedule = (body) => {
-            console.log(body)
-            return fetch(`http://localhost:5000/add_schedule`, {
+            const URL = URL_VARIABLE + 'add_schedule'
+            return fetch(URL, {
                 'method': 'POST',
                 headers : {
                   'Content-Type': 'application/json'
@@ -20,33 +23,31 @@ export default function CreateNewSchedule({user, refreshSchedules}) {
             .then(r => console.log(r))
             .catch(error => console.log(error))
         }
+        refreshSchedules({user})
         createSchedule({scheduleName, gameNumber, user})
         setScheduleName('')
         setGameNumber('')
         refreshSchedules({user})
+        hide()
     }
 
-
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Schedule Name
-                <input 
-                    type="text" 
-                    value={scheduleName}
-                    onChange={e=>setScheduleName(e.target.value)}
-                />
-                </label>
-                <label>
-                    Number of Games
-                    <input 
-                        type="text" 
-                        pattern="[0-9]*"
-                        value={gameNumber}
-                        onChange={e=>setGameNumber(e.target.value)}
-                    />
-                </label> 
-                <input type="submit" value="Submit" />
-            </form>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label>Schedule Name: </Form.Label>
+            <Form.Control
+              type="text"
+              value={scheduleName}
+              placeholder="Spring 2022"
+              onChange={e=>setScheduleName(e.target.value)}
+              autoFocus
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit">
+          Submit
+          </Button>
+        </Form>
     )
 }
+
+export default CreateNewSchedule

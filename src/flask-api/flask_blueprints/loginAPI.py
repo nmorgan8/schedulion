@@ -4,8 +4,6 @@ import json
 import pyrebase
 import os
 
-private_key = os.environ['config']
-
 login_api = Blueprint('login_api', __name__)
 
 # pb = pyrebase.initialize_app(json.loads(private_key))
@@ -24,7 +22,6 @@ def signup():
         return {"message": f"Successfully created user {userID}", "userID": userID}, 200
     except Exception as e:
         return {"message": f"Error {e} creating user"}, 402
-
 
 @login_api.route('/api/token', methods=['POST'], strict_slashes=False)
 def login():

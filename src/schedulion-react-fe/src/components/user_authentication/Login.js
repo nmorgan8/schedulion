@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./Login.css";
 
-function Login({user, setUser}) {
+function Login({user, setUser, URL_VARIABLE}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
 
   const postUserData = (body) => {
-    return fetch(`http://localhost:5000/api/token`, {
+    const URL = URL_VARIABLE + '/api/token'
+    return fetch(URL, {
       'method': 'POST',
       headers : {
         'Content-Type': 'application/json'
@@ -28,7 +29,7 @@ function Login({user, setUser}) {
 
   useEffect(() => {
     if (user) history.replace("/listSchedule");
-  }, [user])
+  }, [user, history])
 
 
 

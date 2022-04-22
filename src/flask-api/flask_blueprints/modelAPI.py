@@ -14,7 +14,6 @@ import os
 import os
 
 email, password = os.environ['email'], os.environ['password']
-private_key = os.environ['creds']
 
 def init_firebase():
     # initialize connection to firebase db

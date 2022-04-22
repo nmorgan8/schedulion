@@ -4,11 +4,6 @@
   font-size: 40px;
 }
 
-/* .App-header {
-  font-size: calc(10px + 2vmin);
-
-} */
-
 .Left {
   font-size: 30px;
   margin-right: 25%;
@@ -25,16 +20,12 @@
   color: #545454;
   padding-right: 1%;
   text-align: right;
-
-  /* flex: 1; */
-
 }
 
 .PersonIcon {
   font-size: 30px;
   color: #545454;
   padding-right: 1%;
-
 }
 
 .CalendarIcon {
@@ -44,41 +35,21 @@
   padding-right: 1%;
 }
 
-/* .StatsIcon {
-  font-size: 30px;
-  padding-left: 1%;
-  padding-right: 1%;
-  color: #545454;
-  text-decoration: none;
-  position: relative;
-} */
-
 .Center {
   font-size: 30px;
-  /* margin-right: 35%; */
   color: black;
   text-decoration: none;
   position: relative;
   font-family: 'Graduate', cursive;
   text-align: center;
   color: black;
-  /* display: block; */
-  /* width: 100%; */
-  /* align-items: center; */
-  padding-left: 40%;
-  padding-right: 40%
-  /* flex: 1; */
-  /* flex-direction: row; */
+  padding-left: 43%;
+  padding-right: 40%;
 }
 
 .Center:hover {
   color: #545454;
 }
-
-/* .StatsIcon:hover {
-  color: black;
-
-} */
 
 .CalendarIcon:hover {
   color: black;
@@ -92,15 +63,6 @@
 .HomeIcon:hover {
   color: black;
 }
-
-
-/* .App-header {
- background-color: #282c34;
- display: left;
- flex-direction: column;
- font-size: calc(10px + 2vmin);
- color: white;
-} */
 
 .App-link {
   color: #61dafb;
