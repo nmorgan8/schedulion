@@ -7,10 +7,10 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
   let idIt = -1
 
   const COLUMN_LIST = [
-    { field: "opponent", headerName: "Opponent", width: 300},
+    { field: "opponent", headerName: "Opponent", width: 200},
     { field: "advantage", headerName: "Home / Away", width: 200 },
-    { field: "gameDate", headerName: "Game Date", width: 300, editable: true, type: 'date' },
-    { field: "winPercentage", headerName: "Predicted Win Percentage", width: 300 },
+    { field: "gameDate", headerName: "Game Date", width: 200, editable: true, type: 'date' },
+    { field: "winPercentage", headerName: "Predicted Win Percentage", width: 200 },
     { field: "ranking", headerName: "Predicted NET", width: 200 }
   ];
 

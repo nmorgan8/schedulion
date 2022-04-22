@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom"
 import './Scheduler.css';
-import { ArrowLeftCircle, CalendarDate } from 'react-bootstrap-icons';
+import { ArrowLeftCircle } from 'react-bootstrap-icons';
 import ScheduledGames from './ScheduledGames';
 import SearchPanel from './games_panel/SearchPanel';
 import Modal from 'react-modal'
@@ -63,7 +63,7 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
     scheduledGames.forEach((game, index) => {
       const gameOpponent = game.gameOpponent
       const advantage = game.advantage
-      scheduledGames[index] = 
+      scheduledGames[index] =
       {
         gameDate: game.scheduledTime,
         opponent: gameOpponent,
@@ -130,7 +130,6 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
 
   return (
-    isSchedulingGame ?
     <div className='Scheduler'>
     <ArrowLeftCircle
       className = 'arrow'
@@ -156,51 +155,5 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
     />
     </div>
   </div>
-  :
-    <div className='Scheduler'>
-      <ArrowLeftCircle
-        className = 'arrow'
-        onClick = {returnToScheduleList}
-      />
-      <CalendarDate
-        onClick = {() => {
-          setModalOpen(true)
-        }}
-      />
-      <div style={{ height: '800px', width: '80%' }}>
-        <Modal
-            isOpen={isModalOpen}
-            ariaHideApp={false}
-        >
-            <button onClick={()=>{setModalOpen(false)}}>x</button>
-            <div style={{
-              margin: 'auto',
-              display: 'block',
-              width: 'fit-content'
-            }}>
-            <form onSubmit={handleSubmit}>
-              <h3>Choose a date for new game</h3>
-              <TextField
-                id="date"
-                label="Choose game date"
-                type="date"
-                defaultValue="2017-05-24"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                onChange={(e)=> {
-                  setGameDate(e.target.value)
-                }}
-              />
-              <input type="submit" value="Submit" />
-              </form>
-            </div>
-        </Modal>
-      <ScheduledGames
-        scheduledGames = {processedGames}
-        scheduledGamesLoading = {scheduledGamesLoading}
-      />
-      </div>
-    </div>
   );
 }
