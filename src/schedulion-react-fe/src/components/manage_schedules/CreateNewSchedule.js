@@ -2,12 +2,10 @@ import React, { useState } from 'react'
 import { Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import Button from 'react-bootstrap/Button'
 
-function CreateNewSchedule({user, refreshSchedules, URL_VARIABLE}) {
+function CreateNewSchedule({user, refreshSchedules, URL_VARIABLE, hide}) {
     const [scheduleName, setScheduleName] = useState("")
     const [gameNumber, setGameNumber] = useState(0)
     const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -30,6 +28,7 @@ function CreateNewSchedule({user, refreshSchedules, URL_VARIABLE}) {
         setScheduleName('')
         setGameNumber('')
         refreshSchedules({user})
+        hide()
     }
 
     return (
@@ -41,16 +40,6 @@ function CreateNewSchedule({user, refreshSchedules, URL_VARIABLE}) {
               value={scheduleName}
               placeholder="Spring 2022"
               onChange={e=>setScheduleName(e.target.value)}
-              autoFocus
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Numer of Games: </Form.Label>
-            <Form.Control
-              type="text"
-              pattern="[0-9]*"
-              value={gameNumber}
-              onChange={e=>setGameNumber(e.target.value)}
               autoFocus
             />
           </Form.Group>
