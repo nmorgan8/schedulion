@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import Modal from 'react-modal'
+import { Form, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
+import "bootstrap/dist/css/bootstrap.min.css";
 import CreateNewSchedule from './CreateNewSchedule';
 import { useHistory } from "react-router-dom"
 import { DataGrid } from '@mui/x-data-grid';
@@ -35,13 +37,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
         setSelectedSchedule(scheduleID)
     }
 
-    const setIsModalOpenToTrue = () => {
-        setIsModalOpen(true)
-    }
 
-    const setModalIsOpenToFalse=()=> {
-        setIsModalOpen(false)
-    }
 
     const deleteSchedule = (user, scheduleName) => {
         scheduleName = scheduleName.replace(" ", "%20")
@@ -112,6 +108,12 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
         },
       ];
 
+      const [show, setShow] = useState(false);
+
+      const handleClose = () => setShow(false);
+      const handleShow = () => setShow(true);
+
+
     return (
         schedulesLoading ?
         <img className='loading-gif' src={loader} alt="loading..." /> :
@@ -119,20 +121,25 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
         <GreyTooltip title="New Schedule" placement="right" arrow>
           <CalendarPlus
               className='icon'
-              onClick={setIsModalOpenToTrue}
+              onClick={handleShow}
           />
         </GreyTooltip>
-        <Modal
-            isOpen={isModalOpen}
-            ariaHideApp={false}
-        >
-            <button onClick={setModalIsOpenToFalse}>x</button>
-            <CreateNewSchedule
-                user = {user}
-                refreshSchedules = {refreshSchedules}
-                URL_VARIABLE = {URL_VARIABLE}
-            />
-        </Modal>
+              <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Create a New Schedule: </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <CreateNewSchedule
+                    user = {user}
+                    refreshSchedules = {refreshSchedules}
+                    URL_VARIABLE = {URL_VARIABLE}
+                />
+                </Modal.Body>
+              </Modal>
+
+
+
+
         <div className="AllSchedules" style={{ height: '800px', width: '80%' }}>
             <DataGrid
                 rowHeight={75}
