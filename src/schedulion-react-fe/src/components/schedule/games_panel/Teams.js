@@ -20,7 +20,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
   function getRankingValue(teamName) {
     for (const key in rankings) {
       const rankingTeam = rankings[key]['team']
-      if (teamName == rankingTeam) {
+      if (teamName === rankingTeam) {
         const ranking = rankings[key]['True_Ranking']
         const found = true
         return {ranking, found}
@@ -83,7 +83,6 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         teamData.push(score)
       }
     }
-    const arr = teamScoreArray.sort(function(a, b){ return b[4] - a[4]})
     return teamScoreArray.sort(function(a, b){ return b[5] - a[5]})
   }
 
@@ -105,9 +104,10 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
   }
 
   useEffect(() => {
-    if (teamsLoading == false && rankingsLoading == false) {
+    if (teamsLoading === false && rankingsLoading === false) {
       populateTeamCards();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamsLoading, rankingsLoading]);
 
   return teamsLoading || rankingsLoading || queryLoading ? (

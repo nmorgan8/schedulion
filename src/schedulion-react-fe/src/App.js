@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { HouseDoor, Calendar3, GraphUp, Person } from 'react-bootstrap-icons'
+import { HouseDoor } from 'react-bootstrap-icons'
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import Scheduler from "./components/schedule/Scheduler"
 import Login from "./components/user_authentication/Login"
 import Register from './components/user_authentication/Register'
-import Team from './components/dev/Team'
-import Rankings from './components/dev/Rankings'
 import ListSchedules from './components/manage_schedules/ListSchedules'
-import TeamCard from './components/schedule/games_panel/TeamCard.js'
 import Teams from './components/schedule/games_panel/Teams'
 import { TESTING_URLS, DEPLOYMENT_URLS } from './global_variables/Variables'
 
@@ -30,7 +27,7 @@ export default function App() {
   const URL_VARIABLE = isTesting ? TESTING_URLS.url : DEPLOYMENT_URLS.url
 
   const fetchSchedules = (body) => {
-    URL = URL_VARIABLE + "list_schedules" + "?uID=" + body.user
+    const URL = URL_VARIABLE + "list_schedules?uID=" + body.user
     return fetch(URL, {method: "GET"}
   )
     .then(res => res.json())
@@ -43,7 +40,7 @@ export default function App() {
   }
 
   const fetchPossibleGames = () => {
-    URL = URL_VARIABLE + "get_cards"
+    const URL = URL_VARIABLE + "get_cards"
     return fetch(URL, {method: "GET"}
   )
     .then(res => res.json())
@@ -56,7 +53,7 @@ export default function App() {
   }
 
   const fetchRankings = () => {
-    URL = URL_VARIABLE + "get_NET_rankings"
+    const URL = URL_VARIABLE + "get_NET_rankings"
     return fetch(URL, {method: "GET"})
     .then (res => res.json())
     .then(json => {
@@ -70,6 +67,7 @@ export default function App() {
   useEffect(() => {
     fetchPossibleGames()
     fetchRankings()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -77,6 +75,7 @@ export default function App() {
     if (user) {
       fetchSchedules({user});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
 
