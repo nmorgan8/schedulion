@@ -9,7 +9,6 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
   const COLUMN_LIST = [
     { field: "opponent", headerName: "Opponent", width: 200},
     { field: "advantage", headerName: "Home / Away", width: 200 },
-    { field: "gameDate", headerName: "Game Date", width: 200, editable: true, type: 'date' },
     { field: "winPercentage", headerName: "Predicted Win Percentage", width: 200 },
     { field: "ranking", headerName: "Predicted NET", width: 200 }
   ];
