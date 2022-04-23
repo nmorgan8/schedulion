@@ -1,0 +1,68 @@
+.Info {
+  background-color: #cfdae6;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+
+.guide {
+  overflow-y: scroll;
+  background-color: white;
+  border-radius: 60px;
+  height: 80%;
+  width: 80%;
+  margin-bottom: 4%;
+  padding: 1%;
+  padding-left: 5%;
+  padding-right: 5%;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.Profiles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Person {
+  padding: 15px;
+  height: 150px;
+  width: 150px;
+  border-radius:150px;
+}
+
+.Names {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.Name {
+    padding-left: 25px;
+    padding-right: 30px;
+}
+
+
+.link:visited {
+  color: #005B80;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #545454;
+  background-color: transparent;
+}
+
+.link:active {
+  color: black;
+  background-color: transparent;
+}
