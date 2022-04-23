@@ -24,16 +24,14 @@ def create_schedule():
     try:
         # TODO(andrewseaman): Ensure that a schedule with the same name does not already exist
         scheduleName = request.json['scheduleName']
-        gameNumber = request.json['gameNumber']
         uID = request.json['user']
         currentTime = datetime.now()
 
         scheduleRef = db.collection('all_schedules').document(uID).collection('schedules').document(scheduleName)
         scheduleData = {
-            u'gameTotal' : gameNumber,
-            u'gamesLeft' : u'0',
             u'modified' : currentTime,
-            u'name' : scheduleName
+            u'name' : scheduleName,
+            u'score' : 3
         }
         scheduleRef.set(scheduleData, merge=True)
 

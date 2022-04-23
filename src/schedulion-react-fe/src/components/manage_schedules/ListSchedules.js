@@ -132,6 +132,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
                     user = {user}
                     refreshSchedules = {refreshSchedules}
                     URL_VARIABLE = {URL_VARIABLE}
+                    hide = {handleClose}
                 />
                 </Modal.Body>
               </Modal>
