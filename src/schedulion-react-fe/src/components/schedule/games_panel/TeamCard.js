@@ -37,7 +37,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
             justifyContent: 'center',
         }}
         >
-            {awayTeamWP}
+            W: {100-awayTeamWP}%
         </Box>
         </GreyTooltip>
     )
@@ -49,7 +49,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     }
 
     const rank = (
-      <GreyTooltip title="Rank" arrow>
+      <GreyTooltip title="Predicted rank" arrow>
         <Box className='rank'
             sx={{
                 display: 'flex',
@@ -60,7 +60,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
                 justifyContent: 'center',
             }}
         >
-            <Box>{ranking}</Box>
+            <Box>R: #{ranking}</Box>
         </Box>
         </GreyTooltip>
     )
