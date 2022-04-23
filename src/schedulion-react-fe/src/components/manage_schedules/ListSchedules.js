@@ -90,18 +90,18 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
     }
 
     const COLUMN_LIST = [
-        { field: 'name', headerName: 'Schedule Name', width: 600},
+        { field: 'name', headerName: 'Schedule Name', flex: 0.3},
         {
             field: 'editSchedule',
             headerName: 'Edit Schedule',
-            width: 500,
+            flex: 0.2,
             renderCell: renderEditButton,
             disableClickEventBubbling: true
         },
         {
             field: 'deleteSchedule',
             headerName: 'Delete Schedule',
-            width: 500,
+            flex: 0.2,
             renderCell: renderDeleteButton,
             disableClickEventBubbling: true
         },
