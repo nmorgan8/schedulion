@@ -4,6 +4,7 @@ import tigerlilly from './images/tigerlilly.png'
 import nick from './images/nick.png'
 import joey from './images/joey.png'
 import andrew from './images/andrew.png'
+import lmu from './images/lmu_logo.jpg'
 
 export default function Info() {
   return (
@@ -36,9 +37,10 @@ export default function Info() {
         </div>
 
         <br></br>
-
         <h3><b>Contact Us</b></h3>
         <h5>Questions or comments? Email us at <a href='mailto:schedulion@gmail.com' className='link'>schedulion@gmail.com</a>!</h5>
+        <br></br>
+        <img className='lmu-logo' src={lmu} alt="LMU Logo"/>
       </div>
     </div>
 

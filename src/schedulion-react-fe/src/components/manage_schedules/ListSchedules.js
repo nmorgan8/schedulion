@@ -37,7 +37,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
     }
 
 
-
     const deleteSchedule = (user, scheduleName) => {
         scheduleName = scheduleName.replace(" ", "%20")
         const URL = URL_VARIABLE + "delete_schedule?uID=" + user + "&scheduleID=" + scheduleName
@@ -136,10 +135,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
                 />
                 </Modal.Body>
               </Modal>
-
-
-
-
         <div className="AllSchedules" style={{ height: '800px', width: '80%' }}>
             <DataGrid
                 rowHeight={75}
