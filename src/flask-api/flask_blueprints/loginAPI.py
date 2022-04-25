@@ -34,4 +34,4 @@ def login():
         userID = user['localId']
         return {"message": f"Successfully created user {userID}", "userID": userID}, 200
     except Exception as e:
-        return {"message": f"Error {e} creating user"}, 402
+        return {"message": f"Error {e['message']} creating user"}, 402
