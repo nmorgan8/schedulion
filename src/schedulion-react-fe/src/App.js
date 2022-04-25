@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { HouseDoor } from 'react-bootstrap-icons'
+import { HouseDoor, InfoCircle } from 'react-bootstrap-icons'
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import Scheduler from "./components/schedule/Scheduler"
 import Login from "./components/user_authentication/Login"
 import Register from './components/user_authentication/Register'
 import ListSchedules from './components/manage_schedules/ListSchedules'
 import Teams from './components/schedule/games_panel/Teams'
+import Info from './components/Info'
 import { TESTING_URLS, DEPLOYMENT_URLS } from './global_variables/Variables'
 
 import { useLocalStorage } from './components/tools/useLocalStorage'
@@ -110,16 +111,10 @@ export default function App() {
             URL_VARIABLE = {URL_VARIABLE}
             />
             <Link to="/listSchedule" className="HomeIcon"><HouseDoor /></Link>
+            <Link to="/information" className="InfoIcon"><InfoCircle /></Link>
           </div>
           <Switch>
           <Route path="/login">
-              <Login
-              user = {user}
-              setUser = {setUser}
-              URL_VARIABLE = {URL_VARIABLE}
-              />
-            </Route>
-            <Route path="/login">
               <Login
               user = {user}
               setUser = {setUser}
@@ -152,10 +147,14 @@ export default function App() {
               schedules={schedules}
               user = {user}
               URL_VARIABLE = {URL_VARIABLE}
-              refreshSchedules = {fetchSchedules}
+
+              edules = {fetchSchedules}
               setSelectedSchedule = {setSelectedSchedule}
               selectedSchedule = {selectedSchedule}
               />
+            </Route>
+            <Route path="/information">
+              <Info/>
             </Route>
             <Route path="/teams">
               <Teams

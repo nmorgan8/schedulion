@@ -37,7 +37,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
     }
 
 
-
     const deleteSchedule = (user, scheduleName) => {
         scheduleName = scheduleName.replace(" ", "%20")
         const URL = URL_VARIABLE + "delete_schedule?uID=" + user + "&scheduleID=" + scheduleName
@@ -90,18 +89,18 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
     }
 
     const COLUMN_LIST = [
-        { field: 'name', headerName: 'Schedule Name', width: 600},
+        { field: 'name', headerName: 'Schedule Name', flex: 0.3},
         {
             field: 'editSchedule',
             headerName: 'Edit Schedule',
-            width: 500,
+            flex: 0.2,
             renderCell: renderEditButton,
             disableClickEventBubbling: true
         },
         {
             field: 'deleteSchedule',
             headerName: 'Delete Schedule',
-            width: 500,
+            flex: 0.2,
             renderCell: renderDeleteButton,
             disableClickEventBubbling: true
         },
@@ -136,10 +135,6 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
                 />
                 </Modal.Body>
               </Modal>
-
-
-
-
         <div className="AllSchedules" style={{ height: '800px', width: '80%' }}>
             <DataGrid
                 rowHeight={75}

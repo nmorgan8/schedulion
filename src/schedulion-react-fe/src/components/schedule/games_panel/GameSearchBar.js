@@ -8,7 +8,7 @@ function GameSearchBar({setQuery, gameQuery}) {
         <div>
             <input
             className='SearchBar'
-            placeholder = 'search...'
+            placeholder = 'Search...'
             onChange = {setQuery}
             value = {gameQuery}
             />
