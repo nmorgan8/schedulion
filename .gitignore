@@ -9,3 +9,5 @@ pyvenv.cfg
 *.csv
 *.pth
 *.env
+src/flask-api/net_predictor/firebase_*
+*_firebase_*

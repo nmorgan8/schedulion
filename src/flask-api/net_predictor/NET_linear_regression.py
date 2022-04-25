@@ -7,7 +7,8 @@ import kenpompy.summary as kp
 import kenpompy.misc as kpmisc
 import os
 
-email, password = os.environ['email'], os.environ['password']
+# email, password = os.environ['email'], os.environ['password']
+email, password = 'craig.pintens@lmu.edu', '#3AnthonyIreland'
 
 def run_regression():
     browser = login(email, password)

@@ -2,6 +2,8 @@ import React from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import './DataTable.css';
 import loader from '../images/loader.gif'
+import Summary from './Summary';
+
 
 export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) {
   let idIt = -1
@@ -24,6 +26,9 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
         <img className='loading-gif' src={loader} alt="loading..." />
       </div> :
       <div className="GridSchedule" style={{ height: '700px', width: '100%' }}>
+        <Summary 
+          scheduledGames={scheduledGames}
+        />
         <DataGrid
           rowHeight={75}
           columns={COLUMN_LIST}

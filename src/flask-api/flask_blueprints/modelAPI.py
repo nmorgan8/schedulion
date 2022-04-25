@@ -6,9 +6,10 @@ import kenpompy.summary as kpsum
 from kenpompy import utils
 import kenpompy.summary as kpsum
 import json
+import os
 
-import net_predictor.get_matchup_WP as wp_nn
-import net_predictor.NET_linear_regression as net_reg
+# import net_predictor.get_matchup_WP as wp_nn
+# import net_predictor.NET_linear_regression as net_reg
 
 import os
 
@@ -55,6 +56,5 @@ def getMatchups():
 
 @model_api.route('/get_NET_rankings')
 def get_NET():
-  net_values = net_reg.run_regression()
-  net_values = net_values.to_dict(orient='records')
+  net_values = db.collection(u'NET').document(u'rankings').get().to_dict()['data']
   return jsonify(net_values)
