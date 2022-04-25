@@ -148,7 +148,7 @@ export default function App() {
               user = {user}
               URL_VARIABLE = {URL_VARIABLE}
 
-              edules = {fetchSchedules}
+              refreshSchedules = {fetchSchedules}
               setSelectedSchedule = {setSelectedSchedule}
               selectedSchedule = {selectedSchedule}
               />

@@ -20,7 +20,6 @@ function CreateNewSchedule({user, refreshSchedules, URL_VARIABLE, hide}) {
                 body: JSON.stringify(body)
             })
             .then(response => response.json())
-            .then(r => console.log(r))
             .catch(error => console.log(error))
         }
         refreshSchedules({user})
