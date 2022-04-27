@@ -1,6 +1,4 @@
-
 .Box {
-  padding-bottom: 3px;
   background-color: #cfdae6;
   font-weight: bold;
   border: 2px dotted white;
@@ -16,4 +14,5 @@
   font-size: 20px;
   padding-right: 5px;
   display: inline-block;
+  color: #005B80;
 }
