@@ -37,7 +37,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
             justifyContent: 'center',
         }}
         >
-            W: {awayTeamWP}%
+            {awayTeamWP}%
         </Box>
         </GreyTooltip>
     )
@@ -60,15 +60,15 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
                 justifyContent: 'center',
             }}
         >
-            <Box>R: #{ranking}</Box>
+            <Box>#{ranking}</Box>
         </Box>
         </GreyTooltip>
     )
 
 
     const utility = (
-        <GreyTooltip title="Predicted rank" arrow>
-          <Box className='rank'
+        <GreyTooltip title="Expected Utility: Adding this team to your schedule will alter your schedule strength by this value. A higher expected utility score denotes a higher recommendation. " arrow>
+          <Box className={expectedUtility > 0 ? 'green' : 'red'}
               sx={{
                   display: 'flex',
                   width: 200,
@@ -78,7 +78,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
                   justifyContent: 'center',
               }}
           >
-              <Box>U: {expectedUtility}</Box>
+              <Box>{expectedUtility}</Box>
           </Box>
           </GreyTooltip>
       )
@@ -93,8 +93,8 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
                     flexDirection: "row"
                 }}>
                 {wp}
-                {rank}
                 {utility}
+                {rank}
                 </Stack>
             </CardContent>
             <CardActions>
