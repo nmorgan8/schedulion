@@ -23,7 +23,7 @@ export default function Info() {
         <h3><b>Understanding the Model</b></h3>
         <h5>The NET prediction model is based on the prior year's Kenpom data and trained on the last decades worth of data. It predicts what NET ranking a team will have at the end of the next season.</h5>
         <h5>The Win percentage model outputs an estimated win percentage that one team (LMU) has against another team. While these numbers are not perfect, they will provide you with new information from a statistical and machine learning standpoint. </h5>
-        <h5>Each team has an <i>Expected Utility (+/-)</i> score associated with them. The expected utility scores indicate how highly the models recommends adding that team to the schedule. A higher expected utility score denotes a higher recommendation</h5>
+        <h5>Each team has an <i>Expected Utility (+/-)</i> score associated with them. The expected utility scores indicate how highly the models recommend adding that team to the schedule. A higher expected utility score denotes a higher recommendation. </h5>
         <br></br>
         <h3><b>Meet The Team</b></h3>
         <div className='Profiles'>

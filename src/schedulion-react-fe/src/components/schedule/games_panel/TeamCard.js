@@ -26,7 +26,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
   const awayTeamWP = parseInt(homeTeamWP)
 
     const wp = (
-        <GreyTooltip title="Predicted win percentage based on KenPom statistics" arrow>
+        <GreyTooltip title="Predicted Win Percentage: Predicted probability that LMU will win this team, based on KenPom statistics" arrow>
         <Box className='wp'
         sx={{
             display: 'flex',
@@ -49,7 +49,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     }
 
     const rank = (
-      <GreyTooltip title="Predicted NET ranking of a team based on previous year's trends and data" arrow>
+      <GreyTooltip title="Predicted NET Ranking: Predicts what NET ranking a team will have at the end of the next season, based on previous year's trends and data" arrow>
         <Box className='rank'
             sx={{
                 display: 'flex',
@@ -67,7 +67,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
 
 
     const utility = (
-        <GreyTooltip title="Expected Utility: Adding this team to your schedule will alter your schedule strength by this value. A higher expected utility score denotes a higher recommendation. " arrow>
+        <GreyTooltip title="Expected Utility: Adding this team to your schedule will alter your schedule strength by this value. A higher expected utility score denotes a higher recommendation" arrow>
           <Box className={expectedUtility > 0 ? 'green' : 'red'}
               sx={{
                   display: 'flex',
