@@ -21,7 +21,7 @@ const GreyTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE, gameDate, postGameRequest}) {
+export default function MediaCard({winningPercentage, ranking, opponentName, advantage, expectedUtility, selectedSchedule, user, URL_VARIABLE, gameDate, postGameRequest}) {
   const homeTeamWP = parseInt(winningPercentage * 100)
   const awayTeamWP = parseInt(100 - homeTeamWP)
 
@@ -65,6 +65,23 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
         </GreyTooltip>
     )
 
+
+    const utility = (
+        <GreyTooltip title="Predicted rank" arrow>
+          <Box className='rank'
+              sx={{
+                  display: 'flex',
+                  width: 200,
+                  height: 50,
+                  margin: "auto",
+                  alignItems: 'center',
+                  justifyContent: 'center',
+              }}
+          >
+              <Box>U: {expectedUtility}</Box>
+          </Box>
+          </GreyTooltip>
+      )
   return (
             <Card>
             <CardContent>
@@ -77,6 +94,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
                 }}>
                 {wp}
                 {rank}
+                {utility}
                 </Stack>
             </CardContent>
             <CardActions>

@@ -43,17 +43,21 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
       const rankingValue = getRankingValue(key)
       if (rankingValue.found) {
         const ranking = rankingValue.ranking
+        const awayWP = teams[key]['away'].toFixed(2)
         cardProperties.push(key)
-        cardProperties.push(teams[key]['away'].toFixed(2))
+        cardProperties.push(awayWP)
         cardProperties.push(ranking)
         cardProperties.push('Away')
+        cardProperties.push(getStrength(awayWP, ranking))
         cards.push(cardProperties)
 
         cardProperties = []
+        const homeWP = teams[key]['home'].toFixed(2)
         cardProperties.push(key)
         cardProperties.push(teams[key]['home'].toFixed(2))
         cardProperties.push(ranking)
         cardProperties.push('Home')
+        cardProperties.push(getStrength(homeWP, ranking))
         cards.push(cardProperties)
       }
     }
@@ -62,6 +66,24 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
 
     setTeamCards(sorted);
     setDisplayCards(sorted)
+  }
+
+  function getStrength(winPercentage, ranking){
+    let strengthScore = getWeightedScore(winPercentage, ranking) - 50;
+    strengthScore = strengthScore.toFixed(2).toString();
+    return strengthScore > 0 ? "+" + strengthScore : strengthScore
+  }
+
+  function getWeightedScore(winPercentage, NET_Ranking) {
+    let MAXIMUM_RANKING = 323
+    MAXIMUM_RANKING = MAXIMUM_RANKING - 1
+    const MODIFIED_RANKING = parseFloat(NET_Ranking)
+    const NET_WEIGHT = 50 - (50*((MODIFIED_RANKING - 1) / MAXIMUM_RANKING))
+
+    const MODIFIED_WP = winPercentage * 100
+    const WP_WEIGHT = MODIFIED_WP / 2
+
+    return NET_WEIGHT + WP_WEIGHT
   }
 
   function getWeightedScore(winPercentage, NET_Ranking) {
@@ -120,7 +142,7 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
         query = {gameQuery}
       />
       {displayCards.map((element, index) => {
-        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE} gameDate={gameDate} postGameRequest={postGameRequest}/>;
+        return <TeamCard key={index} opponentName={element[0]} winningPercentage={element[1]} ranking={element[2]} advantage={element[3]} expectedUtility={element[4]} selectedSchedule={selectedSchedule} user={user} URL_VARIABLE={URL_VARIABLE} gameDate={gameDate} postGameRequest={postGameRequest}/>;
       })}
     </Grid>
   );
