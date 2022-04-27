@@ -62,14 +62,16 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
     scheduledGames.forEach((game, index) => {
       const gameOpponent = game.gameOpponent
       const advantage = game.advantage
-      const ranking = getRanking(gameOpponent)
-      scheduledGames[index] =
+      const winPercentage =  getWinPercentage(gameOpponent, advantage)
+      const ranking =  getRanking(gameOpponent)
+      scheduledGames[index] = 
       {
         gameDate: game.scheduledTime,
         opponent: gameOpponent,
         advantage: capitalize(advantage),
-        winPercentage: getWinPercentage(gameOpponent, advantage),
+        winPercentage: winPercentage,
         ranking: ranking,
+        aggregate: getStrength(winPercentage, ranking),
         quadrant: getQuadrant(ranking)
       }
     });
@@ -79,6 +81,12 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
 
   function capitalize(advantage) {
     return advantage.charAt(0).toUpperCase() + advantage.slice(1);
+  }
+
+  function getStrength(winPercentage, ranking){
+    let strengthScore = getWeightedScore(winPercentage, ranking) - 50;
+    strengthScore = strengthScore.toFixed(2).toString();
+    return strengthScore > 0 ? "+" + strengthScore : strengthScore
   }
 
   function getWinPercentage(opponent, advantage) {
@@ -104,15 +112,27 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
     const MAX_RANKING = 358
     // Quadrants are calculated by the top 25 percentage of teams ranked by NET score falling
     // into the first quadrant, next 25% in the second, etc.
-    console.log("RANK:" + ranking + "-- TEAM:" + opponent)
     if (ranking < MAX_RANKING*(1/4)) {
       return 1;
     } else if (ranking < MAX_RANKING*(2/4)) {
       return 2
     } else if (ranking < MAX_RANKING*(3/4)) {
       return 3;
+    } else{
+      return 4;
     }
-    return 4;
+  }
+
+  function getWeightedScore(winPercentage, NET_Ranking) {
+    let MAXIMUM_RANKING = 323
+    MAXIMUM_RANKING = MAXIMUM_RANKING - 1
+    const MODIFIED_RANKING = parseFloat(NET_Ranking)
+    const NET_WEIGHT = 50 - (50*((MODIFIED_RANKING - 1) / MAXIMUM_RANKING))
+
+    const MODIFIED_WP = winPercentage * 100
+    const WP_WEIGHT = MODIFIED_WP / 2
+
+    return NET_WEIGHT + WP_WEIGHT
   }
 
   function returnToScheduleList() {
