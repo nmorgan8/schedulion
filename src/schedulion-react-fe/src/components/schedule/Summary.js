@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
+import './Summary.css'
 
 export default function ScheduledGames({scheduledGames}) {
   let summary = {
@@ -25,71 +26,58 @@ export default function ScheduledGames({scheduledGames}) {
   })
 
   return (
-    <div>
-      <Box
+    <div className='Box'>
+    <div className='Summary'>
+      Schedule Metrics:
+    </div>
+      <Box className='box'
         sx={{
           display: 'inline',
           p: 0.5,
           m: 1,
           borderRadius: 2,
-          fontSize: '0.875rem',
+          fontSize: '1rem',
           fontWeight: '700',
         }}
       >
-        Schedule Summary:
+        <b>Win-Loss Ratio</b> : {summary.win}-{summary.games - summary.win}
       </Box>
-      <Box
+      <Box className='box'
         sx={{
           display: 'inline',
           p: 0.5,
           m: 1,
-          border: '1px solid',
           borderRadius: 2,
-          fontSize: '0.875rem',
+          fontSize: '1rem',
           fontWeight: '700',
         }}
       >
-        W-L | {summary.win}-{summary.games - summary.win}
-      </Box>      
-      <Box
-        sx={{
-          display: 'inline',
-          p: 0.5,
-          m: 1,
-          border: '1px solid',
-          borderRadius: 2,
-          fontSize: '0.875rem',
-          fontWeight: '700',
-        }}
-      >
-        AVG NET | {summary.avgNET}
+        Average NET | {summary.avgNET}
       </Box>
-      <Box
+      <Box className='box'
         sx={{
           display: 'inline',
           p: 0.5,
           m: 1,
-          border: '1px solid',
           borderRadius: 2,
-          fontSize: '0.875rem',
+          fontSize: '1rem',
           fontWeight: '700',
         }}
       >
         Home-Away Ratio | {summary.homeRatio}
       </Box>
-      <Box
+      <Box className='box'
         sx={{
           display: 'inline',
           p: 0.5,
           m: 1,
-          border: '1px solid',
           borderRadius: 2,
-          fontSize: '0.875rem',
+          fontSize: '1rem',
           fontWeight: '700',
         }}
       >
-        Q1:Q2:Q3:Q4 | {summary[1]}:{summary[2]}:{summary[3]}:{summary[4]}
-      </Box>            
+        Q1:Q2:Q3:Q4 | {summary[1]} : {summary[2]} : {summary[3]} : {summary[4]} 
+      </Box>
     </div>
   )
 }
