@@ -13,7 +13,7 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
     { field: "advantage", headerName: "Home / Away", flex: 0.2 },
     { field: "winPercentage", headerName: "Predicted Win Percentage", flex: 0.2 },
     { field: "ranking", headerName: "Predicted NET", flex: 0.2 },
-    { field: "aggregate", headerName: "Strength", flex: 0.2 }
+    { field: "aggregate", headerName: "Expected Utility (+/-)", flex: 0.2 }
   ];
 
   const handleGetRowID = (e) => {
