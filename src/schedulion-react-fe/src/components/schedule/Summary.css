@@ -1,0 +1,19 @@
+
+.Box {
+  padding-bottom: 3px;
+  background-color: #cfdae6;
+  font-weight: bold;
+  border: 2px dotted white;
+}
+
+.box {
+  background-color: white;
+  border-radius: 60px;
+  padding: 5px;
+}
+
+.Summary {
+  font-size: 20px;
+  padding-right: 5px;
+  display: inline-block;
+}

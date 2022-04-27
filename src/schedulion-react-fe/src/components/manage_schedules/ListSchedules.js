@@ -135,7 +135,7 @@ function ListSchedules({schedules, schedulesLoading, user, refreshSchedules, sel
                 />
                 </Modal.Body>
               </Modal>
-        <div className="AllSchedules" style={{ height: '800px', width: '80%' }}>
+        <div className="AllSchedules" style={{ height: '700px', width: '80%' }}>
             <DataGrid
                 rowHeight={75}
                 columns={COLUMN_LIST}
