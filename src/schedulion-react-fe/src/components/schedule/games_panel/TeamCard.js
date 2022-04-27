@@ -23,10 +23,10 @@ const GreyTooltip = styled(({ className, ...props }) => (
 
 export default function MediaCard({winningPercentage, ranking, opponentName, advantage, selectedSchedule, user, URL_VARIABLE, gameDate, postGameRequest}) {
   const homeTeamWP = parseInt(winningPercentage * 100)
-  const awayTeamWP = parseInt(100 - homeTeamWP)
+  const awayTeamWP = parseInt(homeTeamWP)
 
     const wp = (
-        <GreyTooltip title="Win Percentage" arrow>
+        <GreyTooltip title="Predicted win percentage based on KenPom statistics" arrow>
         <Box className='wp'
         sx={{
             display: 'flex',
@@ -37,7 +37,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
             justifyContent: 'center',
         }}
         >
-            W: {100-awayTeamWP}%
+            W: {awayTeamWP}%
         </Box>
         </GreyTooltip>
     )
@@ -49,7 +49,7 @@ export default function MediaCard({winningPercentage, ranking, opponentName, adv
     }
 
     const rank = (
-      <GreyTooltip title="Predicted rank" arrow>
+      <GreyTooltip title="Predicted NET ranking of a team based on previous year's trends and data" arrow>
         <Box className='rank'
             sx={{
                 display: 'flex',

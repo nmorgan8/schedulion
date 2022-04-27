@@ -40,7 +40,7 @@ export default function ScheduledGames({scheduledGames}) {
           fontWeight: '700',
         }}
       >
-        <b>Win-Loss Ratio</b> : {summary.win}-{summary.games - summary.win}
+        <b>Win-Loss Ratio</b> | {summary.win}-{summary.games - summary.win}
       </Box>
       <Box className='box'
         sx={{
@@ -76,7 +76,7 @@ export default function ScheduledGames({scheduledGames}) {
           fontWeight: '700',
         }}
       >
-        Q1:Q2:Q3:Q4 | {summary[1]} : {summary[2]} : {summary[3]} : {summary[4]} 
+        Q1:Q2:Q3:Q4 | {summary[1]} : {summary[2]} : {summary[3]} : {summary[4]}
       </Box>
     </div>
   )

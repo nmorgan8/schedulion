@@ -9,7 +9,7 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
   let idIt = -1
 
   const COLUMN_LIST = [
-    { field: "opponent", headerName: "Opponent", flex: 0.3},
+    { field: "opponent", headerName: "Opponent", flex: 0.2},
     { field: "advantage", headerName: "Home / Away", flex: 0.2 },
     { field: "winPercentage", headerName: "Predicted Win Percentage", flex: 0.2 },
     { field: "ranking", headerName: "Predicted NET", flex: 0.2 },
@@ -27,9 +27,6 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
         <img className='loading-gif' src={loader} alt="loading..." />
       </div> :
       <div className="GridSchedule" style={{ height: '700px', width: '100%' }}>
-        <Summary 
-          scheduledGames={scheduledGames}
-        />
         <DataGrid
           rowHeight={75}
           columns={COLUMN_LIST}
@@ -38,6 +35,9 @@ export default function ScheduledGames({scheduledGames, scheduledGamesLoading}) 
           pageSize={15}
           rowsPerPageOptions={[5]}
           components={{ Toolbar: GridToolbar }}
+        />
+        <Summary
+          scheduledGames={scheduledGames}
         />
       </div>
   );
