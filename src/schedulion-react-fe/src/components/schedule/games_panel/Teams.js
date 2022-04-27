@@ -79,11 +79,12 @@ export default function Teams({ teamsLoading, teams, rankingsLoading, rankings, 
   function aggregateRanking(teamScoreArray){
     for(let teamData of teamScoreArray){
       if (typeof teamData[4] === 'undefined') {
+        console.log(teamData[0])
         const score = getWeightedScore(teamData[1], teamData[2])
         teamData.push(score)
       }
     }
-    return teamScoreArray.sort(function(a, b){ return b[5] - a[5]})
+    return teamScoreArray.sort(function(a, b){ return b[4] - a[4]})
   }
 
   function updateQuery(query) {

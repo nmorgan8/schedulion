@@ -8,7 +8,7 @@ function Login({user, setUser, URL_VARIABLE}) {
   const history = useHistory();
 
   const postUserData = (body) => {
-    const URL = URL_VARIABLE + '/api/token'
+    const URL = URL_VARIABLE + 'api/token'
     return fetch(URL, {
       'method': 'POST',
       headers : {
@@ -17,7 +17,7 @@ function Login({user, setUser, URL_VARIABLE}) {
       body: JSON.stringify(body)
     })
     .then(response => response.json())
-    .then(responseJson => setUser(responseJson.uid))
+    .then(resp => setUser(resp.userID))
     .catch(error => console.log(error))
   }
 

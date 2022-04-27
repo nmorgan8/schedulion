@@ -4,8 +4,7 @@ import './Scheduler.css';
 import { ArrowLeftCircle } from 'react-bootstrap-icons';
 import ScheduledGames from './ScheduledGames';
 import SearchPanel from './games_panel/SearchPanel';
-import Modal from 'react-modal'
-import TextField from '@material-ui/core/TextField';
+
 
 export default function Scheduler({teams, teamsLoading, rankings, rankingsLoading, user, selectedSchedule, setSelectedSchedule, URL_VARIABLE}) {
   const history = useHistory()
@@ -63,14 +62,15 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
     scheduledGames.forEach((game, index) => {
       const gameOpponent = game.gameOpponent
       const advantage = game.advantage
+      const ranking = getRanking(gameOpponent)
       scheduledGames[index] =
       {
         gameDate: game.scheduledTime,
         opponent: gameOpponent,
         advantage: capitalize(advantage),
         winPercentage: getWinPercentage(gameOpponent, advantage),
-        ranking: getRanking(gameOpponent),
-        quadrant: 3
+        ranking: ranking,
+        quadrant: getQuadrant(ranking)
       }
     });
 
@@ -98,6 +98,21 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
       }
     }
     return -1
+  }
+
+  function getQuadrant(ranking) {
+    const MAX_RANKING = 358
+    // Quadrants are calculated by the top 25 percentage of teams ranked by NET score falling
+    // into the first quadrant, next 25% in the second, etc.
+    console.log("RANK:" + ranking + "-- TEAM:" + opponent)
+    if (ranking < MAX_RANKING*(1/4)) {
+      return 1;
+    } else if (ranking < MAX_RANKING*(2/4)) {
+      return 2
+    } else if (ranking < MAX_RANKING*(3/4)) {
+      return 3;
+    }
+    return 4;
   }
 
   function returnToScheduleList() {
