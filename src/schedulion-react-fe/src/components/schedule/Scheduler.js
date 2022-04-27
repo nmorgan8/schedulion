@@ -104,7 +104,6 @@ export default function Scheduler({teams, teamsLoading, rankings, rankingsLoadin
     const MAX_RANKING = 358
     // Quadrants are calculated by the top 25 percentage of teams ranked by NET score falling
     // into the first quadrant, next 25% in the second, etc.
-    console.log("RANK:" + ranking + "-- TEAM:" + opponent)
     if (ranking < MAX_RANKING*(1/4)) {
       return 1;
     } else if (ranking < MAX_RANKING*(2/4)) {
